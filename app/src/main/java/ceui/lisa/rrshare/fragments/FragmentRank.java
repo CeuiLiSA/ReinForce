@@ -46,6 +46,5 @@ public class FragmentRank extends BaseFragment<FragmentRankBinding> {
         baseBind.recyList.addItemDecoration(new TagItemDecoration(DensityUtil.dp2px(8.0f)));
         RankAdapter adapter = new RankAdapter(content, mContext);
         baseBind.recyList.setAdapter(adapter);
-        Common.showLog("data set adapter");
     }
 }
