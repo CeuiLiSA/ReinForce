@@ -1,7 +1,8 @@
 package ceui.lisa.rrshare
 
 import ceui.lisa.rrshare.databinding.ActivityMainBinding
-import ceui.lisa.rrshare.fragments.FragmentRankHolder
+import ceui.lisa.rrshare.fragments.FragmentR
+import rxhttp.RxHttp
 
 class MainActivity : BaseActivity<ActivityMainBinding>() {
 
@@ -13,9 +14,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     }
 
     override fun initData() {
+        RxHttp.setDebug(true)
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragment_container,
-                FragmentRankHolder()
+                    FragmentR.newInstance("CHANNEL_USK")
             )
             .commit()
     }

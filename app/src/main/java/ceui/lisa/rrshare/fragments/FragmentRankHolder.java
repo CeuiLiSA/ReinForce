@@ -24,38 +24,50 @@ public class FragmentRankHolder extends BaseFragment<FragmentRankHolderBinding> 
     }
 
     @Override
+    protected void initView() {
+
+    }
+
+    @Override
     protected void initData() {
-        RxHttp.get("http://a.zmzapi.com/index.php?g=api/v3&m=index&accesskey=519f9cab85c8059d17544947k361a827&client=2&a=hot&limit=50")
-                .addHeader("Accept-Language", "zh-CN,zh;q=0.8")
-                .addHeader("User-Agent", "Mozilla/5.0 (Linux; U; Android 6.0.1; zh-cn; D6653 Build/23.5.A.1.291) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30")
-                .addHeader("Host", "a.zmzapi.com")
-                .asClass(RankResponse.class)
-                .subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<RankResponse>() {
-                    @Override
-                    public void accept(RankResponse rankResponse) {
-                        final String[] titles = new String[]{"今日", "本月", "电影", "日剧", "新剧", "总榜"};
-                        baseBind.viewPager.setAdapter(new FragmentPagerAdapter(getChildFragmentManager(), 0) {
-                            @NonNull
-                            @Override
-                            public Fragment getItem(int position) {
-                                return FragmentRank.newInstance(rankResponse.getList(position));
-                            }
+//        final String[] titles = new String[]{
+//                "精选",
+//                "美剧",
+//                "韩剧",
+//                "日剧",
+//                "泰剧"
+//        };
+//        final String[] values = new String[]{
+//                "CHANNEL_INDEX",
+//                "CHANNEL_USK",
+//                "CHANNEL_KR",
+//                "CHANNEL_JP",
+//                "CHANNEL_TH"
+//        };
+        final String[] titles = new String[]{
+                "美剧",
+        };
+        final String[] values = new String[]{
+                "CHANNEL_USK",
+        };
+        baseBind.viewPager.setAdapter(new FragmentPagerAdapter(getChildFragmentManager(), 0) {
+            @NonNull
+            @Override
+            public Fragment getItem(int position) {
+                return FragmentR.newInstance(values[position]);
+            }
 
-                            @Override
-                            public int getCount() {
-                                return titles.length;
-                            }
+            @Override
+            public int getCount() {
+                return titles.length;
+            }
 
-                            @Nullable
-                            @Override
-                            public CharSequence getPageTitle(int position) {
-                                return titles[position];
-                            }
-                        });
-                        baseBind.tabLayout.setupWithViewPager(baseBind.viewPager);
-                    }
-                });
+            @Nullable
+            @Override
+            public CharSequence getPageTitle(int position) {
+                return titles[position];
+            }
+        });
+        baseBind.tabLayout.setupWithViewPager(baseBind.viewPager);
     }
 }
