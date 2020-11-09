@@ -2,6 +2,7 @@ package ceui.lisa.rrshare.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -46,6 +47,14 @@ public abstract class BaseAdapter<Item, BindView extends ViewDataBinding> extend
 
     private void tryCatchBindData(Item target, ViewHolder<BindView> bindView, int position){
         try {
+            if (mOnItemClickListener != null) {
+                bindView.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        mOnItemClickListener.onItemClick(view, position, 0);
+                    }
+                });
+            }
             bindData(target, bindView, position);
         } catch (Exception e) {
             e.printStackTrace();

@@ -32,7 +32,7 @@ public class ContentHolder {
     private String createTimeStr;
     private String title;
     private String feeMode;
-    private Boolean isMovie;
+    private boolean isMovie;
     private String subTitle;
     private String seasonType;
     private Object sneakPeekVideoId;
@@ -40,7 +40,7 @@ public class ContentHolder {
     private String cat;
     private String area;
     private String score;
-    private Integer upInfo;
+    private int upInfo;
     private String status;
     private List<String> tags;
 
@@ -68,11 +68,11 @@ public class ContentHolder {
         this.feeMode = feeMode;
     }
 
-    public Boolean isIsMovie() {
+    public boolean isIsMovie() {
         return isMovie;
     }
 
-    public void setIsMovie(Boolean isMovie) {
+    public void setIsMovie(boolean isMovie) {
         this.isMovie = isMovie;
     }
 
@@ -132,11 +132,11 @@ public class ContentHolder {
         this.score = score;
     }
 
-    public Integer getUpInfo() {
+    public int getUpInfo() {
         return upInfo;
     }
 
-    public void setUpInfo(Integer upInfo) {
+    public void setUpInfo(int upInfo) {
         this.upInfo = upInfo;
     }
 

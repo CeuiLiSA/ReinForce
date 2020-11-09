@@ -4,15 +4,18 @@ import android.content.Context;
 
 import androidx.annotation.Nullable;
 
+import com.bumptech.glide.Glide;
+
 import java.util.List;
 
 import ceui.lisa.rrshare.R;
 import ceui.lisa.rrshare.databinding.RecyInfoBinding;
+import ceui.lisa.rrshare.response.Content;
 import ceui.lisa.rrshare.response.ContentHolder;
 
-public class InfoAdapter extends BaseAdapter<ContentHolder, RecyInfoBinding>{
+public class InfoAdapter extends BaseAdapter<Content, RecyInfoBinding>{
 
-    public InfoAdapter(@Nullable List<ContentHolder> targetList, Context context) {
+    public InfoAdapter(@Nullable List<Content> targetList, Context context) {
         super(targetList, context);
     }
 
@@ -22,7 +25,9 @@ public class InfoAdapter extends BaseAdapter<ContentHolder, RecyInfoBinding>{
     }
 
     @Override
-    public void bindData(ContentHolder target, ViewHolder<RecyInfoBinding> bindView, int position) {
-
+    public void bindData(Content target, ViewHolder<RecyInfoBinding> bindView, int position) {
+        Glide.with(mContext).load(target.getCover()).into(bindView.baseBind.imageView);
+        bindView.baseBind.title.setText(target.getTitle());
+        bindView.baseBind.auther.setText(target.getAuthor().getNickName());
     }
 }

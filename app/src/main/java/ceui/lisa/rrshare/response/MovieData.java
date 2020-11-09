@@ -15,8 +15,8 @@ public class MovieData {
     private Object seasonSneakPeek;
     private Season season;
     private Object photoList;
-    private List<Recommend> recommendVideoList;
-    private List<Recommend> recommendForYou;
+    private List<Content> recommendVideoList;
+    private List<Content> recommendForYou;
 
     public Object getSeasonSneakPeek() {
         return seasonSneakPeek;
@@ -42,19 +42,19 @@ public class MovieData {
         this.photoList = photoList;
     }
 
-    public List<Recommend> getRecommendVideoList() {
+    public List<Content> getRecommendVideoList() {
         return recommendVideoList;
     }
 
-    public void setRecommendVideoList(List<Recommend> recommendVideoList) {
+    public void setRecommendVideoList(List<Content> recommendVideoList) {
         this.recommendVideoList = recommendVideoList;
     }
 
-    public List<Recommend> getRecommendForYou() {
+    public List<Content> getRecommendForYou() {
         return recommendForYou;
     }
 
-    public void setRecommendForYou(List<Recommend> recommendForYou) {
+    public void setRecommendForYou(List<Content> recommendForYou) {
         this.recommendForYou = recommendForYou;
     }
 }

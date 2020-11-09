@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -12,13 +13,17 @@
 
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="200dp">
+            android:scaleType="centerCrop"
+            android:background="@color/black"
+            android:layout_height="220dp">
 
         </ImageView>
 
         <com.google.android.material.tabs.TabLayout
             android:layout_width="match_parent"
             android:id="@+id/tab_layout"
+            app:tabIndicatorFullWidth="false"
+            app:tabMode="scrollable"
             android:layout_height="40dp" />
 
         <androidx.viewpager.widget.ViewPager

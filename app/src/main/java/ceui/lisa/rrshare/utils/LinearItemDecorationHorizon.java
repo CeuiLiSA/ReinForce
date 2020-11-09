@@ -17,7 +17,7 @@ public class LinearItemDecorationHorizon extends RecyclerView.ItemDecoration {
     public void getItemOffsets(Rect outRect, View view,
                                RecyclerView parent, RecyclerView.State state) {
         if (parent.getChildPosition(view) == 0) {
-            outRect.left = DensityUtil.dp2px(12.0f);
+            outRect.left = DensityUtil.dp2px(16.0f);
         }
         outRect.right = space;
     }

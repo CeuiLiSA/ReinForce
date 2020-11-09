@@ -74,6 +74,7 @@ dependencies {
 
 
     implementation 'com.ljx.rxlife:rxlife-coroutine:2.0.1'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
 
 
     implementation  'com.scwang.smart:refresh-layout-kernel:2.0.1'
@@ -84,6 +85,11 @@ dependencies {
     implementation  'com.scwang.smart:refresh-header-two-level:2.0.1'   //二级刷新头
     implementation  'com.scwang.smart:refresh-footer-ball:2.0.1'        //球脉冲加载
     implementation  'com.scwang.smart:refresh-footer-classics:2.0.1'    //经典加载
+
+    implementation 'com.scwang.smart:refresh-layout-horizontal:2.0.0'
+    implementation 'com.scwang.smart:refresh-layout-kernel:2.0.1'
+    implementation 'com.scwang.smart:refresh-header-classics:2.0.1'    //经典刷新头
+    implementation 'com.scwang.smart:refresh-header-material:2.0.1'
 
 
     implementation 'com.github.bumptech.glide:glide:4.11.0'

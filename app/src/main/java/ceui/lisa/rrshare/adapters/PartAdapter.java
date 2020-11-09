@@ -1,6 +1,8 @@
 package ceui.lisa.rrshare.adapters;
 
 import android.content.Context;
+import android.content.Intent;
+import android.view.View;
 
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -9,8 +11,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.security.auth.callback.Callback;
+
+import ceui.lisa.rrshare.CallBack;
+import ceui.lisa.rrshare.MovieActivity;
 import ceui.lisa.rrshare.R;
 import ceui.lisa.rrshare.databinding.RecyPageBinding;
+import ceui.lisa.rrshare.response.Movie;
 import ceui.lisa.rrshare.response.Section;
 import ceui.lisa.rrshare.utils.Common;
 import ceui.lisa.rrshare.utils.DensityUtil;
@@ -31,7 +38,7 @@ public class PartAdapter extends BaseAdapter<Section, RecyPageBinding> {
 
     @Override
     public void bindData(Section target, ViewHolder<RecyPageBinding> bindView, int position) {
-
+        Common.showLog("bindData " + position);
         if (bindView.baseBind.recyList.getItemDecorationCount() == 0) {
             bindView.baseBind.recyList.addItemDecoration(
                     new LinearItemDecorationHorizon(DensityUtil.dp2px(8.0f))
@@ -44,24 +51,33 @@ public class PartAdapter extends BaseAdapter<Section, RecyPageBinding> {
         }
 
         bindView.baseBind.title.setText(target.getName());
-        BaseAdapter adapter = map.get(target.getId());
-        if (adapter != null) {
-            bindView.baseBind.recyList.setAdapter(adapter);
-            Common.showLog("PartAdapter 用已有的");
-        } else {
-            if ("BILLBOARD".equals(target.getSectionType())) {
-                adapter = new SimpleAdapter(target.getContent().get(0).getDataList(), mContext);
-                bindView.baseBind.recyList.setAdapter(adapter);
-                Common.showLog("PartAdapter 新建SimpleAdapter");
-                map.put(target.getId(), adapter);
-            } else if ("SEASON_CARD".equals(target.getSectionType())) {
-                adapter = new SCardAdapter(target.getContent(), mContext);
-                bindView.baseBind.recyList.setAdapter(adapter);
-                Common.showLog("PartAdapter 新建SCardAdapter");
-                map.put(target.getId(), adapter);
+        bindView.baseBind.recyList.setAdapter(map.get(target.getId()));
+    }
+
+    public void initNow(CallBack callback) {
+        for (Section target : allIllust) {
+            BaseAdapter adapter = map.get(target.getId());
+            if (adapter == null) {
+                if ("BILLBOARD".equals(target.getSectionType())) {
+                    adapter = new SimpleAdapter(target.getContent().get(0).getDataList(), mContext);
+                    adapter.setOnItemClickListener(new OnItemClickListener() {
+                        @Override
+                        public void onItemClick(View v, int position, int viewType) {
+                            Intent intent = new Intent(mContext, MovieActivity.class);
+                            intent.putExtra("content", target.getContent().get(0).getDataList().get(position));
+                            mContext.startActivity(intent);
+                        }
+                    });
+                    map.put(target.getId(), adapter);
+                } else if ("SEASON_CARD".equals(target.getSectionType())) {
+                    adapter = new SCardAdapter(target.getContent(), mContext);
+                    Common.showLog("PartAdapter 新建SCardAdapter");
+                    map.put(target.getId(), adapter);
+                }
             }
         }
-        Common.showLog("PartAdapter 总数：" + map.size());
-
+        if (callback != null) {
+            callback.callBack();
+        }
     }
 }

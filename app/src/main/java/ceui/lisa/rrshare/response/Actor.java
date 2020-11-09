@@ -11,18 +11,18 @@ public class Actor {
      * desc : null
      */
 
-    private Integer id;
+    private int id;
     private String headUrl;
     private String name;
     private String roleName;
-    private Object enName;
-    private Object desc;
+    private String enName;
+    private String desc;
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -50,19 +50,19 @@ public class Actor {
         this.roleName = roleName;
     }
 
-    public Object getEnName() {
+    public String getEnName() {
         return enName;
     }
 
-    public void setEnName(Object enName) {
+    public void setEnName(String enName) {
         this.enName = enName;
     }
 
-    public Object getDesc() {
+    public String getDesc() {
         return desc;
     }
 
-    public void setDesc(Object desc) {
+    public void setDesc(String desc) {
         this.desc = desc;
     }
 }

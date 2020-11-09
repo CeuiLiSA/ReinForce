@@ -3,6 +3,7 @@ package ceui.lisa.rrshare
 import android.content.Intent
 import ceui.lisa.rrshare.databinding.ActivityMainBinding
 import ceui.lisa.rrshare.fragments.FragmentR
+import ceui.lisa.rrshare.fragments.FragmentRNew
 import rxhttp.RxHttp
 
 class MainActivity : BaseActivity<ActivityMainBinding>() {
@@ -16,11 +17,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
     override fun initData() {
         RxHttp.setDebug(true)
-//        supportFragmentManager.beginTransaction()
-//            .replace(R.id.fragment_container,
-//                    FragmentR.newInstance("CHANNEL_USK")
-//            )
-//            .commit()
-        startActivity(Intent(mContext, MovieActivity::class.java))
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container,
+                FragmentR.newInstance("CHANNEL_USK")
+            )
+            .commit()
     }
 }

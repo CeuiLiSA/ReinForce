@@ -53,7 +53,6 @@ public abstract class BaseFragment<Layout extends ViewDataBinding> extends Fragm
                 }
             }
 
-            initModel();
 
             //获取屏幕方向
             int ori = getResources().getConfiguration().orientation;
@@ -106,6 +105,7 @@ public abstract class BaseFragment<Layout extends ViewDataBinding> extends Fragm
             } else {
                 horizon();
             }
+            initModel();
         } catch (Exception e) {
             e.printStackTrace();
         }

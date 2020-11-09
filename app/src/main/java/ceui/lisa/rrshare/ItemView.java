@@ -1,8 +1,10 @@
 package ceui.lisa.rrshare;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.FrameLayout;
 
 import androidx.annotation.NonNull;
@@ -10,7 +12,14 @@ import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.scwang.smart.refresh.header.FalsifyFooter;
+import com.scwang.smart.refresh.header.FalsifyHeader;
+import com.scwang.smart.refresh.header.MaterialHeader;
+import com.scwang.smart.refresh.layout.api.RefreshLayout;
+import com.scwang.smart.refresh.layout.wrapper.RefreshFooterWrapper;
+
 import ceui.lisa.rrshare.adapters.InfoAdapter;
+import ceui.lisa.rrshare.adapters.OnItemClickListener;
 import ceui.lisa.rrshare.adapters.SCardAdapter;
 import ceui.lisa.rrshare.adapters.SimpleAdapter;
 import ceui.lisa.rrshare.databinding.RecyPageBinding;
@@ -50,7 +59,6 @@ public class ItemView extends FrameLayout {
         mContext = getContext();
         baseBind = DataBindingUtil.inflate(LayoutInflater.from(mContext),
                 R.layout.recy_page, this, true);
-
     }
 
     public void bindSection(Section section) {
@@ -64,8 +72,16 @@ public class ItemView extends FrameLayout {
             baseBind.recyList.setLayoutManager(
                     new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false)
             );
-            SimpleAdapter aAdapter = new SimpleAdapter(mSection.getContent().get(0).getDataList(), mContext);
-            baseBind.recyList.setAdapter(aAdapter);
+            SimpleAdapter adapter = new SimpleAdapter(mSection.getContent().get(0).getDataList(), mContext);
+            adapter.setOnItemClickListener(new OnItemClickListener() {
+                @Override
+                public void onItemClick(View v, int position, int viewType) {
+                    Intent intent = new Intent(mContext, MovieActivity.class);
+                    intent.putExtra("content", mSection.getContent().get(0).getDataList().get(position));
+                    mContext.startActivity(intent);
+                }
+            });
+            baseBind.recyList.setAdapter(adapter);
         } else if ("SEASON_CARD".equals(mSection.getSectionType()) || "SEASON".equals(mSection.getSectionType())) {
             Common.showLog("bindSection 111 " + mSection.getName());
             baseBind.recyList.addItemDecoration(
@@ -77,13 +93,13 @@ public class ItemView extends FrameLayout {
             SCardAdapter adapter = new SCardAdapter(mSection.getContent(), mContext);
             baseBind.recyList.setAdapter(adapter);
         } else if ("INFO".equals(mSection.getSectionType())) {
-            Common.showLog("bindSection 222 " + mSection.getName());
-            baseBind.recyList.addItemDecoration(
-                    new LinearItemDecoration(DensityUtil.dp2px(8.0f))
-            );
-            baseBind.recyList.setLayoutManager(new LinearLayoutManager(mContext));
-            InfoAdapter adapter = new InfoAdapter(mSection.getContent(), mContext);
-            baseBind.recyList.setAdapter(adapter);
+//            Common.showLog("bindSection 222 " + mSection.getName());
+//            baseBind.recyList.addItemDecoration(
+//                    new LinearItemDecoration(DensityUtil.dp2px(8.0f))
+//            );
+//            baseBind.recyList.setLayoutManager(new LinearLayoutManager(mContext));
+//            InfoAdapter adapter = new InfoAdapter(mSection.getContent(), mContext);
+//            baseBind.recyList.setAdapter(adapter);
         }
     }
 }

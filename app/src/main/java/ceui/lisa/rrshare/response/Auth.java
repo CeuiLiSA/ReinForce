@@ -1,6 +1,8 @@
 package ceui.lisa.rrshare.response;
 
-public class Auth {
+import java.io.Serializable;
+
+public class Auth implements Serializable {
 
     /**
      * id : 597119
@@ -11,11 +13,10 @@ public class Auth {
     private int id;
     private String cover;
     private String name;
-
     private String nickName;
     private String headImgUrl;
     private String level;
-    private Integer score;
+    private float score;
     private String roleInfo;
     private String sign;
     private String intro;
@@ -46,11 +47,11 @@ public class Auth {
         this.level = level;
     }
 
-    public Integer getScore() {
+    public float getScore() {
         return score;
     }
 
-    public void setScore(Integer score) {
+    public void setScore(float score) {
         this.score = score;
     }
 

@@ -1,6 +1,8 @@
 package ceui.lisa.rrshare.response;
 
-public class Content {
+import java.io.Serializable;
+
+public class Content implements Serializable {
 
     /**
      * id : 33030
@@ -21,10 +23,51 @@ public class Content {
     private String feeMode;
     private boolean isMovie;
     private String subTitle;
-    private Object cornerMarkId;
-    private Object expiredTime;
     private double score;
-    private Object sneakPeekVideoId;
+    private int viewCount;
+    private String duration;
+    private String brief;
+    private Auth author;
+
+    public boolean isMovie() {
+        return isMovie;
+    }
+
+    public void setMovie(boolean movie) {
+        isMovie = movie;
+    }
+
+    public int getViewCount() {
+        return viewCount;
+    }
+
+    public void setViewCount(int viewCount) {
+        this.viewCount = viewCount;
+    }
+
+    public String getDuration() {
+        return duration;
+    }
+
+    public void setDuration(String duration) {
+        this.duration = duration;
+    }
+
+    public String getBrief() {
+        return brief;
+    }
+
+    public void setBrief(String brief) {
+        this.brief = brief;
+    }
+
+    public Auth getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(Auth author) {
+        this.author = author;
+    }
 
     public int getId() {
         return id;
@@ -74,21 +117,6 @@ public class Content {
         this.subTitle = subTitle;
     }
 
-    public Object getCornerMarkId() {
-        return cornerMarkId;
-    }
-
-    public void setCornerMarkId(Object cornerMarkId) {
-        this.cornerMarkId = cornerMarkId;
-    }
-
-    public Object getExpiredTime() {
-        return expiredTime;
-    }
-
-    public void setExpiredTime(Object expiredTime) {
-        this.expiredTime = expiredTime;
-    }
 
     public double getScore() {
         return score;
@@ -96,14 +124,6 @@ public class Content {
 
     public void setScore(double score) {
         this.score = score;
-    }
-
-    public Object getSneakPeekVideoId() {
-        return sneakPeekVideoId;
-    }
-
-    public void setSneakPeekVideoId(Object sneakPeekVideoId) {
-        this.sneakPeekVideoId = sneakPeekVideoId;
     }
 }
 

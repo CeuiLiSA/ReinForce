@@ -15,8 +15,8 @@
             android:text="热播美剧"
             android:id="@+id/title"
             android:textColor="#333333"
-            android:layout_marginStart="12dp"
-            android:layout_marginTop="12dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
             android:textStyle="bold"
             android:textSize="20sp"
             android:layout_height="wrap_content">
@@ -26,7 +26,8 @@
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_marginTop="8dp"
-            android:layout_marginBottom="12dp"
+            android:layout_marginBottom="16dp"
+            android:overScrollMode="never"
             android:id="@+id/recy_list"
             android:layout_height="wrap_content">
 

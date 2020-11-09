@@ -1,20 +1,29 @@
 package ceui.lisa.rrshare;
 
+import android.os.Bundle;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.lifecycle.ViewModelProvider;
 
 import ceui.lisa.rrshare.databinding.ActivityMovieBinding;
+import ceui.lisa.rrshare.fragments.FragmentChat;
+import ceui.lisa.rrshare.fragments.FragmentComment;
 import ceui.lisa.rrshare.fragments.FragmentMovieDetail;
 import ceui.lisa.rrshare.network.Net;
+import ceui.lisa.rrshare.response.BaseObject;
+import ceui.lisa.rrshare.response.Content;
 import ceui.lisa.rrshare.response.Episode;
+import ceui.lisa.rrshare.response.EpisodeData;
 import ceui.lisa.rrshare.response.Movie;
 import ceui.lisa.rrshare.response.Page;
 import ceui.lisa.rrshare.response.Quality;
 import ceui.lisa.rrshare.response.QualityItem;
 import ceui.lisa.rrshare.response.Watch;
 import ceui.lisa.rrshare.utils.Common;
+import ceui.lisa.rrshare.viewmodel.MovieModel;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.functions.Consumer;
 import io.reactivex.rxjava3.schedulers.Schedulers;
@@ -22,19 +31,37 @@ import rxhttp.RxHttp;
 
 public class MovieActivity extends BaseActivity<ActivityMovieBinding> {
 
+    private Content mContent;
+    private MovieModel model;
+
     @Override
     protected int initLayout() {
         return R.layout.activity_movie;
     }
 
     @Override
+    protected void initBundle(Bundle bundle) {
+        mContent = (Content) bundle.getSerializable("content");
+    }
+
+    @Override
+    public void initModel() {
+        model = new ViewModelProvider(this).get(MovieModel.class);
+    }
+
+    @Override
     protected void initView() {
         String[] titles = new String[]{"详情", "讨论", "热议"};
+        BaseFragment<?>[] fragments = new BaseFragment<?>[]{
+                new FragmentMovieDetail(),
+                new FragmentComment(),
+                new FragmentChat(),
+        };
         baseBind.viewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager(), 0) {
             @NonNull
             @Override
             public Fragment getItem(int position) {
-                return new FragmentMovieDetail();
+                return fragments[position];
             }
 
             @Override
@@ -49,37 +76,17 @@ public class MovieActivity extends BaseActivity<ActivityMovieBinding> {
             }
         });
         baseBind.tabLayout.setupWithViewPager(baseBind.viewPager);
+
     }
 
     @Override
     protected void initData() {
-//        RxHttp.get("https://api.rr.tv/rrtv-video/v4plus/season/get_episode_list")
-//                .addAllHeader(Net.header())
-//                .add("seasonId", "14752")
-//                .asClass(Episode.class)
-//                .subscribeOn(Schedulers.newThread())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(new Consumer<Episode>() {
-//                    @Override
-//                    public void accept(Episode episode) throws Throwable {
-//
-//                    }
-//                });
+        model.getMovie().setValue(mContent);
+        Common.showLog("view model 发送了 " + mContent.getTitle());
 
 
-//        RxHttp.get("https://api.rr.tv/rrtv-video/v4plus/season/detail")
-//                .addAllHeader(Net.header())
-//                .add("seasonId", "14752")
-//                .add("token", "rrtv-b2228b19a37039db54172e9648c02a5dab579c88")
-//                .asClass(Movie.class)
-//                .subscribeOn(Schedulers.newThread())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(new Consumer<Movie>() {
-//                    @Override
-//                    public void accept(Movie episode) throws Throwable {
-//
-//                    }
-//                });
+
+
 
 //        RxHttp.get("https://api.rr.tv/watch/v4/priority_video_quality/get_priority_video_quality_config?seasonId=14752")
 //                .addAllHeader(Net.header())
@@ -99,18 +106,10 @@ public class MovieActivity extends BaseActivity<ActivityMovieBinding> {
 //                    }
 //                });
 
-        RxHttp.get("https://api.rr.tv/watch/v4/get_movie_play_info?episodeSid=143417&seasonId=14752")
-                .addAllHeader(Net.header())
-                .add("quality", "HD")
-                .asClass(Watch.class)
-                .subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<Watch>() {
-                    @Override
-                    public void accept(Watch watch) throws Throwable {
-                        Common.showLog(className + watch.getData().getM3u8().getUrl().length());
-                    }
-                });
+    }
 
+    @Override
+    public boolean hideStatusBar() {
+        return true;
     }
 }
