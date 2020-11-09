@@ -8,6 +8,15 @@ public class Base {
     private String code;
     private String msg;
     private String recordsTotal;
+    private String traceId;
+
+    public String getTraceId() {
+        return traceId;
+    }
+
+    public void setTraceId(String traceId) {
+        this.traceId = traceId;
+    }
 
     public String getRecordsTotal() {
         return recordsTotal;
