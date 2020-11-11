@@ -25,6 +25,23 @@ public class M3u8 {
     private Integer startingLength;
     private Integer openingLength;
     private String parseTime;
+    private String parserType;
+
+    public Boolean getExternalAds() {
+        return externalAds;
+    }
+
+    public Boolean getCommentRestricted() {
+        return commentRestricted;
+    }
+
+    public String getParserType() {
+        return parserType;
+    }
+
+    public void setParserType(String parserType) {
+        this.parserType = parserType;
+    }
 
     public String getUrl() {
         return url;

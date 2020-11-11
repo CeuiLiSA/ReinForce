@@ -1,6 +1,8 @@
 package ceui.lisa.rrshare;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -8,31 +10,28 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.shuyu.gsyvideoplayer.GSYVideoManager;
+import com.shuyu.gsyvideoplayer.builder.GSYVideoOptionBuilder;
+import com.shuyu.gsyvideoplayer.listener.GSYSampleCallBack;
+import com.shuyu.gsyvideoplayer.listener.LockClickListener;
+import com.shuyu.gsyvideoplayer.utils.OrientationUtils;
+
 import ceui.lisa.rrshare.databinding.ActivityMovieBinding;
 import ceui.lisa.rrshare.fragments.FragmentChat;
 import ceui.lisa.rrshare.fragments.FragmentComment;
 import ceui.lisa.rrshare.fragments.FragmentMovieDetail;
-import ceui.lisa.rrshare.network.Net;
-import ceui.lisa.rrshare.response.BaseObject;
 import ceui.lisa.rrshare.response.Content;
-import ceui.lisa.rrshare.response.Episode;
-import ceui.lisa.rrshare.response.EpisodeData;
-import ceui.lisa.rrshare.response.Movie;
-import ceui.lisa.rrshare.response.Page;
-import ceui.lisa.rrshare.response.Quality;
-import ceui.lisa.rrshare.response.QualityItem;
-import ceui.lisa.rrshare.response.Watch;
 import ceui.lisa.rrshare.utils.Common;
 import ceui.lisa.rrshare.viewmodel.MovieModel;
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
-import io.reactivex.rxjava3.functions.Consumer;
-import io.reactivex.rxjava3.schedulers.Schedulers;
-import rxhttp.RxHttp;
 
 public class MovieActivity extends BaseActivity<ActivityMovieBinding> {
 
     private Content mContent;
     private MovieModel model;
+
+    private boolean isPlay;
+    private boolean isPause;
+    private OrientationUtils orientationUtils;
 
     @Override
     protected int initLayout() {
@@ -51,65 +50,169 @@ public class MovieActivity extends BaseActivity<ActivityMovieBinding> {
 
     @Override
     protected void initView() {
-        String[] titles = new String[]{"详情", "讨论", "热议"};
-        BaseFragment<?>[] fragments = new BaseFragment<?>[]{
-                new FragmentMovieDetail(),
-                new FragmentComment(),
-                new FragmentChat(),
-        };
-        baseBind.viewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager(), 0) {
-            @NonNull
-            @Override
-            public Fragment getItem(int position) {
-                return fragments[position];
-            }
+        //外部辅助的旋转，帮助全屏
+        orientationUtils = new OrientationUtils(this, baseBind.detailPlayer);
+        //初始化不打开外部的旋转
+        orientationUtils.setEnable(false);
 
+        baseBind.detailPlayer.getFullscreenButton().setOnClickListener(new View.OnClickListener() {
             @Override
-            public int getCount() {
-                return titles.length;
-            }
+            public void onClick(View v) {
+                //直接横屏
+                orientationUtils.resolveByClick();
 
-            @Nullable
-            @Override
-            public CharSequence getPageTitle(int position) {
-                return titles[position];
+                //第一个true是否需要隐藏actionbar，第二个true是否需要隐藏statusbar
+                baseBind.detailPlayer.startWindowFullscreen(mContext, true, true);
             }
         });
-        baseBind.tabLayout.setupWithViewPager(baseBind.viewPager);
 
+
+
+//        baseBind.left.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//            }
+//        });
+
+        if ("相关视频".equals(mContent.getFrom())) {
+            String[] titles = new String[]{"详情"};
+            BaseFragment<?>[] fragments = new BaseFragment<?>[]{
+                    new FragmentMovieDetail(),
+            };
+            baseBind.viewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager(), 0) {
+                @NonNull
+                @Override
+                public Fragment getItem(int position) {
+                    return fragments[position];
+                }
+
+                @Override
+                public int getCount() {
+                    return titles.length;
+                }
+
+                @Nullable
+                @Override
+                public CharSequence getPageTitle(int position) {
+                    return titles[position];
+                }
+            });
+            baseBind.tabLayout.setupWithViewPager(baseBind.viewPager);
+        } else {
+            String[] titles = new String[]{"详情", "讨论", "热议"};
+            BaseFragment<?>[] fragments = new BaseFragment<?>[]{
+                    new FragmentMovieDetail(),
+                    new FragmentComment(),
+                    new FragmentChat(),
+            };
+            baseBind.viewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager(), 0) {
+                @NonNull
+                @Override
+                public Fragment getItem(int position) {
+                    return fragments[position];
+                }
+
+                @Override
+                public int getCount() {
+                    return titles.length;
+                }
+
+                @Nullable
+                @Override
+                public CharSequence getPageTitle(int position) {
+                    return titles[position];
+                }
+            });
+            baseBind.tabLayout.setupWithViewPager(baseBind.viewPager);
+        }
+    }
+
+    public void play(String url) {
+        GSYVideoOptionBuilder gsyVideoOption = new GSYVideoOptionBuilder();
+        gsyVideoOption
+                .setIsTouchWiget(true)
+                .setRotateViewAuto(false)
+                .setLockLand(false)
+                .setAutoFullWithSize(true)
+                .setShowFullAnimation(false)
+                .setNeedLockFull(true)
+                .setCacheWithPlay(false)
+                .setUrl(url)
+                .setVideoTitle(mContent.getTitle())
+                .setVideoAllCallBack(new GSYSampleCallBack() {
+                    @Override
+                    public void onPrepared(String url, Object... objects) {
+                        super.onPrepared(url, objects);
+                        //开始播放了才能旋转和全屏
+                        orientationUtils.setEnable(true);
+                        isPlay = true;
+                    }
+
+                    @Override
+                    public void onQuitFullscreen(String url, Object... objects) {
+                        super.onQuitFullscreen(url, objects);
+                        if (orientationUtils != null) {
+                            orientationUtils.backToProtVideo();
+                        }
+                    }
+                }).setLockClickListener(new LockClickListener() {
+            @Override
+            public void onClick(View view, boolean lock) {
+                if (orientationUtils != null) {
+                    //配合下方的onConfigurationChanged
+                    orientationUtils.setEnable(!lock);
+                }
+            }
+        }).build(baseBind.detailPlayer);
     }
 
     @Override
     protected void initData() {
         model.getMovie().setValue(mContent);
-        Common.showLog("view model 发送了 " + mContent.getTitle());
-
-
-
-
-
-//        RxHttp.get("https://api.rr.tv/watch/v4/priority_video_quality/get_priority_video_quality_config?seasonId=14752")
-//                .addAllHeader(Net.header())
-//                .asClass(Quality.class)
-//                .subscribeOn(Schedulers.newThread())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(new Consumer<Quality>() {
-//                    @Override
-//                    public void accept(Quality quality) throws Throwable {
-//                        for (QualityItem sortedItem : quality.getData().getSortedItems()) {
-//                            if (sortedItem.isInitialQuality()) {
-//
-//                                break;
-//                            }
-//                        }
-//
-//                    }
-//                });
-
     }
 
     @Override
-    public boolean hideStatusBar() {
-        return true;
+    public void onBackPressed() {
+        if (orientationUtils != null) {
+            orientationUtils.backToProtVideo();
+        }
+        if (GSYVideoManager.backFromWindowFull(this)) {
+            return;
+        }
+        super.onBackPressed();
+    }
+
+    @Override
+    protected void onPause() {
+        baseBind.detailPlayer.getCurrentPlayer().onVideoPause();
+        super.onPause();
+        isPause = true;
+    }
+
+    @Override
+    protected void onResume() {
+        baseBind.detailPlayer.getCurrentPlayer().onVideoResume(false);
+        super.onResume();
+        isPause = false;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (isPlay) {
+            baseBind.detailPlayer.getCurrentPlayer().release();
+        }
+        if (orientationUtils != null)
+            orientationUtils.releaseListener();
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        //如果旋转了就全屏
+        if (isPlay && !isPause) {
+            baseBind.detailPlayer.onConfigurationChanged(this, newConfig, orientationUtils, true, true);
+        }
     }
 }

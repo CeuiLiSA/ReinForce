@@ -71,11 +71,22 @@ public class TopView extends FrameLayout {
             contents = new ArrayList<>(list.subList(0, 3));
         }
         baseBind.title.setText("相关视频");
+        for (Content content : contents) {
+            content.setFrom("相关视频");
+        }
         baseBind.recyList.setLayoutManager(new LinearLayoutManager(mContext));
         baseBind.recyList.addItemDecoration(
                 new LinearItemDecoration(DensityUtil.dp2px(6.0f))
         );
         InfoAdapter adapter = new InfoAdapter(contents, mContext);
+        adapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(View v, int position, int viewType) {
+                Intent intent = new Intent(mContext, MovieActivity.class);
+                intent.putExtra("content", contents.get(position));
+                mContext.startActivity(intent);
+            }
+        });
         baseBind.recyList.setAdapter(adapter);
     }
 }

@@ -26,6 +26,8 @@
 
                     <LinearLayout
                         android:orientation="vertical"
+                        android:id="@+id/episode_ll"
+                        android:visibility="gone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
@@ -66,14 +68,14 @@
 
                         </androidx.recyclerview.widget.RecyclerView>
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:id="@+id/create_linear"
-                            android:layout_marginBottom="60dp"
-                            android:orientation="vertical"
-                            android:layout_height="wrap_content">
+                    </LinearLayout>
 
-                        </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:id="@+id/create_linear"
+                        android:layout_marginBottom="60dp"
+                        android:orientation="vertical"
+                        android:layout_height="wrap_content">
 
                     </LinearLayout>
 

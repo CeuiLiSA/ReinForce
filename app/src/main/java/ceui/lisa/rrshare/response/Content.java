@@ -28,6 +28,15 @@ public class Content implements Serializable {
     private String duration;
     private String brief;
     private Auth author;
+    private String from;
+
+    public String getFrom() {
+        return from;
+    }
+
+    public void setFrom(String from) {
+        this.from = from;
+    }
 
     public boolean isMovie() {
         return isMovie;

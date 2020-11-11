@@ -8,7 +8,7 @@ import rxhttp.RxHttp
 
 class MainActivity : BaseActivity<ActivityMainBinding>() {
 
-    var type = "CHANNEL_USK"
+    var type = "CHANNEL_INDEX"
 
     override fun initLayout(): Int {
         return R.layout.activity_main

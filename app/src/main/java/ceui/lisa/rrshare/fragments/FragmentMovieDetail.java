@@ -1,8 +1,11 @@
 package ceui.lisa.rrshare.fragments;
 
+import android.view.View;
+
 import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import ceui.lisa.rrshare.MovieActivity;
 import ceui.lisa.rrshare.R;
 import ceui.lisa.rrshare.BottomView;
 import ceui.lisa.rrshare.TopView;
@@ -44,8 +47,14 @@ public class FragmentMovieDetail extends BaseMovieFragment<FragmentMovieBinding>
             public void onChanged(Content content) {
                 if (content != null) {
                     Common.showLog("view model " + className + "收到了" + content.getTitle());
-                    getEpisode(content.getId());
-                    getDetail(content.getId());
+
+                    if ("相关视频".equals(content.getFrom())) {
+                        getPlayUrl(content.getId());
+                        getVideoDetail(content.getId());
+                    } else {
+                        getEpisode(content.getId());
+                        getDetail(content.getId());
+                    }
                 } else {
                     Common.showLog("view model " + className + "收到了 null");
                 }
@@ -63,6 +72,7 @@ public class FragmentMovieDetail extends BaseMovieFragment<FragmentMovieBinding>
                 .subscribe(new Consumer<Episode>() {
                     @Override
                     public void accept(Episode episode) throws Throwable {
+                        baseBind.episodeLl.setVisibility(View.VISIBLE);
                         baseBind.recyList.setAdapter(new EpisodeAdapter(episode.getData().getEpisodeList(), mContext));
                         baseBind.allEpisode.setText("查看全部" + episode.getData().getEpisodeList().size() + "集");
                     }
@@ -81,9 +91,37 @@ public class FragmentMovieDetail extends BaseMovieFragment<FragmentMovieBinding>
                 .subscribe(new Consumer<Watch>() {
                     @Override
                     public void accept(Watch watch) throws Throwable {
+                        if ("DIRECT".equals(watch.getData().getM3u8().getParserType())) {
+                            if (mActivity instanceof MovieActivity) {
+                                ((MovieActivity) mActivity).play(watch.getData().getM3u8().getUrl());
+                            }
+                        }
                     }
                 });
     }
+
+
+    private void getPlayUrl(int videoId) {
+        RxHttp.get("https://api.rr.tv/watch/get_video_info")
+                .addAllHeader(Net.header())
+                .add("quality", "super")
+                .add("videoId", videoId)
+                .asClass(Watch.class)
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<Watch>() {
+                    @Override
+                    public void accept(Watch watch) throws Throwable {
+                        if ("DIRECT".equals(watch.getData().getM3u8().getParserType())) {
+                            if (mActivity instanceof MovieActivity) {
+                                ((MovieActivity) mActivity).play(watch.getData().getM3u8().getUrl());
+                            }
+                        }
+                    }
+                });
+    }
+
+
 
     private void getDetail(int seasonID) {
         RxHttp.get("https://api.rr.tv/rrtv-video/v4plus/season/detail")
@@ -105,5 +143,31 @@ public class FragmentMovieDetail extends BaseMovieFragment<FragmentMovieBinding>
                     baseBind.createLinear.addView(bottomView);
                 }
             });
+    }
+
+    private void getVideoDetail(int videoId) {
+        RxHttp.get("https://api.rr.tv/v3plus/video/detail")
+                .addAllHeader(Net.header())
+                .add("videoId", videoId)
+                .add("token", "rrtv-b2228b19a37039db54172e9648c02a5dab579c88")
+                .asClass(Movie.class)
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<Movie>() {
+                    @Override
+                    public void accept(Movie movie) throws Throwable {
+                        if (!Common.isEmpty(movie.getData().getRecommendVideoList())) {
+                            TopView topView = new TopView(mContext);
+                            topView.bindContent(movie.getData().getRecommendVideoList());
+                            baseBind.createLinear.addView(topView);
+                        }
+
+                        if (!Common.isEmpty(movie.getData().getRecommendForYou())) {
+                            BottomView bottomView = new BottomView(mContext);
+                            bottomView.bindContent(movie.getData().getRecommendForYou());
+                            baseBind.createLinear.addView(bottomView);
+                        }
+                    }
+                });
     }
 }
