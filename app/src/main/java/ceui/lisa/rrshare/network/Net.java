@@ -15,7 +15,6 @@ public class Net {
         map.put("Accept-Language", "zh-Hans-CN;q=1, en-CN;q=0.9, ja-CN;q=0.8");
         map.put("clientVersion", "4.15.1");
         map.put("token", "rrtv-b2228b19a37039db54172e9648c02a5dab579c88");
-//        map.put("Accept-Encoding", "gzip, deflate, br");
         map.put("deviceId", "329b4a66-5519-496e-8d93-0b862d2834da");
         map.put("clientType", "ios_rrsp_jzsp");
         map.put("sm", "202007232216462b03e33869e590cc5f39035f025d60d50139041ac4c6cf2b");
@@ -25,38 +24,4 @@ public class Net {
         map.put("sign", "584fa37056cbc5a2b5fa853dc57c674d");
         return map;
     }
-
-
-    //        RxHttp.get("http://a.zmzapi.com/index.php?g=api/v3&m=index&accesskey=519f9cab85c8059d17544947k361a827&client=2&a=hot&limit=50")
-//                .addHeader("Accept-Language", "zh-CN,zh;q=0.8")
-//                .addHeader("User-Agent", "Mozilla/5.0 (Linux; U; Android 6.0.1; zh-cn; D6653 Build/23.5.A.1.291) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30")
-//                .addHeader("Host", "a.zmzapi.com")
-//                .asClass(RankResponse.class)
-//                .subscribeOn(Schedulers.newThread())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(new Consumer<RankResponse>() {
-//                    @Override
-//                    public void accept(RankResponse rankResponse) {
-//                        final String[] titles = new String[]{"今日", "本月", "电影", "日剧", "新剧", "总榜"};
-//                        baseBind.viewPager.setAdapter(new FragmentPagerAdapter(getChildFragmentManager(), 0) {
-//                            @NonNull
-//                            @Override
-//                            public Fragment getItem(int position) {
-//                                return FragmentRank.newInstance(rankResponse.getList(position));
-//                            }
-//
-//                            @Override
-//                            public int getCount() {
-//                                return titles.length;
-//                            }
-//
-//                            @Nullable
-//                            @Override
-//                            public CharSequence getPageTitle(int position) {
-//                                return titles[position];
-//                            }
-//                        });
-//                        baseBind.tabLayout.setupWithViewPager(baseBind.viewPager);
-//                    }
-//                });
 }

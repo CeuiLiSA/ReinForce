@@ -1,5 +1,7 @@
 package ceui.lisa.rrshare.response;
 
+import android.text.TextUtils;
+
 import java.io.Serializable;
 
 public class Auth implements Serializable {
@@ -22,6 +24,15 @@ public class Auth implements Serializable {
     private String intro;
     private int seasonCount;
     private boolean focused;
+    private boolean isConfirmed;
+
+    public boolean isConfirmed() {
+        return isConfirmed;
+    }
+
+    public void setConfirmed(boolean confirmed) {
+        isConfirmed = confirmed;
+    }
 
     public String getNickName() {
         return nickName;
@@ -32,7 +43,11 @@ public class Auth implements Serializable {
     }
 
     public String getHeadImgUrl() {
-        return headImgUrl;
+        if (!TextUtils.isEmpty(headImgUrl)) {
+            return headImgUrl;
+        } else {
+            return "http://tp3.sinaimg.cn/2231318522/180/5746319964/1";
+        }
     }
 
     public void setHeadImgUrl(String headImgUrl) {
