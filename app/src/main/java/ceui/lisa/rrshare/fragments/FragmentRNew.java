@@ -8,10 +8,15 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.scwang.smart.refresh.footer.ClassicsFooter;
 import com.scwang.smart.refresh.header.FalsifyFooter;
 import com.scwang.smart.refresh.header.MaterialHeader;
 import com.scwang.smart.refresh.layout.api.RefreshLayout;
+import com.scwang.smart.refresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smart.refresh.layout.listener.OnRefreshListener;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import ceui.lisa.rrshare.BaseFragment;
 import ceui.lisa.rrshare.CallBack;
@@ -23,6 +28,7 @@ import ceui.lisa.rrshare.databinding.FragmentRNewBinding;
 import ceui.lisa.rrshare.network.Net;
 import ceui.lisa.rrshare.response.Page;
 import ceui.lisa.rrshare.response.Section;
+import ceui.lisa.rrshare.utils.Common;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.functions.Consumer;
 import io.reactivex.rxjava3.schedulers.Schedulers;
@@ -31,6 +37,10 @@ import rxhttp.RxHttp;
 public class FragmentRNew extends BaseFragment<FragmentRNewBinding> {
 
     private String type;
+    private List<Section> sections = new ArrayList<>();
+    private PartAdapter mAdapter;
+    private Page page;
+    private int nowPage = 1;
 
     public static FragmentRNew newInstance(String type) {
         Bundle args = new Bundle();
@@ -61,12 +71,32 @@ public class FragmentRNew extends BaseFragment<FragmentRNewBinding> {
                 fetch();
             }
         });
-        baseBind.smartRefreshLayout.setRefreshFooter(new FalsifyFooter(mContext));
+        baseBind.smartRefreshLayout.setRefreshFooter(new ClassicsFooter(mContext));
+        baseBind.smartRefreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
+            @Override
+            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+                if (page != null) {
+                    int startSize = sections.size();
+                    List<Section> nextList = page.getPage(nowPage);
+                    if (nextList != null && nextList.size() != 0) {
+                        sections.addAll(nextList);
+                        mAdapter.notifyItemRangeInserted(startSize, nextList.size());
+                        nowPage++;
+                    } else {
+                    }
+                    baseBind.smartRefreshLayout.finishLoadMore(true);
+                }
+            }
+        });
         baseBind.smartRefreshLayout.autoRefresh();
         baseBind.recyList.setLayoutManager(new LinearLayoutManager(mContext));
+        mAdapter = new PartAdapter(sections, mContext);
+        baseBind.recyList.setAdapter(mAdapter);
     }
 
     private void fetch() {
+        nowPage = 1;
+        mAdapter.clear();
         RxHttp.get("https://api.rr.tv/v3plus/index/channel")
                 .addAllHeader(Net.header())
                 .add("position", type)
@@ -76,6 +106,7 @@ public class FragmentRNew extends BaseFragment<FragmentRNewBinding> {
                 .subscribe(new Consumer<Page>() {
                     @Override
                     public void accept(Page rankResponse) {
+                        page = rankResponse;
                         baseBind.viewPager.setAdapter(new FragmentPagerAdapter(getChildFragmentManager(), 0) {
                             @NonNull
                             @Override
@@ -90,25 +121,14 @@ public class FragmentRNew extends BaseFragment<FragmentRNewBinding> {
                                 return rankResponse.getData().getBannerTop().size();
                             }
                         });
+                        int startSize = sections.size();
                         baseBind.bannerCard.setVisibility(View.VISIBLE);
-                        new Thread(new Runnable() {
-                            @Override
-                            public void run() {
-                                PartAdapter adapter = new PartAdapter(rankResponse.getData().getSections(), mContext);
-                                adapter.initNow(new CallBack() {
-                                    @Override
-                                    public void callBack() {
-                                        mActivity.runOnUiThread(new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                baseBind.recyList.setAdapter(adapter);
-                                                baseBind.smartRefreshLayout.finishRefresh(true);
-                                            }
-                                        });
-                                    }
-                                });
-                            }
-                        }).start();
+                        for (int i = 0; i < 8; i++) {
+                            sections.add(rankResponse.getData().getSections().get(i));
+                        }
+                        mAdapter.notifyItemRangeInserted(startSize, sections.size());
+                        baseBind.smartRefreshLayout.finishRefresh(true);
+                        nowPage++;
                     }
                 }, new Consumer<Throwable>() {
                     @Override

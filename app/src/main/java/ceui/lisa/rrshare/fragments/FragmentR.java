@@ -15,6 +15,7 @@ import com.scwang.smart.refresh.layout.listener.OnRefreshListener;
 import ceui.lisa.rrshare.BaseFragment;
 import ceui.lisa.rrshare.ItemView;
 import ceui.lisa.rrshare.R;
+import ceui.lisa.rrshare.TabItem;
 import ceui.lisa.rrshare.databinding.FragmentRBinding;
 import ceui.lisa.rrshare.network.Net;
 import ceui.lisa.rrshare.response.Page;
@@ -90,7 +91,9 @@ public class FragmentR extends BaseFragment<FragmentRBinding> {
                         for (Section section : rankResponse.getData().getSections()) {
                             if (!"AD".equals(section.getSectionType())) {
                                 if ("TAB".equals(section.getDisplay())) {
-
+                                    TabItem itemView = new TabItem(mContext);
+                                    itemView.bindSection(section);
+                                    baseBind.createLinear.addView(itemView);
                                 } else {
                                     ItemView itemView = new ItemView(mContext);
                                     itemView.bindSection(section);

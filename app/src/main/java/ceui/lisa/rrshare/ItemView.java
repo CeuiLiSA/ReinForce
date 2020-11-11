@@ -19,6 +19,7 @@ import com.scwang.smart.refresh.layout.api.RefreshLayout;
 import com.scwang.smart.refresh.layout.wrapper.RefreshFooterWrapper;
 
 import ceui.lisa.rrshare.adapters.InfoAdapter;
+import ceui.lisa.rrshare.adapters.NewInfoAdapter;
 import ceui.lisa.rrshare.adapters.OnItemClickListener;
 import ceui.lisa.rrshare.adapters.SCardAdapter;
 import ceui.lisa.rrshare.adapters.SimpleAdapter;
@@ -31,9 +32,8 @@ import ceui.lisa.rrshare.utils.LinearItemDecorationHorizon;
 
 public class ItemView extends FrameLayout {
 
-    protected Section mSection;
     protected Context mContext;
-    protected RecyPageBinding baseBind;
+    private RecyPageBinding baseBind;
 
     public ItemView(@NonNull Context context) {
         super(context);
@@ -62,44 +62,44 @@ public class ItemView extends FrameLayout {
     }
 
     public void bindSection(Section section) {
-        mSection = section;
-        baseBind.title.setText(mSection.getName());
-        if ("BILLBOARD".equals(mSection.getSectionType())) {
-            Common.showLog("bindSection 000 " + mSection.getName());
+        baseBind.title.setText(section.getName());
+        if ("BILLBOARD".equals(section.getSectionType())) {
+            Common.showLog("bindSection 000 " + section.getName());
             baseBind.recyList.addItemDecoration(
                     new LinearItemDecorationHorizon(DensityUtil.dp2px(8.0f))
             );
             baseBind.recyList.setLayoutManager(
                     new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false)
             );
-            SimpleAdapter adapter = new SimpleAdapter(mSection.getContent().get(0).getDataList(), mContext);
+            SimpleAdapter adapter = new SimpleAdapter(section.getContent().get(0).getDataList(), mContext);
             adapter.setOnItemClickListener(new OnItemClickListener() {
                 @Override
                 public void onItemClick(View v, int position, int viewType) {
                     Intent intent = new Intent(mContext, MovieActivity.class);
-                    intent.putExtra("content", mSection.getContent().get(0).getDataList().get(position));
+                    intent.putExtra("content", section.getContent().get(0).getDataList().get(position));
                     mContext.startActivity(intent);
                 }
             });
             baseBind.recyList.setAdapter(adapter);
-        } else if ("SEASON_CARD".equals(mSection.getSectionType()) || "SEASON".equals(mSection.getSectionType())) {
-            Common.showLog("bindSection 111 " + mSection.getName());
+        } else if ("SEASON_CARD".equals(section.getSectionType()) ||
+                "SEASON".equals(section.getSectionType())) {
+            Common.showLog("bindSection 111 " + section.getName());
             baseBind.recyList.addItemDecoration(
                     new LinearItemDecorationHorizon(DensityUtil.dp2px(8.0f))
             );
             baseBind.recyList.setLayoutManager(
                     new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false)
             );
-            SCardAdapter adapter = new SCardAdapter(mSection.getContent(), mContext);
+            SCardAdapter adapter = new SCardAdapter(section.getContent(), mContext);
             baseBind.recyList.setAdapter(adapter);
-        } else if ("INFO".equals(mSection.getSectionType())) {
-//            Common.showLog("bindSection 222 " + mSection.getName());
-//            baseBind.recyList.addItemDecoration(
-//                    new LinearItemDecoration(DensityUtil.dp2px(8.0f))
-//            );
-//            baseBind.recyList.setLayoutManager(new LinearLayoutManager(mContext));
-//            InfoAdapter adapter = new InfoAdapter(mSection.getContent(), mContext);
-//            baseBind.recyList.setAdapter(adapter);
+        } else if ("INFO".equals(section.getSectionType())) {
+            Common.showLog("bindSection 222 " + section.getName());
+            baseBind.recyList.addItemDecoration(
+                    new LinearItemDecoration(DensityUtil.dp2px(8.0f))
+            );
+            baseBind.recyList.setLayoutManager(new LinearLayoutManager(mContext));
+            NewInfoAdapter adapter = new NewInfoAdapter(section.getContent(), mContext);
+            baseBind.recyList.setAdapter(adapter);
         }
     }
 }

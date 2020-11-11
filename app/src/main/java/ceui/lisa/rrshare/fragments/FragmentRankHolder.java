@@ -30,19 +30,19 @@ public class FragmentRankHolder extends BaseFragment<FragmentRankHolderBinding> 
 
     @Override
     protected void initData() {
-//        final String[] titles = new String[]{
-//                "精选",
-//                "美剧",
-//                "韩剧",
-//                "日剧",
-//                "泰剧"
-//        };
+//
+//
+//
+//
+//
+//
+//
 //        final String[] values = new String[]{
-//                "CHANNEL_INDEX",
-//                "CHANNEL_USK",
-//                "CHANNEL_KR",
-//                "CHANNEL_JP",
-//                "CHANNEL_TH"
+//
+//
+//
+//
+//
 //        };
         final String[] titles = new String[]{
                 "美剧",
