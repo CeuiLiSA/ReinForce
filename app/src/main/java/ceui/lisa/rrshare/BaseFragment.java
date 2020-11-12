@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,6 +29,7 @@ public abstract class BaseFragment<Layout extends ViewDataBinding> extends Fragm
     protected FragmentActivity mActivity;
     protected Context mContext;
     private boolean isVertical;
+    protected Handler mHandler;
 
     public BaseFragment() {
         Log.d(className, " newInstance");
@@ -39,6 +41,8 @@ public abstract class BaseFragment<Layout extends ViewDataBinding> extends Fragm
         try {
             mActivity = requireActivity();
             mContext = requireContext();
+
+            mHandler = new Handler();
 
             Bundle bundle = getArguments();
             if (bundle != null) {
@@ -52,7 +56,6 @@ public abstract class BaseFragment<Layout extends ViewDataBinding> extends Fragm
                     initActivityBundle(activityBundle);
                 }
             }
-
 
             //获取屏幕方向
             int ori = getResources().getConfiguration().orientation;
@@ -87,6 +90,7 @@ public abstract class BaseFragment<Layout extends ViewDataBinding> extends Fragm
                 } else {
                     rootView = inflater.inflate(mLayoutID, container, false);
                 }
+                initModel();
                 initView();
                 initData();
                 return rootView;
@@ -105,7 +109,6 @@ public abstract class BaseFragment<Layout extends ViewDataBinding> extends Fragm
             } else {
                 horizon();
             }
-            initModel();
         } catch (Exception e) {
             e.printStackTrace();
         }

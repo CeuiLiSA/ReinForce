@@ -1,9 +1,11 @@
 package ceui.lisa.rrshare.fragments;
 
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentPagerAdapter;
 
@@ -18,8 +20,10 @@ import ceui.lisa.rrshare.R;
 import ceui.lisa.rrshare.TabItem;
 import ceui.lisa.rrshare.databinding.FragmentRBinding;
 import ceui.lisa.rrshare.network.Net;
+import ceui.lisa.rrshare.network.NullCtrl;
 import ceui.lisa.rrshare.response.Page;
 import ceui.lisa.rrshare.response.Section;
+import ceui.lisa.rrshare.viewmodel.PageModel;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.functions.Consumer;
 import io.reactivex.rxjava3.schedulers.Schedulers;
@@ -27,20 +31,7 @@ import rxhttp.RxHttp;
 
 public class FragmentR extends BaseFragment<FragmentRBinding> {
 
-    private String type;
-
-    public static FragmentR newInstance(String type) {
-        Bundle args = new Bundle();
-        args.putString("type", type);
-        FragmentR fragment = new FragmentR();
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    protected void initBundle(Bundle bundle) {
-        type = bundle.getString("type");
-    }
+    private String type = "CHANNEL_INDEX";
 
     @Override
     protected void initLayout() {
@@ -49,6 +40,33 @@ public class FragmentR extends BaseFragment<FragmentRBinding> {
 
     @Override
     protected void initView() {
+        baseBind.toolbar.setTitle(getNameByType());
+        baseBind.toolbar.inflateMenu(R.menu.main_menu);
+        baseBind.toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                if (item.getItemId() == R.id.action_1) {
+                    type = "CHANNEL_USK";
+                    return true;
+                } else if (item.getItemId() == R.id.action_2) {
+                    type = "CHANNEL_KR";
+                    return true;
+                } else if (item.getItemId() == R.id.action_3) {
+                    type = "CHANNEL_JP";
+                    return true;
+                } else if (item.getItemId() == R.id.action_4) {
+                    type = "CHANNEL_TH";
+                    return true;
+                } else if (item.getItemId() == R.id.action_5) {
+                    type = "CHANNEL_INDEX";
+                    return true;
+                } else if (item.getItemId() == R.id.action_6) {
+                    type = "CHANNEL_CHN";
+                    return true;
+                }
+                return false;
+            }
+        });
         baseBind.smartRefreshLayout.setEnableRefresh(true);
         baseBind.smartRefreshLayout.setEnableLoadMore(true);
         baseBind.smartRefreshLayout.setRefreshHeader(new MaterialHeader(mContext));
@@ -69,9 +87,9 @@ public class FragmentR extends BaseFragment<FragmentRBinding> {
                 .asClass(Page.class)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<Page>() {
+                .subscribe(new NullCtrl<Page>() {
                     @Override
-                    public void accept(Page rankResponse) {
+                    public void success(Page rankResponse) {
                         baseBind.viewPager.setAdapter(new FragmentPagerAdapter(getChildFragmentManager(), 0) {
                             @NonNull
                             @Override
@@ -103,12 +121,29 @@ public class FragmentR extends BaseFragment<FragmentRBinding> {
                         }
                         baseBind.smartRefreshLayout.finishRefresh(true);
                     }
-                }, new Consumer<Throwable>() {
+                }, new NullCtrl<Throwable>() {
                     @Override
-                    public void accept(Throwable throwable) throws Throwable {
+                    public void success(Throwable throwable) {
                         baseBind.smartRefreshLayout.finishRefresh(false);
                         throwable.printStackTrace();
                     }
                 });
+    }
+
+    private String getNameByType() {
+        if (type.equals("CHANNEL_USK")) {
+            return "美剧";
+        } else if (type.equals("CHANNEL_KR")) {
+            return "韩剧";
+        } else if (type.equals("CHANNEL_JP")) {
+            return "日剧";
+        } else if (type.equals("CHANNEL_TH")) {
+            return "泰剧";
+        } else if (type.equals("CHANNEL_INDEX")) {
+            return "精选";
+        } else if (type.equals("CHANNEL_CHN")) {
+            return "国产剧";
+        }
+        return "ReinForce";
     }
 }

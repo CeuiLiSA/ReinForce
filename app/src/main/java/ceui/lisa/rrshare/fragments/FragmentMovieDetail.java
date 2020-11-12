@@ -11,7 +11,9 @@ import ceui.lisa.rrshare.BottomView;
 import ceui.lisa.rrshare.TopView;
 import ceui.lisa.rrshare.adapters.EpisodeAdapter;
 import ceui.lisa.rrshare.databinding.FragmentMovieBinding;
+import ceui.lisa.rrshare.databinding.FragmentMovieDetailBinding;
 import ceui.lisa.rrshare.network.Net;
+import ceui.lisa.rrshare.network.NullCtrl;
 import ceui.lisa.rrshare.response.Content;
 import ceui.lisa.rrshare.response.Episode;
 import ceui.lisa.rrshare.response.Movie;
@@ -24,11 +26,11 @@ import io.reactivex.rxjava3.functions.Consumer;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 import rxhttp.RxHttp;
 
-public class FragmentMovieDetail extends BaseMovieFragment<FragmentMovieBinding> {
+public class FragmentMovieDetail extends BaseMovieFragment<FragmentMovieDetailBinding> {
 
     @Override
     protected void initLayout() {
-        mLayoutID = R.layout.fragment_movie;
+        mLayoutID = R.layout.fragment_movie_detail;
     }
 
     @Override
@@ -69,9 +71,9 @@ public class FragmentMovieDetail extends BaseMovieFragment<FragmentMovieBinding>
                 .asClass(Episode.class)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<Episode>() {
+                .subscribe(new NullCtrl<Episode>() {
                     @Override
-                    public void accept(Episode episode) throws Throwable {
+                    public void success(Episode episode) {
                         baseBind.episodeLl.setVisibility(View.VISIBLE);
                         baseBind.recyList.setAdapter(new EpisodeAdapter(episode.getData().getEpisodeList(), mContext));
                         baseBind.allEpisode.setText("查看全部" + episode.getData().getEpisodeList().size() + "集");
@@ -88,9 +90,9 @@ public class FragmentMovieDetail extends BaseMovieFragment<FragmentMovieBinding>
                 .asClass(Watch.class)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<Watch>() {
+                .subscribe(new NullCtrl<Watch>() {
                     @Override
-                    public void accept(Watch watch) throws Throwable {
+                    public void success(Watch watch) {
                         if ("DIRECT".equals(watch.getData().getM3u8().getParserType())) {
                             if (mActivity instanceof MovieActivity) {
                                 ((MovieActivity) mActivity).play(watch.getData().getM3u8().getUrl());
@@ -109,9 +111,9 @@ public class FragmentMovieDetail extends BaseMovieFragment<FragmentMovieBinding>
                 .asClass(Watch.class)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<Watch>() {
+                .subscribe(new NullCtrl<Watch>() {
                     @Override
-                    public void accept(Watch watch) throws Throwable {
+                    public void success(Watch watch) {
                         if ("DIRECT".equals(watch.getData().getM3u8().getParserType())) {
                             if (mActivity instanceof MovieActivity) {
                                 ((MovieActivity) mActivity).play(watch.getData().getM3u8().getUrl());
@@ -131,9 +133,9 @@ public class FragmentMovieDetail extends BaseMovieFragment<FragmentMovieBinding>
             .asClass(Movie.class)
             .subscribeOn(Schedulers.newThread())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(new Consumer<Movie>() {
+            .subscribe(new NullCtrl<Movie>() {
                 @Override
-                public void accept(Movie movie) throws Throwable {
+                public void success(Movie movie) {
                     TopView topView = new TopView(mContext);
                     topView.bindContent(movie.getData().getRecommendVideoList());
                     baseBind.createLinear.addView(topView);
@@ -153,9 +155,9 @@ public class FragmentMovieDetail extends BaseMovieFragment<FragmentMovieBinding>
                 .asClass(Movie.class)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<Movie>() {
+                .subscribe(new NullCtrl<Movie>() {
                     @Override
-                    public void accept(Movie movie) throws Throwable {
+                    public void success(Movie movie) {
                         if (!Common.isEmpty(movie.getData().getRecommendVideoList())) {
                             TopView topView = new TopView(mContext);
                             topView.bindContent(movie.getData().getRecommendVideoList());

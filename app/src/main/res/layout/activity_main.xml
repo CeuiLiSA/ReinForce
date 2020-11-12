@@ -6,30 +6,28 @@
 
     </data>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:orientation="vertical"
         android:layout_height="match_parent">
 
-        <androidx.appcompat.widget.Toolbar
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/view_pager"
             android:layout_width="match_parent"
-            android:id="@+id/toolbar"
-            android:theme="@style/AppTheme.AppBarOverlay"
-            app:popupTheme="@style/AppTheme.PopupOverlay"
-            app:titleTextColor="@color/white"
-            android:background="@color/design_default_color_primary"
-            android:layout_height="wrap_content">
-
-        </androidx.appcompat.widget.Toolbar>
-
-        <FrameLayout
-            android:id="@+id/fragment_container"
-            android:layout_width="match_parent"
+            android:layout_above="@+id/bottom"
             android:layout_height="match_parent">
 
-        </FrameLayout>
+        </androidx.viewpager.widget.ViewPager>
 
-    </LinearLayout>
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:layout_width="match_parent"
+            android:id="@+id/bottom"
+            android:layout_alignParentBottom="true"
+            app:menu="@menu/main_activity_menu"
+            android:layout_height="wrap_content">
+
+        </com.google.android.material.bottomnavigation.BottomNavigationView>
+
+    </RelativeLayout>
 
 
 </layout>

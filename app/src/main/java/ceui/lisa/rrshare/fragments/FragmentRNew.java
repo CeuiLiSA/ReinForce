@@ -26,6 +26,7 @@ import ceui.lisa.rrshare.adapters.PartAdapter;
 import ceui.lisa.rrshare.databinding.FragmentRBinding;
 import ceui.lisa.rrshare.databinding.FragmentRNewBinding;
 import ceui.lisa.rrshare.network.Net;
+import ceui.lisa.rrshare.network.NullCtrl;
 import ceui.lisa.rrshare.response.Page;
 import ceui.lisa.rrshare.response.Section;
 import ceui.lisa.rrshare.utils.Common;
@@ -103,9 +104,9 @@ public class FragmentRNew extends BaseFragment<FragmentRNewBinding> {
                 .asClass(Page.class)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<Page>() {
+                .subscribe(new NullCtrl<Page>() {
                     @Override
-                    public void accept(Page rankResponse) {
+                    public void success(Page rankResponse) {
                         page = rankResponse;
                         baseBind.viewPager.setAdapter(new FragmentPagerAdapter(getChildFragmentManager(), 0) {
                             @NonNull
@@ -130,9 +131,9 @@ public class FragmentRNew extends BaseFragment<FragmentRNewBinding> {
                         baseBind.smartRefreshLayout.finishRefresh(true);
                         nowPage++;
                     }
-                }, new Consumer<Throwable>() {
+                }, new NullCtrl<Throwable>() {
                     @Override
-                    public void accept(Throwable throwable) throws Throwable {
+                    public void success(Throwable throwable) {
                         baseBind.smartRefreshLayout.finishRefresh(false);
                         throwable.printStackTrace();
                     }
