@@ -1,4 +1,4 @@
-package ceui.lisa.rrshare;
+package ceui.lisa.rrshare.view;
 
 import android.content.Context;
 import android.content.Intent;
@@ -13,6 +13,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.google.android.material.tabs.TabLayout;
 
+import ceui.lisa.rrshare.MovieActivity;
+import ceui.lisa.rrshare.R;
 import ceui.lisa.rrshare.adapters.OnItemClickListener;
 import ceui.lisa.rrshare.adapters.SimpleAdapter;
 import ceui.lisa.rrshare.databinding.RecyTabBinding;
@@ -20,6 +22,7 @@ import ceui.lisa.rrshare.response.Content;
 import ceui.lisa.rrshare.response.Section;
 import ceui.lisa.rrshare.utils.DensityUtil;
 import ceui.lisa.rrshare.utils.LinearItemDecorationHorizon;
+import ceui.lisa.rrshare.view.ItemView;
 
 public class TabItem extends ItemView {
 

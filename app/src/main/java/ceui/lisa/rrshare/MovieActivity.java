@@ -17,6 +17,7 @@ import com.shuyu.gsyvideoplayer.listener.LockClickListener;
 import com.shuyu.gsyvideoplayer.utils.OrientationUtils;
 
 import ceui.lisa.rrshare.databinding.ActivityMovieBinding;
+import ceui.lisa.rrshare.fragments.BaseFragment;
 import ceui.lisa.rrshare.fragments.FragmentChat;
 import ceui.lisa.rrshare.fragments.FragmentComment;
 import ceui.lisa.rrshare.fragments.FragmentMovieDetail;
@@ -49,6 +50,12 @@ public class MovieActivity extends BaseActivity<ActivityMovieBinding> {
 
     @Override
     protected void initView() {
+        baseBind.detailPlayer.setBackCallBack(new CallBack() {
+            @Override
+            public void callBack() {
+                finish();
+            }
+        });
         //外部辅助的旋转，帮助全屏
         orientationUtils = new OrientationUtils(this, baseBind.detailPlayer);
         //初始化不打开外部的旋转

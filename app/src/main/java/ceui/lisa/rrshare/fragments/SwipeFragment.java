@@ -12,8 +12,6 @@ import com.scwang.smart.refresh.header.FalsifyHeader;
 import com.scwang.smart.refresh.layout.SmartRefreshLayout;
 import com.scwang.smart.refresh.layout.api.RefreshHeader;
 
-import ceui.lisa.rrshare.BaseFragment;
-
 
 public abstract class SwipeFragment<T extends ViewDataBinding>
         extends BaseFragment<T> implements Swipe {

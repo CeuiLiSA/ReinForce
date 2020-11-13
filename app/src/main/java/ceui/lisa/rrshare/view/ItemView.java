@@ -1,4 +1,4 @@
-package ceui.lisa.rrshare;
+package ceui.lisa.rrshare.view;
 
 import android.content.Context;
 import android.content.Intent;
@@ -18,6 +18,8 @@ import com.scwang.smart.refresh.header.MaterialHeader;
 import com.scwang.smart.refresh.layout.api.RefreshLayout;
 import com.scwang.smart.refresh.layout.wrapper.RefreshFooterWrapper;
 
+import ceui.lisa.rrshare.MovieActivity;
+import ceui.lisa.rrshare.R;
 import ceui.lisa.rrshare.adapters.InfoAdapter;
 import ceui.lisa.rrshare.adapters.NewInfoAdapter;
 import ceui.lisa.rrshare.adapters.OnItemClickListener;

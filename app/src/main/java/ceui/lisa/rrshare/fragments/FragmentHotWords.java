@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.GridLayoutManager;
 
 import com.scwang.smart.refresh.layout.SmartRefreshLayout;
 
-import ceui.lisa.rrshare.BaseFragment;
 import ceui.lisa.rrshare.R;
 import ceui.lisa.rrshare.adapters.HotWordAdapter;
 import ceui.lisa.rrshare.databinding.FragmentHotWordsBinding;

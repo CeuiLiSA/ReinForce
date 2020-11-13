@@ -1,31 +1,22 @@
 package ceui.lisa.rrshare.fragments;
 
-import android.os.Looper;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.scwang.smart.refresh.footer.ClassicsFooter;
-import com.scwang.smart.refresh.header.ClassicsHeader;
 import com.scwang.smart.refresh.header.MaterialHeader;
-import com.scwang.smart.refresh.header.TwoLevelHeader;
 import com.scwang.smart.refresh.layout.api.RefreshLayout;
 import com.scwang.smart.refresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smart.refresh.layout.listener.OnRefreshListener;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import ceui.lisa.rrshare.BaseFragment;
-import ceui.lisa.rrshare.ItemView;
+import ceui.lisa.rrshare.view.ItemView;
 import ceui.lisa.rrshare.R;
-import ceui.lisa.rrshare.TabItem;
-import ceui.lisa.rrshare.databinding.FragmentMovieBinding;
+import ceui.lisa.rrshare.view.TabItem;
 import ceui.lisa.rrshare.databinding.FragmentRBinding;
 import ceui.lisa.rrshare.network.Net;
 import ceui.lisa.rrshare.network.NullCtrl;
@@ -36,12 +27,11 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 import rxhttp.RxHttp;
 
-public class FragmentMovie extends BaseFragment<FragmentRBinding> {
+public class FragmentMovie extends BaseLazyFragment<FragmentRBinding> {
 
     protected String type = "CHANNEL_MOVIE";
     protected Page mPage;
     protected int nowPage = 1;
-    protected boolean isLoaded;
 
     @Override
     protected void initLayout() {
@@ -68,21 +58,10 @@ public class FragmentMovie extends BaseFragment<FragmentRBinding> {
         baseBind.smartRefreshLayout.setRefreshFooter(new ClassicsFooter(mContext));
     }
 
-    public void lazyData() {
-        Common.showLog("setUserVisibleHint lazyData " + className);
-        baseBind.smartRefreshLayout.autoRefresh();
-        isLoaded = true;
-    }
-
     @Override
-    protected void initData() {
-        if (forceLoad()) {
-            lazyData();
-        }
-    }
-
-    public boolean forceLoad() {
-        return false;
+    public void lazyData() {
+        super.lazyData();
+        baseBind.smartRefreshLayout.autoRefresh();
     }
 
     public void fetch() {
@@ -150,14 +129,6 @@ public class FragmentMovie extends BaseFragment<FragmentRBinding> {
             baseBind.smartRefreshLayout.finishRefresh(true);
         } else {
             baseBind.smartRefreshLayout.finishLoadMore(true);
-        }
-    }
-
-    @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-        if (isVisibleToUser && !isLoaded && isAdded() && viewCreated) {
-            lazyData();
         }
     }
 }

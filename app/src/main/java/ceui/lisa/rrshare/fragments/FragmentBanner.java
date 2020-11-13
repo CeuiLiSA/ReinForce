@@ -4,7 +4,6 @@ import android.os.Bundle;
 
 import com.bumptech.glide.Glide;
 
-import ceui.lisa.rrshare.BaseFragment;
 import ceui.lisa.rrshare.R;
 import ceui.lisa.rrshare.databinding.FragmentBannerBinding;
 import ceui.lisa.rrshare.response.Banner;

@@ -25,6 +25,7 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".PlayActivity" />
         <activity android:name=".SearchActivity" />
+        <activity android:name=".SearchResultActivity" />
     </application>
 
 </manifest>

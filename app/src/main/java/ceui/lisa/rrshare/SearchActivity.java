@@ -1,5 +1,9 @@
 package ceui.lisa.rrshare;
 
+import android.content.Intent;
+import android.text.TextUtils;
+import android.view.View;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -30,6 +34,16 @@ public class SearchActivity extends BaseActivity<ActivitySearchBinding> {
     @Override
     protected void initView() {
         baseBind.tabLayout.setupWithViewPager(baseBind.viewPager);
+        baseBind.more.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!TextUtils.isEmpty(baseBind.inputBox.getText().toString())) {
+                    Intent intent = new Intent(mContext, SearchResultActivity.class);
+                    intent.putExtra("keyword", baseBind.inputBox.getText().toString());
+                    startActivity(intent);
+                }
+            }
+        });
     }
 
     @Override

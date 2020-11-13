@@ -7,8 +7,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import ceui.lisa.rrshare.MovieActivity;
 import ceui.lisa.rrshare.R;
-import ceui.lisa.rrshare.BottomView;
-import ceui.lisa.rrshare.TopView;
+import ceui.lisa.rrshare.view.BottomView;
+import ceui.lisa.rrshare.view.TopView;
 import ceui.lisa.rrshare.adapters.EpisodeAdapter;
 import ceui.lisa.rrshare.databinding.FragmentMovieDetailBinding;
 import ceui.lisa.rrshare.network.Net;

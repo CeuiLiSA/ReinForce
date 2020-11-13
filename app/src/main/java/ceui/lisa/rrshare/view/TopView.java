@@ -1,4 +1,4 @@
-package ceui.lisa.rrshare;
+package ceui.lisa.rrshare.view;
 
 import android.content.Context;
 import android.content.Intent;
@@ -15,6 +15,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import java.util.ArrayList;
 import java.util.List;
 
+import ceui.lisa.rrshare.MovieActivity;
+import ceui.lisa.rrshare.R;
 import ceui.lisa.rrshare.adapters.InfoAdapter;
 import ceui.lisa.rrshare.adapters.OnItemClickListener;
 import ceui.lisa.rrshare.databinding.RecyPageBinding;

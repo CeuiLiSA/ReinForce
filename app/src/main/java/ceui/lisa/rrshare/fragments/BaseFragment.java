@@ -1,4 +1,4 @@
-package ceui.lisa.rrshare;
+package ceui.lisa.rrshare.fragments;
 
 import android.content.Context;
 import android.content.Intent;
@@ -29,7 +29,6 @@ public abstract class BaseFragment<Layout extends ViewDataBinding> extends Fragm
     protected FragmentActivity mActivity;
     protected Context mContext;
     private boolean isVertical;
-    protected Handler mHandler;
     protected boolean viewCreated;
 
     public BaseFragment() {
@@ -43,7 +42,6 @@ public abstract class BaseFragment<Layout extends ViewDataBinding> extends Fragm
             mActivity = requireActivity();
             mContext = requireContext();
 
-            mHandler = new Handler();
 
             Bundle bundle = getArguments();
             if (bundle != null) {

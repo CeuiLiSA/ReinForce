@@ -1,38 +1,11 @@
 package ceui.lisa.rrshare.fragments;
 
-import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentPagerAdapter;
 
-import com.scwang.smart.refresh.footer.ClassicsFooter;
-import com.scwang.smart.refresh.header.FalsifyFooter;
-import com.scwang.smart.refresh.header.MaterialHeader;
-import com.scwang.smart.refresh.layout.api.RefreshLayout;
-import com.scwang.smart.refresh.layout.listener.OnLoadMoreListener;
-import com.scwang.smart.refresh.layout.listener.OnRefreshListener;
-
-import java.util.List;
-
-import ceui.lisa.rrshare.BaseFragment;
-import ceui.lisa.rrshare.ItemView;
 import ceui.lisa.rrshare.R;
-import ceui.lisa.rrshare.TabItem;
-import ceui.lisa.rrshare.databinding.FragmentRBinding;
-import ceui.lisa.rrshare.network.Net;
-import ceui.lisa.rrshare.network.NullCtrl;
-import ceui.lisa.rrshare.response.Page;
-import ceui.lisa.rrshare.response.Section;
-import ceui.lisa.rrshare.utils.Common;
-import ceui.lisa.rrshare.viewmodel.PageModel;
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
-import io.reactivex.rxjava3.functions.Consumer;
-import io.reactivex.rxjava3.schedulers.Schedulers;
-import rxhttp.RxHttp;
 
 public class FragmentR extends FragmentMovie {
 
@@ -73,7 +46,7 @@ public class FragmentR extends FragmentMovie {
 
     @Override
     public boolean forceLoad() {
-        return true;
+        return false;
     }
 
     private String getNameByType() {
