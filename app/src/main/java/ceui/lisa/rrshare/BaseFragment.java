@@ -30,6 +30,7 @@ public abstract class BaseFragment<Layout extends ViewDataBinding> extends Fragm
     protected Context mContext;
     private boolean isVertical;
     protected Handler mHandler;
+    protected boolean viewCreated;
 
     public BaseFragment() {
         Log.d(className, " newInstance");
@@ -109,6 +110,7 @@ public abstract class BaseFragment<Layout extends ViewDataBinding> extends Fragm
             } else {
                 horizon();
             }
+            viewCreated = true;
         } catch (Exception e) {
             e.printStackTrace();
         }

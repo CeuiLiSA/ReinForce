@@ -21,7 +21,7 @@ public abstract class BaseAdapter<Item, BindView extends ViewDataBinding> extend
 
     protected List<Item> allIllust;
     protected Context mContext;
-    protected int mLayoutID = -1;
+    protected int mLayoutID;
     protected OnItemClickListener mOnItemClickListener;
 
     public BaseAdapter(@Nullable List<Item> targetList, Context context) {
@@ -83,12 +83,5 @@ public abstract class BaseAdapter<Item, BindView extends ViewDataBinding> extend
         final int size = allIllust.size();
         allIllust.clear();
         notifyItemRangeRemoved(0, size);
-    }
-
-    public Item getItemAt(int index) {
-        if (index < allIllust.size()) {
-            return allIllust.get(index);
-        }
-        return null;
     }
 }
