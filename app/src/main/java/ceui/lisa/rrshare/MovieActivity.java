@@ -21,7 +21,6 @@ import ceui.lisa.rrshare.fragments.FragmentChat;
 import ceui.lisa.rrshare.fragments.FragmentComment;
 import ceui.lisa.rrshare.fragments.FragmentMovieDetail;
 import ceui.lisa.rrshare.response.Content;
-import ceui.lisa.rrshare.utils.Common;
 import ceui.lisa.rrshare.viewmodel.MovieModel;
 
 public class MovieActivity extends BaseActivity<ActivityMovieBinding> {
@@ -68,17 +67,12 @@ public class MovieActivity extends BaseActivity<ActivityMovieBinding> {
 
 
 
-//        baseBind.left.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//            }
-//        });
 
         if ("相关视频".equals(mContent.getFrom())) {
-            String[] titles = new String[]{"详情"};
+            String[] titles = new String[]{"详情", "讨论"};
             BaseFragment<?>[] fragments = new BaseFragment<?>[]{
                     new FragmentMovieDetail(),
+                    new FragmentComment(),
             };
             baseBind.viewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager(), 0) {
                 @NonNull

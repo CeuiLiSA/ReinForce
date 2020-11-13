@@ -11,11 +11,10 @@ import java.util.List;
 import ceui.lisa.rrshare.R;
 import ceui.lisa.rrshare.databinding.RecyInfoBinding;
 import ceui.lisa.rrshare.response.Content;
-import ceui.lisa.rrshare.response.ContentHolder;
 
-public class NewInfoAdapter extends BaseAdapter<ContentHolder, RecyInfoBinding>{
+public class NewInfoAdapter extends BaseAdapter<Content, RecyInfoBinding>{
 
-    public NewInfoAdapter(@Nullable List<ContentHolder> targetList, Context context) {
+    public NewInfoAdapter(@Nullable List<Content> targetList, Context context) {
         super(targetList, context);
     }
 
@@ -25,7 +24,7 @@ public class NewInfoAdapter extends BaseAdapter<ContentHolder, RecyInfoBinding>{
     }
 
     @Override
-    public void bindData(ContentHolder target, ViewHolder<RecyInfoBinding> bindView, int position) {
+    public void bindData(Content target, ViewHolder<RecyInfoBinding> bindView, int position) {
         Glide.with(mContext).load(target.getCover()).into(bindView.baseBind.imageView);
         bindView.baseBind.title.setText(target.getTitle());
         bindView.baseBind.auther.setText(target.getAuthor().getName());

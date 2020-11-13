@@ -10,7 +10,6 @@ import ceui.lisa.rrshare.R;
 import ceui.lisa.rrshare.BottomView;
 import ceui.lisa.rrshare.TopView;
 import ceui.lisa.rrshare.adapters.EpisodeAdapter;
-import ceui.lisa.rrshare.databinding.FragmentMovieBinding;
 import ceui.lisa.rrshare.databinding.FragmentMovieDetailBinding;
 import ceui.lisa.rrshare.network.Net;
 import ceui.lisa.rrshare.network.NullCtrl;
@@ -22,7 +21,6 @@ import ceui.lisa.rrshare.utils.Common;
 import ceui.lisa.rrshare.utils.DensityUtil;
 import ceui.lisa.rrshare.utils.LinearItemDecorationHorizon;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
-import io.reactivex.rxjava3.functions.Consumer;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 import rxhttp.RxHttp;
 
@@ -49,7 +47,6 @@ public class FragmentMovieDetail extends BaseMovieFragment<FragmentMovieDetailBi
             public void onChanged(Content content) {
                 if (content != null) {
                     Common.showLog("view model " + className + "收到了" + content.getTitle());
-
                     if ("相关视频".equals(content.getFrom())) {
                         getPlayUrl(content.getId());
                         getVideoDetail(content.getId());
@@ -136,13 +133,17 @@ public class FragmentMovieDetail extends BaseMovieFragment<FragmentMovieDetailBi
             .subscribe(new NullCtrl<Movie>() {
                 @Override
                 public void success(Movie movie) {
-                    TopView topView = new TopView(mContext);
-                    topView.bindContent(movie.getData().getRecommendVideoList());
-                    baseBind.createLinear.addView(topView);
+                    if (!Common.isEmpty(movie.getData().getRecommendVideoList())) {
+                        TopView topView = new TopView(mContext);
+                        topView.bindContent(movie.getData().getRecommendVideoList());
+                        baseBind.createLinear.addView(topView);
+                    }
 
-                    BottomView bottomView = new BottomView(mContext);
-                    bottomView.bindContent(movie.getData().getRecommendForYou());
-                    baseBind.createLinear.addView(bottomView);
+                    if (!Common.isEmpty(movie.getData().getRecommendForYou())) {
+                        BottomView bottomView = new BottomView(mContext);
+                        bottomView.bindContent(movie.getData().getRecommendForYou());
+                        baseBind.createLinear.addView(bottomView);
+                    }
                 }
             });
     }

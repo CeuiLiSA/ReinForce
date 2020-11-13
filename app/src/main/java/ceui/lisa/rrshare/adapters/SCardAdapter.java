@@ -10,11 +10,11 @@ import java.util.List;
 
 import ceui.lisa.rrshare.R;
 import ceui.lisa.rrshare.databinding.RecyScardBinding;
-import ceui.lisa.rrshare.response.ContentHolder;
+import ceui.lisa.rrshare.response.Content;
 
-public class SCardAdapter extends BaseAdapter<ContentHolder, RecyScardBinding> {
+public class SCardAdapter extends BaseAdapter<Content, RecyScardBinding> {
 
-    public SCardAdapter(@Nullable List<ContentHolder> targetList, Context context) {
+    public SCardAdapter(@Nullable List<Content> targetList, Context context) {
         super(targetList, context);
     }
 
@@ -24,7 +24,7 @@ public class SCardAdapter extends BaseAdapter<ContentHolder, RecyScardBinding> {
     }
 
     @Override
-    public void bindData(ContentHolder target, ViewHolder<RecyScardBinding> bindView, int position) {
+    public void bindData(Content target, ViewHolder<RecyScardBinding> bindView, int position) {
         bindView.baseBind.desc.setText(target.getSubTitle());
         if (target.getTitle().contains("第")) {
             bindView.baseBind.title.setText(target.getTitle().split("第")[0]);

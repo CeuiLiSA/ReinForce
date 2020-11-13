@@ -3,28 +3,15 @@ package ceui.lisa.rrshare.fragments;
 import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import java.util.HashMap;
 import java.util.Map;
 
-import ceui.lisa.rrshare.BottomView;
 import ceui.lisa.rrshare.R;
-import ceui.lisa.rrshare.TopView;
 import ceui.lisa.rrshare.adapters.CommentAdapter;
 import ceui.lisa.rrshare.databinding.FragmentCommentBinding;
 import ceui.lisa.rrshare.network.BaseRequest;
-import ceui.lisa.rrshare.network.Net;
-import ceui.lisa.rrshare.network.NullCtrl;
 import ceui.lisa.rrshare.response.Comment;
 import ceui.lisa.rrshare.response.Content;
-import ceui.lisa.rrshare.response.Movie;
 import ceui.lisa.rrshare.utils.Common;
-import ceui.lisa.rrshare.utils.DensityUtil;
-import ceui.lisa.rrshare.utils.LinearItemDecoration;
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
-import io.reactivex.rxjava3.functions.Consumer;
-import io.reactivex.rxjava3.schedulers.Schedulers;
-import rxhttp.RxHttp;
-import rxhttp.RxHttpNoBodyParam;
 
 public class FragmentComment extends BaseMovieFragment<FragmentCommentBinding> {
 
@@ -71,7 +58,7 @@ public class FragmentComment extends BaseMovieFragment<FragmentCommentBinding> {
             @Override
             public void addData(Map<String, Object> map) {
                 map.put("page", 1);
-                map.put("type", "SEASON");
+                map.put("type", "相关视频".equals(model.getMovie().getValue().getFrom()) ? "VIDEO" : "SEASON");
                 map.put("typeId", id);
             }
         }.run();

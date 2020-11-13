@@ -8,8 +8,6 @@ import java.util.List;
 
 import ceui.lisa.rrshare.R;
 import ceui.lisa.rrshare.databinding.RecyEpisodeBinding;
-import ceui.lisa.rrshare.databinding.RecyInfoBinding;
-import ceui.lisa.rrshare.response.ContentHolder;
 import ceui.lisa.rrshare.response.EpisodeItem;
 
 public class EpisodeAdapter extends BaseAdapter<EpisodeItem, RecyEpisodeBinding>{

@@ -11,7 +11,6 @@ import java.util.List;
 import ceui.lisa.rrshare.R;
 import ceui.lisa.rrshare.databinding.RecyInfoBinding;
 import ceui.lisa.rrshare.response.Content;
-import ceui.lisa.rrshare.response.ContentHolder;
 
 public class InfoAdapter extends BaseAdapter<Content, RecyInfoBinding>{
 

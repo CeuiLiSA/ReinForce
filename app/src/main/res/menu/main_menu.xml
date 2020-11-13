@@ -3,31 +3,31 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/action_5"
+        android:id="@+id/action_1"
         android:orderInCategory="100"
         android:title="精选"
         app:showAsAction="never" />
 
     <item
-        android:id="@+id/action_1"
+        android:id="@+id/action_2"
         android:orderInCategory="100"
         android:title="美剧"
         app:showAsAction="never" />
 
     <item
-        android:id="@+id/action_2"
+        android:id="@+id/action_3"
         android:orderInCategory="100"
         android:title="韩剧"
         app:showAsAction="never" />
 
     <item
-        android:id="@+id/action_3"
+        android:id="@+id/action_4"
         android:orderInCategory="100"
         android:title="日剧"
         app:showAsAction="never" />
 
     <item
-        android:id="@+id/action_4"
+        android:id="@+id/action_5"
         android:orderInCategory="100"
         android:title="泰剧"
         app:showAsAction="never" />

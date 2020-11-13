@@ -46,24 +46,19 @@ public class FragmentR extends BaseFragment<FragmentRBinding> {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 if (item.getItemId() == R.id.action_1) {
-                    type = "CHANNEL_USK";
-                    return true;
-                } else if (item.getItemId() == R.id.action_2) {
-                    type = "CHANNEL_KR";
-                    return true;
-                } else if (item.getItemId() == R.id.action_3) {
-                    type = "CHANNEL_JP";
-                    return true;
-                } else if (item.getItemId() == R.id.action_4) {
-                    type = "CHANNEL_TH";
-                    return true;
-                } else if (item.getItemId() == R.id.action_5) {
                     type = "CHANNEL_INDEX";
-                    return true;
+                } else if (item.getItemId() == R.id.action_2) {
+                    type = "CHANNEL_USK";
+                } else if (item.getItemId() == R.id.action_3) {
+                    type = "CHANNEL_KR";
+                } else if (item.getItemId() == R.id.action_4) {
+                    type = "CHANNEL_JP";
+                } else if (item.getItemId() == R.id.action_5) {
+                    type = "CHANNEL_TH";
                 } else if (item.getItemId() == R.id.action_6) {
                     type = "CHANNEL_CHN";
-                    return true;
                 }
+                fetch();
                 return false;
             }
         });
@@ -81,6 +76,7 @@ public class FragmentR extends BaseFragment<FragmentRBinding> {
     }
 
     private void fetch() {
+        baseBind.toolbar.setTitle(getNameByType());
         RxHttp.get("https://api.rr.tv/v3plus/index/channel")
                 .addAllHeader(Net.header())
                 .add("position", type)
@@ -103,6 +99,11 @@ public class FragmentR extends BaseFragment<FragmentRBinding> {
                             public int getCount() {
                                 return rankResponse.getData().getBannerTop().size();
                             }
+
+                            @Override
+                            public long getItemId(int position) {
+                                return rankResponse.getData().getBannerTop().get(position).getId();
+                            }
                         });
                         baseBind.bannerCard.setVisibility(View.VISIBLE);
                         baseBind.createLinear.removeAllViews();
@@ -121,27 +122,21 @@ public class FragmentR extends BaseFragment<FragmentRBinding> {
                         }
                         baseBind.smartRefreshLayout.finishRefresh(true);
                     }
-                }, new NullCtrl<Throwable>() {
-                    @Override
-                    public void success(Throwable throwable) {
-                        baseBind.smartRefreshLayout.finishRefresh(false);
-                        throwable.printStackTrace();
-                    }
                 });
     }
 
     private String getNameByType() {
-        if (type.equals("CHANNEL_USK")) {
-            return "美剧";
-        } else if (type.equals("CHANNEL_KR")) {
-            return "韩剧";
-        } else if (type.equals("CHANNEL_JP")) {
-            return "日剧";
-        } else if (type.equals("CHANNEL_TH")) {
-            return "泰剧";
-        } else if (type.equals("CHANNEL_INDEX")) {
+        if ("CHANNEL_INDEX".equals(type)) {
             return "精选";
-        } else if (type.equals("CHANNEL_CHN")) {
+        } else if ("CHANNEL_USK".equals(type)) {
+            return "美剧";
+        } else if ("CHANNEL_KR".equals(type)) {
+            return "韩剧";
+        } else if ("CHANNEL_JP".equals(type)) {
+            return "日剧";
+        } else if ("CHANNEL_TH".equals(type)) {
+            return "泰剧";
+        } else if ("CHANNEL_CHN".equals(type)) {
             return "国产剧";
         }
         return "ReinForce";

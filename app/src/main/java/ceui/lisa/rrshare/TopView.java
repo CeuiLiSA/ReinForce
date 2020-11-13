@@ -17,15 +17,10 @@ import java.util.List;
 
 import ceui.lisa.rrshare.adapters.InfoAdapter;
 import ceui.lisa.rrshare.adapters.OnItemClickListener;
-import ceui.lisa.rrshare.adapters.SCardAdapter;
-import ceui.lisa.rrshare.adapters.SimpleAdapter;
 import ceui.lisa.rrshare.databinding.RecyPageBinding;
 import ceui.lisa.rrshare.response.Content;
-import ceui.lisa.rrshare.response.Section;
-import ceui.lisa.rrshare.utils.Common;
 import ceui.lisa.rrshare.utils.DensityUtil;
 import ceui.lisa.rrshare.utils.LinearItemDecoration;
-import ceui.lisa.rrshare.utils.LinearItemDecorationHorizon;
 
 public class TopView extends FrameLayout {
 

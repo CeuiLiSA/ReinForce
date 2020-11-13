@@ -3,7 +3,6 @@ package ceui.lisa.rrshare.viewmodel;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import ceui.lisa.rrshare.response.Content;
 import ceui.lisa.rrshare.response.Hot;
 
 public class SearchModel extends ViewModel {

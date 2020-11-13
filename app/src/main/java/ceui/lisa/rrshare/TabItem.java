@@ -13,17 +13,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.google.android.material.tabs.TabLayout;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import ceui.lisa.rrshare.adapters.OnItemClickListener;
 import ceui.lisa.rrshare.adapters.SimpleAdapter;
-import ceui.lisa.rrshare.databinding.RecyPageBinding;
 import ceui.lisa.rrshare.databinding.RecyTabBinding;
-import ceui.lisa.rrshare.response.ContentHolder;
+import ceui.lisa.rrshare.response.Content;
 import ceui.lisa.rrshare.response.Section;
 import ceui.lisa.rrshare.utils.DensityUtil;
-import ceui.lisa.rrshare.utils.LinearItemDecoration;
 import ceui.lisa.rrshare.utils.LinearItemDecorationHorizon;
 
 public class TabItem extends ItemView {
@@ -48,17 +43,17 @@ public class TabItem extends ItemView {
 
     @Override
     public void bindSection(Section section) {
-        for (ContentHolder contentHolder : section.getContent()) {
+        for (Content content : section.getContent()) {
             TabLayout.Tab tab = baseBind.tabLayout.newTab();
-            tab.setText(contentHolder.getName());
-            tab.setTag(contentHolder);
+            tab.setText(content.getName());
+            tab.setTag(content);
             baseBind.tabLayout.addTab(tab);
         }
         baseBind.tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                if (tab.getTag() instanceof ContentHolder) {
-                    ContentHolder holder = (ContentHolder) tab.getTag();
+                if (tab.getTag() instanceof Content) {
+                    Content holder = (Content) tab.getTag();
                     SimpleAdapter adapter = new SimpleAdapter(holder.getDataList(), mContext);
                     adapter.setOnItemClickListener(new OnItemClickListener() {
                         @Override

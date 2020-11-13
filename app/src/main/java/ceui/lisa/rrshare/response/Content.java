@@ -1,42 +1,34 @@
 package ceui.lisa.rrshare.response;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class Content implements Serializable {
 
-    /**
-     * id : 33030
-     * cover : http://img.rr.tv/seasonCover/20201016/o_1602843858453.png
-     * title : 良医  第四季
-     * feeMode : free
-     * isMovie : false
-     * subTitle : 小天使抗疫
-     * cornerMarkId : null
-     * expiredTime : null
-     * score : 8.5
-     * sneakPeekVideoId : null
-     */
-
     private int id;
+    private int commentCount;
+    private String name;
+    private List<Content> dataList;
+    private Auth author;
     private String cover;
+    private String createTimeStr;
     private String title;
     private String feeMode;
     private boolean isMovie;
     private String subTitle;
-    private double score;
+    private String seasonType;
+    private Object sneakPeekVideoId;
+    private String year;
+    private String cat;
+    private String area;
+    private String score;
+    private int upInfo;
+    private String status;
+    private List<String> tags;
     private int viewCount;
     private String duration;
     private String brief;
-    private Auth author;
     private String from;
-
-    public String getFrom() {
-        return from;
-    }
-
-    public void setFrom(String from) {
-        this.from = from;
-    }
 
     public boolean isMovie() {
         return isMovie;
@@ -70,20 +62,12 @@ public class Content implements Serializable {
         this.brief = brief;
     }
 
-    public Auth getAuthor() {
-        return author;
+    public String getFrom() {
+        return from;
     }
 
-    public void setAuthor(Auth author) {
-        this.author = author;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
+    public void setFrom(String from) {
+        this.from = from;
     }
 
     public String getCover() {
@@ -126,13 +110,131 @@ public class Content implements Serializable {
         this.subTitle = subTitle;
     }
 
+    public String getSeasonType() {
+        return seasonType;
+    }
 
-    public double getScore() {
+    public void setSeasonType(String seasonType) {
+        this.seasonType = seasonType;
+    }
+
+    public Object getSneakPeekVideoId() {
+        return sneakPeekVideoId;
+    }
+
+    public void setSneakPeekVideoId(Object sneakPeekVideoId) {
+        this.sneakPeekVideoId = sneakPeekVideoId;
+    }
+
+    public String getYear() {
+        return year;
+    }
+
+    public void setYear(String year) {
+        this.year = year;
+    }
+
+    public String getCat() {
+        return cat;
+    }
+
+    public void setCat(String cat) {
+        this.cat = cat;
+    }
+
+    public String getArea() {
+        return area;
+    }
+
+    public void setArea(String area) {
+        this.area = area;
+    }
+
+    public String getScore() {
         return score;
     }
 
-    public void setScore(double score) {
+    public void setScore(String score) {
         this.score = score;
     }
-}
 
+    public int getUpInfo() {
+        return upInfo;
+    }
+
+    public void setUpInfo(int upInfo) {
+        this.upInfo = upInfo;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public List<String> getTags() {
+        return tags;
+    }
+
+    public void setTags(List<String> tags) {
+        this.tags = tags;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public List<Content> getDataList() {
+        return dataList;
+    }
+
+    public void setDataList(List<Content> dataList) {
+        this.dataList = dataList;
+    }
+
+    public Boolean getMovie() {
+        return isMovie;
+    }
+
+    public void setMovie(Boolean movie) {
+        isMovie = movie;
+    }
+
+    public int getCommentCount() {
+        return commentCount;
+    }
+
+    public void setCommentCount(int commentCount) {
+        this.commentCount = commentCount;
+    }
+
+    public Auth getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(Auth author) {
+        this.author = author;
+    }
+
+    public String getCreateTimeStr() {
+        return createTimeStr;
+    }
+
+    public void setCreateTimeStr(String createTimeStr) {
+        this.createTimeStr = createTimeStr;
+    }
+}

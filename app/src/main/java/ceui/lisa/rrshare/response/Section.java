@@ -13,7 +13,7 @@ public class Section {
     private String moreTarget;
     private String display;
     private String titleImg;
-    private List<ContentHolder> content;
+    private List<Content> content;
 
     public int getId() {
         return id;
@@ -87,11 +87,11 @@ public class Section {
         this.titleImg = titleImg;
     }
 
-    public List<ContentHolder> getContent() {
+    public List<Content> getContent() {
         return content;
     }
 
-    public void setContent(List<ContentHolder> content) {
+    public void setContent(List<Content> content) {
         this.content = content;
     }
 }

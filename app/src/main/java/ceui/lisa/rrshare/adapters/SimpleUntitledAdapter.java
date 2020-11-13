@@ -12,10 +12,13 @@ import ceui.lisa.rrshare.R;
 import ceui.lisa.rrshare.databinding.RecyHorizonBinding;
 import ceui.lisa.rrshare.response.Content;
 
-public class SimpleAdapter extends BaseAdapter<Content, RecyHorizonBinding> {
+public class SimpleUntitledAdapter extends BaseAdapter<Content, RecyHorizonBinding> {
 
-    public SimpleAdapter(@Nullable List<Content> targetList, Context context) {
+    private boolean showSubtitle;
+
+    public SimpleUntitledAdapter(@Nullable List<Content> targetList, Context context, boolean showSubtitle) {
         super(targetList, context);
+        this.showSubtitle = showSubtitle;
     }
 
     @Override
@@ -26,12 +29,16 @@ public class SimpleAdapter extends BaseAdapter<Content, RecyHorizonBinding> {
     @Override
     public void bindData(Content target, ViewHolder<RecyHorizonBinding> bindView, int position) {
         bindView.baseBind.score.setText(String.valueOf(target.getScore()));
-        if (target.getTitle().contains("第") && target.getTitle().contains("季")) {
+        if (target.getTitle().contains("第")) {
             bindView.baseBind.name.setText(target.getTitle().split("第")[0]);
         } else {
             bindView.baseBind.name.setText(target.getTitle());
         }
-        bindView.baseBind.subtitle.setText(target.getSubTitle());
+        if (showSubtitle) {
+            bindView.baseBind.subtitle.setText(target.getSubTitle());
+        } else {
+            bindView.baseBind.subtitle.setText(target.getCat());
+        }
         Glide.with(mContext).load(target.getCover()).into(bindView.baseBind.imageView);
     }
 }

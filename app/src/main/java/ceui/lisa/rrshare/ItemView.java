@@ -23,6 +23,7 @@ import ceui.lisa.rrshare.adapters.NewInfoAdapter;
 import ceui.lisa.rrshare.adapters.OnItemClickListener;
 import ceui.lisa.rrshare.adapters.SCardAdapter;
 import ceui.lisa.rrshare.adapters.SimpleAdapter;
+import ceui.lisa.rrshare.adapters.SimpleUntitledAdapter;
 import ceui.lisa.rrshare.databinding.RecyPageBinding;
 import ceui.lisa.rrshare.response.Section;
 import ceui.lisa.rrshare.utils.Common;
@@ -63,7 +64,46 @@ public class ItemView extends FrameLayout {
 
     public void bindSection(Section section) {
         baseBind.title.setText(section.getName());
-        if ("BILLBOARD".equals(section.getSectionType())) {
+        if ("TRAVERSE_UNTITLED_SCROLL".equals(section.getDisplay())) {
+            baseBind.recyList.addItemDecoration(
+                    new LinearItemDecorationHorizon(DensityUtil.dp2px(8.0f))
+            );
+            baseBind.recyList.setLayoutManager(
+                    new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false)
+            );
+            SimpleUntitledAdapter adapter = new SimpleUntitledAdapter(
+                    section.getContent(), mContext, false
+            );
+            adapter.setOnItemClickListener(new OnItemClickListener() {
+                @Override
+                public void onItemClick(View v, int position, int viewType) {
+                    Intent intent = new Intent(mContext, MovieActivity.class);
+                    intent.putExtra("content", section.getContent().get(position));
+                    mContext.startActivity(intent);
+                }
+            });
+            baseBind.recyList.setAdapter(adapter);
+        } else if ("V3".equals(section.getDisplay()) ||
+                "V3_BY_2".equals(section.getDisplay())){
+            baseBind.recyList.addItemDecoration(
+                    new LinearItemDecorationHorizon(DensityUtil.dp2px(8.0f))
+            );
+            baseBind.recyList.setLayoutManager(
+                    new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false)
+            );
+            SimpleUntitledAdapter adapter = new SimpleUntitledAdapter(
+                    section.getContent(), mContext, true
+            );
+            adapter.setOnItemClickListener(new OnItemClickListener() {
+                @Override
+                public void onItemClick(View v, int position, int viewType) {
+                    Intent intent = new Intent(mContext, MovieActivity.class);
+                    intent.putExtra("content", section.getContent().get(position));
+                    mContext.startActivity(intent);
+                }
+            });
+            baseBind.recyList.setAdapter(adapter);
+        }else if ("TAB_SINGLE".equals(section.getDisplay())) {
             Common.showLog("bindSection 000 " + section.getName());
             baseBind.recyList.addItemDecoration(
                     new LinearItemDecorationHorizon(DensityUtil.dp2px(8.0f))
@@ -81,8 +121,7 @@ public class ItemView extends FrameLayout {
                 }
             });
             baseBind.recyList.setAdapter(adapter);
-        } else if ("SEASON_CARD".equals(section.getSectionType()) ||
-                "SEASON".equals(section.getSectionType())) {
+        } else if ("H_SCROLL".equals(section.getDisplay())) {
             Common.showLog("bindSection 111 " + section.getName());
             baseBind.recyList.addItemDecoration(
                     new LinearItemDecorationHorizon(DensityUtil.dp2px(8.0f))
@@ -92,7 +131,7 @@ public class ItemView extends FrameLayout {
             );
             SCardAdapter adapter = new SCardAdapter(section.getContent(), mContext);
             baseBind.recyList.setAdapter(adapter);
-        } else if ("INFO".equals(section.getSectionType())) {
+        } else if ("H_FULL_HEAD".equals(section.getDisplay())) {
             Common.showLog("bindSection 222 " + section.getName());
             baseBind.recyList.addItemDecoration(
                     new LinearItemDecoration(DensityUtil.dp2px(8.0f))

@@ -40,12 +40,16 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             }
         }
         baseBind.bottom.setOnNavigationItemSelectedListener {
-            if (it.itemId == R.id.action_1) {
-                baseBind.viewPager.currentItem = 0
-            } else if (it.itemId == R.id.action_2) {
-                baseBind.viewPager.currentItem = 1
-            } else if (it.itemId == R.id.action_3) {
-                baseBind.viewPager.currentItem = 2
+            when (it.itemId) {
+                R.id.action_1 -> {
+                    baseBind.viewPager.currentItem = 0
+                }
+                R.id.action_2 -> {
+                    baseBind.viewPager.currentItem = 1
+                }
+                R.id.action_3 -> {
+                    baseBind.viewPager.currentItem = 2
+                }
             }
             true
         }
@@ -57,17 +61,25 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             }
 
             override fun onPageSelected(position: Int) {
-                if (position == 0) {
-                    baseBind.bottom.selectedItemId = R.id.action_1
-                } else if (position == 1) {
-                    baseBind.bottom.selectedItemId = R.id.action_2
-                } else if (position == 2) {
-                    baseBind.bottom.selectedItemId = R.id.action_3
+                when (position) {
+                    0 -> {
+                        baseBind.bottom.selectedItemId = R.id.action_1
+                    }
+                    1 -> {
+                        baseBind.bottom.selectedItemId = R.id.action_2
+                    }
+                    2 -> {
+                        baseBind.bottom.selectedItemId = R.id.action_3
+                    }
                 }
             }
         })
     }
 
     override fun initData() {
+    }
+
+    override fun hideStatusBar(): Boolean {
+        return true
     }
 }
