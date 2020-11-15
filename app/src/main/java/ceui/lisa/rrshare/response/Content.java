@@ -30,6 +30,61 @@ public class Content implements Serializable {
     private String brief;
     private String from;
 
+    private Double sort;
+    private String view_count;
+    private String classify;
+    private String director;
+    private String actor;
+    private HighlightsBean highlights;
+
+    public Double getSort() {
+        return sort;
+    }
+
+    public void setSort(Double sort) {
+        this.sort = sort;
+    }
+
+    public String getView_count() {
+        return view_count;
+    }
+
+    public void setView_count(String view_count) {
+        this.view_count = view_count;
+    }
+
+    public String getClassify() {
+        return classify;
+    }
+
+    public void setClassify(String classify) {
+        this.classify = classify;
+    }
+
+    public String getDirector() {
+        return director;
+    }
+
+    public void setDirector(String director) {
+        this.director = director;
+    }
+
+    public String getActor() {
+        return actor;
+    }
+
+    public void setActor(String actor) {
+        this.actor = actor;
+    }
+
+    public HighlightsBean getHighlights() {
+        return highlights;
+    }
+
+    public void setHighlights(HighlightsBean highlights) {
+        this.highlights = highlights;
+    }
+
     public boolean isMovie() {
         return isMovie;
     }

@@ -1,6 +1,9 @@
 package ceui.lisa.rrshare.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.view.View;
 
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -9,7 +12,9 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import com.scwang.smart.refresh.layout.SmartRefreshLayout;
 
 import ceui.lisa.rrshare.R;
+import ceui.lisa.rrshare.SearchResultActivity;
 import ceui.lisa.rrshare.adapters.HotWordAdapter;
+import ceui.lisa.rrshare.adapters.OnItemClickListener;
 import ceui.lisa.rrshare.databinding.FragmentHotWordsBinding;
 import ceui.lisa.rrshare.response.Hot;
 import ceui.lisa.rrshare.utils.Common;
@@ -39,8 +44,18 @@ public class FragmentHotWords extends SwipeFragment<FragmentHotWordsBinding> {
         model.getMovie().observe(this, new Observer<Hot>() {
             @Override
             public void onChanged(Hot hot) {
-                Common.showLog(className + hot.getData().get(index).getHotRecommend());
-                baseBind.recyList.setAdapter(new HotWordAdapter(hot.getData().get(index).getSearchRecommendDtos(), mContext));
+                HotWordAdapter adapter = new HotWordAdapter(hot.getData().get(index).getSearchRecommendDtos(), mContext);
+                adapter.setOnItemClickListener(new OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View v, int position, int viewType) {
+                        if (!TextUtils.isEmpty(hot.getData().get(index).getSearchRecommendDtos().get(position).getSearchKeyword())) {
+                            Intent intent = new Intent(mContext, SearchResultActivity.class);
+                            intent.putExtra("keyword", hot.getData().get(index).getSearchRecommendDtos().get(position).getSearchKeyword());
+                            startActivity(intent);
+                        }
+                    }
+                });
+                baseBind.recyList.setAdapter(adapter);
             }
         });
     }

@@ -5,17 +5,17 @@
 
     </data>
 
-    <RelativeLayout
+    <com.scwang.smart.refresh.layout.SmartRefreshLayout
         android:layout_width="match_parent"
+        android:id="@+id/smartRefreshLayout"
         android:layout_height="match_parent">
 
-        <ProgressBar
-            android:layout_width="wrap_content"
-            android:id="@+id/progress"
-            android:layout_centerInParent="true"
-            android:layout_height="wrap_content">
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:id="@+id/recy_list"
+            android:layout_height="match_parent">
 
-        </ProgressBar>
+        </androidx.recyclerview.widget.RecyclerView>
 
-    </RelativeLayout>
+    </com.scwang.smart.refresh.layout.SmartRefreshLayout>
 </layout>
