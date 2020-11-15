@@ -109,6 +109,7 @@ public class FragmentMovie extends BaseLazyFragment<FragmentRBinding> {
             if (baseBind.createLinear.getChildCount() != 0) {
                 baseBind.createLinear.removeAllViews();
             }
+            baseBind.scrollView.smoothScrollTo(0, 0);
         }
         List<Section> nextList = mPage.getPage(nowPage);
         for (Section section : nextList) {
