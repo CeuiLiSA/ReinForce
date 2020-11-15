@@ -5,8 +5,11 @@ import android.view.View;
 import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import java.util.HashMap;
+
 import ceui.lisa.rrshare.MovieActivity;
 import ceui.lisa.rrshare.R;
+import ceui.lisa.rrshare.adapters.OnItemClickListener;
 import ceui.lisa.rrshare.view.BottomView;
 import ceui.lisa.rrshare.view.TopView;
 import ceui.lisa.rrshare.adapters.EpisodeAdapter;
@@ -20,6 +23,7 @@ import ceui.lisa.rrshare.response.Watch;
 import ceui.lisa.rrshare.utils.Common;
 import ceui.lisa.rrshare.utils.DensityUtil;
 import ceui.lisa.rrshare.utils.LinearItemDecorationHorizon;
+import fun.aragaki.rr.RR;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 import rxhttp.RxHttp;
@@ -71,9 +75,21 @@ public class FragmentMovieDetail extends BaseMovieFragment<FragmentMovieDetailBi
                 .subscribe(new NullCtrl<Episode>() {
                     @Override
                     public void success(Episode episode) {
-                        baseBind.episodeLl.setVisibility(View.VISIBLE);
-                        baseBind.recyList.setAdapter(new EpisodeAdapter(episode.getData().getEpisodeList(), mContext));
-                        baseBind.allEpisode.setText("查看全部" + episode.getData().getEpisodeList().size() + "集");
+                        if (!Common.isEmpty(episode.getData().getEpisodeList())) {
+                            baseBind.episodeLl.setVisibility(View.VISIBLE);
+                            EpisodeAdapter adapter = new EpisodeAdapter(episode.getData().getEpisodeList(), mContext);
+                            adapter.setOnItemClickListener(new OnItemClickListener() {
+                                @Override
+                                public void onItemClick(View v, int position, int viewType) {
+                                    getPlayUrl(seasonID, episode.getData().getEpisodeList().get(position).getId());
+                                }
+                            });
+                            baseBind.recyList.setAdapter(adapter);
+                            baseBind.allEpisode.setText("查看全部" + episode.getData().getEpisodeList().size() + "集");
+
+                            //直接播放第一P
+                            getPlayUrl(model.getMovie().getValue().getId(), episode.getData().getEpisodeList().get(0).getId());
+                        }
                     }
                 });
     }
@@ -93,6 +109,12 @@ public class FragmentMovieDetail extends BaseMovieFragment<FragmentMovieDetailBi
                         if ("DIRECT".equals(watch.getData().getM3u8().getParserType())) {
                             if (mActivity instanceof MovieActivity) {
                                 ((MovieActivity) mActivity).play(watch.getData().getM3u8().getUrl());
+                            }
+                        } else {
+                            String url = RR.INSTANCE.decrypt(watch.getData().getM3u8().getUrl(),
+                                    Net.TOKEN , new HashMap<>());
+                            if (mActivity instanceof MovieActivity) {
+                                ((MovieActivity) mActivity).play(url);
                             }
                         }
                     }

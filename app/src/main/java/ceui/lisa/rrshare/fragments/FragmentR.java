@@ -46,7 +46,7 @@ public class FragmentR extends FragmentMovie {
 
     @Override
     public boolean forceLoad() {
-        return false;
+        return true;
     }
 
     private String getNameByType() {
