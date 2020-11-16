@@ -60,7 +60,6 @@ public class FragmentMovie extends BaseLazyFragment<FragmentRBinding> {
 
     @Override
     public void lazyData() {
-        super.lazyData();
         baseBind.smartRefreshLayout.autoRefresh();
     }
 

@@ -44,11 +44,6 @@ public class FragmentR extends FragmentMovie {
         super.lazyData();
     }
 
-    @Override
-    public boolean forceLoad() {
-        return true;
-    }
-
     private String getNameByType() {
         if ("CHANNEL_INDEX".equals(type)) {
             return "精选";

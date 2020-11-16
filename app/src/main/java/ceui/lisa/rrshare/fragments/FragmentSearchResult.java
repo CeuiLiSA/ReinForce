@@ -65,7 +65,6 @@ public class FragmentSearchResult extends BaseWordFragment<FragmentSearchResultB
 
     @Override
     public void lazyData() {
-        super.lazyData();
         if (index == 0) {
             method = "search/multiple";
         } else if (index == 1) {
@@ -83,10 +82,6 @@ public class FragmentSearchResult extends BaseWordFragment<FragmentSearchResultB
         });
     }
 
-    @Override
-    public boolean forceLoad() {
-        return index == 0;
-    }
 
     @Override
     protected void initLayout() {

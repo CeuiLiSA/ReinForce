@@ -127,6 +127,7 @@ public class MovieActivity extends BaseActivity<ActivityMovieBinding> {
             });
             baseBind.tabLayout.setupWithViewPager(baseBind.viewPager);
         }
+        baseBind.tabLayout.init();
     }
 
     public void play(String url) {

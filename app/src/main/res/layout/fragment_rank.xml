@@ -13,11 +13,9 @@
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
             android:id="@+id/recy_list"
-            android:overScrollMode="never"
             android:layout_height="match_parent">
 
         </androidx.recyclerview.widget.RecyclerView>
-
 
     </com.scwang.smart.refresh.layout.SmartRefreshLayout>
 </layout>

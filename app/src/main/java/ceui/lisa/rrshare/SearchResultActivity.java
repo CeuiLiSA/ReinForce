@@ -55,6 +55,7 @@ public class SearchResultActivity extends BaseActivity<ActivitySearchBinding> {
             }
         });
         baseBind.tabLayout.setupWithViewPager(baseBind.viewPager);
+        baseBind.tabLayout.init();
     }
 
     @Override

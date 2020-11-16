@@ -50,12 +50,11 @@
 
 
 
-        <com.google.android.material.tabs.TabLayout
+        <ceui.lisa.rrshare.view.TabView
             android:layout_width="match_parent"
             android:id="@+id/tab_layout"
-            app:tabIndicatorFullWidth="false"
             app:tabMode="scrollable"
-            android:layout_height="40dp" />
+            android:layout_height="wrap_content" />
 
         <androidx.viewpager.widget.ViewPager
             android:layout_width="match_parent"

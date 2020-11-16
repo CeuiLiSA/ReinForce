@@ -91,6 +91,7 @@ public class TabItem extends ItemView {
             }
         });
         baseBind.recyList.setAdapter(adapter);
+        baseBind.tabLayout.init();
     }
 
     @Override

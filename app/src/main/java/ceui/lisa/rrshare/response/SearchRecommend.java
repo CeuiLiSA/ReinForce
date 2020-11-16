@@ -1,6 +1,8 @@
 package ceui.lisa.rrshare.response;
 
-public class SearchRecommend {
+import java.io.Serializable;
+
+public class SearchRecommend implements Serializable {
     /**
      * id : 1
      * title : 九尾狐传

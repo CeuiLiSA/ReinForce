@@ -17,17 +17,17 @@ import ceui.lisa.rrshare.adapters.HotWordAdapter;
 import ceui.lisa.rrshare.adapters.OnItemClickListener;
 import ceui.lisa.rrshare.databinding.FragmentHotWordsBinding;
 import ceui.lisa.rrshare.response.Hot;
+import ceui.lisa.rrshare.response.HotData;
 import ceui.lisa.rrshare.utils.Common;
 import ceui.lisa.rrshare.viewmodel.SearchModel;
 
 public class FragmentHotWords extends SwipeFragment<FragmentHotWordsBinding> {
 
-    private SearchModel model;
-    private int index;
+    private HotData hotData;
 
-    public static FragmentHotWords newInstance(int index) {
+    public static FragmentHotWords newInstance(HotData hotData) {
         Bundle args = new Bundle();
-        args.putInt("index", index);
+        args.putSerializable("hotData", hotData);
         FragmentHotWords fragment = new FragmentHotWords();
         fragment.setArguments(args);
         return fragment;
@@ -35,34 +35,24 @@ public class FragmentHotWords extends SwipeFragment<FragmentHotWordsBinding> {
 
     @Override
     protected void initBundle(Bundle bundle) {
-        index = bundle.getInt("index");
-    }
-
-    @Override
-    public void initModel() {
-        model = new ViewModelProvider(mActivity).get(SearchModel.class);
-        model.getMovie().observe(this, new Observer<Hot>() {
-            @Override
-            public void onChanged(Hot hot) {
-                HotWordAdapter adapter = new HotWordAdapter(hot.getData().get(index).getSearchRecommendDtos(), mContext);
-                adapter.setOnItemClickListener(new OnItemClickListener() {
-                    @Override
-                    public void onItemClick(View v, int position, int viewType) {
-                        if (!TextUtils.isEmpty(hot.getData().get(index).getSearchRecommendDtos().get(position).getSearchKeyword())) {
-                            Intent intent = new Intent(mContext, SearchResultActivity.class);
-                            intent.putExtra("keyword", hot.getData().get(index).getSearchRecommendDtos().get(position).getSearchKeyword());
-                            startActivity(intent);
-                        }
-                    }
-                });
-                baseBind.recyList.setAdapter(adapter);
-            }
-        });
+        hotData = (HotData) bundle.getSerializable("hotData");
     }
 
     @Override
     protected void initView() {
         baseBind.recyList.setLayoutManager(new GridLayoutManager(mContext, 2));
+        HotWordAdapter adapter = new HotWordAdapter(hotData.getSearchRecommendDtos(), mContext);
+        adapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(View v, int position, int viewType) {
+                if (!TextUtils.isEmpty(hotData.getSearchRecommendDtos().get(position).getSearchKeyword())) {
+                    Intent intent = new Intent(mContext, SearchResultActivity.class);
+                    intent.putExtra("keyword", hotData.getSearchRecommendDtos().get(position).getSearchKeyword());
+                    startActivity(intent);
+                }
+            }
+        });
+        baseBind.recyList.setAdapter(adapter);
     }
 
     @Override
