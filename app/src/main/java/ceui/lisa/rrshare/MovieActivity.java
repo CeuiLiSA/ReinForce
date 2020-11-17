@@ -18,8 +18,7 @@ import com.shuyu.gsyvideoplayer.utils.OrientationUtils;
 
 import ceui.lisa.rrshare.databinding.ActivityMovieBinding;
 import ceui.lisa.rrshare.fragments.BaseFragment;
-import ceui.lisa.rrshare.fragments.FragmentChat;
-import ceui.lisa.rrshare.fragments.FragmentComment;
+import ceui.lisa.rrshare.fragments.FragmentCommentNew;
 import ceui.lisa.rrshare.fragments.FragmentMovieDetail;
 import ceui.lisa.rrshare.response.Content;
 import ceui.lisa.rrshare.viewmodel.MovieModel;
@@ -72,61 +71,30 @@ public class MovieActivity extends BaseActivity<ActivityMovieBinding> {
             }
         });
 
+        String[] titles = new String[]{"详情", "讨论"};
+        BaseFragment<?>[] fragments = new BaseFragment<?>[]{
+                new FragmentMovieDetail(),
+                new FragmentCommentNew(),
+        };
+        baseBind.viewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager(), 0) {
+            @NonNull
+            @Override
+            public Fragment getItem(int position) {
+                return fragments[position];
+            }
 
+            @Override
+            public int getCount() {
+                return titles.length;
+            }
 
-
-        if ("相关视频".equals(mContent.getFrom())) {
-            String[] titles = new String[]{"详情", "讨论"};
-            BaseFragment<?>[] fragments = new BaseFragment<?>[]{
-                    new FragmentMovieDetail(),
-                    new FragmentComment(),
-            };
-            baseBind.viewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager(), 0) {
-                @NonNull
-                @Override
-                public Fragment getItem(int position) {
-                    return fragments[position];
-                }
-
-                @Override
-                public int getCount() {
-                    return titles.length;
-                }
-
-                @Nullable
-                @Override
-                public CharSequence getPageTitle(int position) {
-                    return titles[position];
-                }
-            });
-            baseBind.tabLayout.setupWithViewPager(baseBind.viewPager);
-        } else {
-            String[] titles = new String[]{"详情", "讨论", "热议"};
-            BaseFragment<?>[] fragments = new BaseFragment<?>[]{
-                    new FragmentMovieDetail(),
-                    new FragmentComment(),
-                    new FragmentChat(),
-            };
-            baseBind.viewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager(), 0) {
-                @NonNull
-                @Override
-                public Fragment getItem(int position) {
-                    return fragments[position];
-                }
-
-                @Override
-                public int getCount() {
-                    return titles.length;
-                }
-
-                @Nullable
-                @Override
-                public CharSequence getPageTitle(int position) {
-                    return titles[position];
-                }
-            });
-            baseBind.tabLayout.setupWithViewPager(baseBind.viewPager);
-        }
+            @Nullable
+            @Override
+            public CharSequence getPageTitle(int position) {
+                return titles[position];
+            }
+        });
+        baseBind.tabLayout.setupWithViewPager(baseBind.viewPager);
         baseBind.tabLayout.init();
     }
 

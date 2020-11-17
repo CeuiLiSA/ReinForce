@@ -30,18 +30,18 @@ public class Content implements Serializable {
     private String brief;
     private String from;
 
-    private Double sort;
+    private float sort;
     private String view_count;
     private String classify;
     private String director;
     private String actor;
     private HighlightsBean highlights;
 
-    public Double getSort() {
+    public float getSort() {
         return sort;
     }
 
-    public void setSort(Double sort) {
+    public void setSort(float sort) {
         this.sort = sort;
     }
 

@@ -11,7 +11,7 @@ import androidx.viewpager.widget.ViewPager;
 import com.bumptech.glide.Glide;
 
 import ceui.lisa.rrshare.databinding.ActivityRankBinding;
-import ceui.lisa.rrshare.fragments.FragmentRank;
+import ceui.lisa.rrshare.fragments.FragmentRankNew;
 import ceui.lisa.rrshare.response.Content;
 import jp.wasabeef.glide.transformations.BlurTransformation;
 
@@ -35,11 +35,11 @@ public class RankActivity extends BaseActivity<ActivityRankBinding> {
         String[] titles = new String[]{"美剧", "韩剧", "日剧", "泰剧"};
         baseBind.toolbar.setPadding(0, statusHeight, 0, 0);
         baseBind.toolbar.setNavigationOnClickListener(v -> finish());
-        FragmentRank[] fragmentRanks = new FragmentRank[]{
-                FragmentRank.newInstance(0),
-                FragmentRank.newInstance(1),
-                FragmentRank.newInstance(2),
-                FragmentRank.newInstance(3)
+        FragmentRankNew[] fragmentRanks = new FragmentRankNew[]{
+                FragmentRankNew.newInstance(getArea(0)),
+                FragmentRankNew.newInstance(getArea(1)),
+                FragmentRankNew.newInstance(getArea(2)),
+                FragmentRankNew.newInstance(getArea(3))
         };
         baseBind.viewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager(), 0) {
             @NonNull
@@ -82,6 +82,19 @@ public class RankActivity extends BaseActivity<ActivityRankBinding> {
     @Override
     protected void initData() {
 
+    }
+
+    public String getArea(int index) {
+        if (index == 0) {
+            return "USK";
+        } else if (index == 1) {
+            return "KR";
+        } else if (index == 2) {
+            return "JP";
+        } else if (index == 3) {
+            return "TH";
+        }
+        return "USK";
     }
 
     @Override

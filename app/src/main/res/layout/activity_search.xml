@@ -13,7 +13,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:background="@color/design_default_color_primary"
+            android:background="@color/orange"
             android:layout_height="wrap_content">
 
 
@@ -24,7 +24,7 @@
                 android:paddingStart="@dimen/twelve_dp"
                 android:drawablePadding="@dimen/six_dp"
                 android:textSize="14sp"
-                android:textColor="@color/design_default_color_primary"
+                android:textColor="@color/orange"
                 android:imeOptions="actionSearch"
                 android:singleLine="true"
                 android:layout_toStartOf="@+id/more"

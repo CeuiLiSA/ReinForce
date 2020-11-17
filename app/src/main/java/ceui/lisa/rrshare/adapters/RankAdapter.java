@@ -12,26 +12,28 @@ import java.util.List;
 
 import ceui.lisa.rrshare.MovieActivity;
 import ceui.lisa.rrshare.R;
-import ceui.lisa.rrshare.databinding.RecyInfoBinding;
+import ceui.lisa.rrshare.databinding.RecyRankBinding;
 import ceui.lisa.rrshare.response.Content;
 
-public class InfoAdapter extends BaseAdapter<Content, RecyInfoBinding>{
+public class RankAdapter extends BaseAdapter<Content, RecyRankBinding> {
 
-    public InfoAdapter(@Nullable List<Content> targetList, Context context) {
+    public RankAdapter(@Nullable List<Content> targetList, Context context) {
         super(targetList, context);
         handleClick();
     }
 
     @Override
     public void initLayout() {
-        mLayoutID = R.layout.recy_info;
+        mLayoutID = R.layout.recy_rank;
     }
 
     @Override
-    public void bindData(Content target, ViewHolder<RecyInfoBinding> bindView, int position) {
-        Glide.with(mContext).load(target.getCover()).into(bindView.baseBind.imageView);
+    public void bindData(Content target, ViewHolder<RecyRankBinding> bindView, int position) {
+        bindView.baseBind.index.setText(String.valueOf(position + 1));
         bindView.baseBind.title.setText(target.getTitle());
-        bindView.baseBind.auther.setText(target.getAuthor().getNickName());
+        bindView.baseBind.tags.setText(target.getCat());
+        bindView.baseBind.size.setText("共" + target.getUpInfo() + "集");
+        Glide.with(mContext).load(target.getCover()).into(bindView.baseBind.imageView);
     }
 
     public void handleClick() {

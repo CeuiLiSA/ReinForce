@@ -19,7 +19,7 @@
             app:popupTheme="@style/AppTheme.PopupOverlay"
             android:fitsSystemWindows="true"
             app:titleTextColor="@color/white"
-            android:background="@color/design_default_color_primary"
+            android:background="@color/orange"
             android:layout_height="wrap_content">
 
         </androidx.appcompat.widget.Toolbar>

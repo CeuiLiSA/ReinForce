@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import ceui.lisa.rrshare.databinding.ActivitySearchBinding;
 import ceui.lisa.rrshare.fragments.FragmentSearchResult;
+import ceui.lisa.rrshare.fragments.FragmentSearchVideo;
 import ceui.lisa.rrshare.viewmodel.WordModel;
 
 public class SearchResultActivity extends BaseActivity<ActivitySearchBinding> {
@@ -40,7 +41,11 @@ public class SearchResultActivity extends BaseActivity<ActivitySearchBinding> {
             @NonNull
             @Override
             public Fragment getItem(int position) {
-                return FragmentSearchResult.newInstance(position);
+                if (position == 2) {
+                    return new FragmentSearchVideo();
+                } else {
+                    return FragmentSearchResult.newInstance(position);
+                }
             }
 
             @Override
