@@ -101,6 +101,10 @@ dependencies {
     implementation 'org.sufficientlysecure:html-textview:3.9'
 
 
+    implementation 'jp.wasabeef:glide-transformations:4.1.0'
+
+
+
     implementation 'com.shuyu:GSYVideoPlayer:7.1.8'
 
     testImplementation 'junit:junit:4.+'

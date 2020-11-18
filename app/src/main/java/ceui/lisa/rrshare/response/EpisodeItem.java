@@ -10,7 +10,7 @@ public class EpisodeItem {
 
     private int episodeNo;
     private int id;
-    private int sid;
+    private String sid;
     private String text;
 
     public int getEpisodeNo() {
@@ -29,11 +29,11 @@ public class EpisodeItem {
         this.id = id;
     }
 
-    public int getSid() {
+    public String getSid() {
         return sid;
     }
 
-    public void setSid(int sid) {
+    public void setSid(String sid) {
         this.sid = sid;
     }
 

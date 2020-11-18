@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.scwang.smart.refresh.footer.ClassicsFooter;
+import com.scwang.smart.refresh.header.ClassicsHeader;
 import com.scwang.smart.refresh.header.MaterialHeader;
 import com.scwang.smart.refresh.layout.api.RefreshLayout;
 import com.scwang.smart.refresh.layout.listener.OnLoadMoreListener;
@@ -48,7 +49,7 @@ public class FragmentMovie extends BaseLazyFragment<FragmentRBinding> {
                 showData(false);
             }
         });
-        baseBind.smartRefreshLayout.setRefreshHeader(new MaterialHeader(mContext));
+        baseBind.smartRefreshLayout.setRefreshHeader(new ClassicsHeader(mContext));
         baseBind.smartRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
@@ -60,7 +61,6 @@ public class FragmentMovie extends BaseLazyFragment<FragmentRBinding> {
 
     @Override
     public void lazyData() {
-        super.lazyData();
         baseBind.smartRefreshLayout.autoRefresh();
     }
 
@@ -109,6 +109,7 @@ public class FragmentMovie extends BaseLazyFragment<FragmentRBinding> {
             if (baseBind.createLinear.getChildCount() != 0) {
                 baseBind.createLinear.removeAllViews();
             }
+            baseBind.scrollView.smoothScrollTo(0, 0);
         }
         List<Section> nextList = mPage.getPage(nowPage);
         for (Section section : nextList) {

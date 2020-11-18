@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.view.View;
 
 import ceui.lisa.rrshare.R;
+import ceui.lisa.rrshare.RankActivity;
 import ceui.lisa.rrshare.SearchActivity;
 import ceui.lisa.rrshare.databinding.FragmentMineBinding;
 
@@ -20,6 +21,13 @@ public class FragmentMine extends BaseFragment<FragmentMineBinding> {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(mContext, SearchActivity.class);
+                startActivity(intent);
+            }
+        });
+        baseBind.rank.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(mContext, RankActivity.class);
                 startActivity(intent);
             }
         });

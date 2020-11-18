@@ -21,13 +21,13 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             override fun getItem(position: Int): Fragment {
                 return when (position) {
                     0 -> {
-                        FragmentR()
+                        FragmentMine()
                     }
                     1 -> {
-                        FragmentMovie()
+                        FragmentMine()
                     }
                     2 -> {
-                        FragmentMine()
+                        FragmentR()
                     }
                     else -> {
                         Fragment()

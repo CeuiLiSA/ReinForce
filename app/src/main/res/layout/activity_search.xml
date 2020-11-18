@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -12,7 +13,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:background="@color/design_default_color_primary"
+            android:background="@color/orange"
             android:layout_height="wrap_content">
 
 
@@ -23,7 +24,7 @@
                 android:paddingStart="@dimen/twelve_dp"
                 android:drawablePadding="@dimen/six_dp"
                 android:textSize="14sp"
-                android:textColor="@color/design_default_color_primary"
+                android:textColor="@color/orange"
                 android:imeOptions="actionSearch"
                 android:singleLine="true"
                 android:layout_toStartOf="@+id/more"
@@ -62,19 +63,20 @@
                 android:layout_marginEnd="@dimen/sixteen_dp"
                 android:layout_height="wrap_content">
 
-
             </TextView>
 
 
         </RelativeLayout>
 
 
-        <com.google.android.material.tabs.TabLayout
+        <ceui.lisa.rrshare.view.TabView
             android:layout_width="match_parent"
+            app:tabTextAppearance="@style/TabUnSelect"
             android:id="@+id/tab_layout"
-            android:layout_height="40dp">
+            app:tabMode="auto"
+            android:layout_height="wrap_content">
 
-        </com.google.android.material.tabs.TabLayout>
+        </ceui.lisa.rrshare.view.TabView>
 
         <androidx.viewpager.widget.ViewPager
             android:layout_width="match_parent"

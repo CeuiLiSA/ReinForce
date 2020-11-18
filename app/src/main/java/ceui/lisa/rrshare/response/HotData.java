@@ -1,8 +1,9 @@
 package ceui.lisa.rrshare.response;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class HotData {
+public class HotData implements Serializable {
 
 
     /**

@@ -29,7 +29,7 @@ public abstract class BaseFragment<Layout extends ViewDataBinding> extends Fragm
     protected FragmentActivity mActivity;
     protected Context mContext;
     private boolean isVertical;
-    protected boolean viewCreated;
+    protected boolean isInit;
 
     public BaseFragment() {
         Log.d(className, " newInstance");
@@ -74,6 +74,7 @@ public abstract class BaseFragment<Layout extends ViewDataBinding> extends Fragm
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         try {
+            isInit = true;
             if (rootView != null) {
                 if (baseBind == null) {
                     baseBind = DataBindingUtil.bind(rootView);
@@ -108,7 +109,6 @@ public abstract class BaseFragment<Layout extends ViewDataBinding> extends Fragm
             } else {
                 horizon();
             }
-            viewCreated = true;
         } catch (Exception e) {
             e.printStackTrace();
         }
