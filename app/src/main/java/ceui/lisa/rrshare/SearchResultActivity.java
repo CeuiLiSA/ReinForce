@@ -12,7 +12,6 @@ import androidx.lifecycle.ViewModelProvider;
 
 import ceui.lisa.rrshare.databinding.ActivitySearchBinding;
 import ceui.lisa.rrshare.fragments.FragmentSearchEpisode;
-import ceui.lisa.rrshare.fragments.FragmentSearchResult;
 import ceui.lisa.rrshare.fragments.FragmentSearchVideo;
 import ceui.lisa.rrshare.viewmodel.WordModel;
 
