@@ -1,5 +1,7 @@
 package ceui.lisa.rrshare.response;
 
+import android.text.TextUtils;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -54,6 +56,9 @@ public class Content implements Serializable {
     }
 
     public String getClassify() {
+        if (TextUtils.isEmpty(classify)) {
+            return "未知分类";
+        }
         return classify;
     }
 
@@ -198,6 +203,9 @@ public class Content implements Serializable {
     }
 
     public String getArea() {
+        if (TextUtils.isEmpty(area)) {
+            return "未知地区";
+        }
         return area;
     }
 

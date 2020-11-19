@@ -89,97 +89,97 @@ public class FragmentSearchResult extends BaseWordFragment<FragmentSearchResultB
     }
 
     private void search(String word) {
-        if (index == 0) {
-            new BaseRequest<SearchMulti>(method) {
-                @Override
-                public void callBack(SearchMulti searchMulti) {
-                    SCardAdapter adapter = new SCardAdapter(searchMulti.getData().getSeasonList(), mContext);
-                    baseBind.recyList.setAdapter(adapter);
-                    baseBind.smartRefreshLayout.finishRefresh(true);
-                }
-
-                @Override
-                public void addData(Map<String, Object> map) {
-                    map.put("keywords", word);
-                    map.put("size", "10");
-                    map.put("order", "");
-                }
-
-                @Override
-                public Class<SearchMulti> asClass() {
-                    return SearchMulti.class;
-                }
-            }.run();
-        } else if (index == 1) {
-            new BaseRequest<SearchEpisode>(method) {
-                @Override
-                public void callBack(SearchEpisode searchMulti) {
-                    SCardAdapter adapter = new SCardAdapter(searchMulti.getData(), mContext);
-                    baseBind.recyList.setAdapter(adapter);
-                    baseBind.smartRefreshLayout.finishRefresh(true);
-                }
-
-                @Override
-                public void addData(Map<String, Object> map) {
-                    map.put("keywords", word);
-                    map.put("size", "10");
-                    map.put("order", "");
-                }
-
-                @Override
-                public Class<SearchEpisode> asClass() {
-                    return SearchEpisode.class;
-                }
-            }.run();
-        } else if (index == 2) {
-            new BaseRequest<SearchEpisode>(method) {
-                @Override
-                public void callBack(SearchEpisode searchMulti) {
-                    InfoAdapter adapter = new InfoAdapter(searchMulti.getData(), mContext);
-                    adapter.setOnItemClickListener(new OnItemClickListener() {
-                        @Override
-                        public void onItemClick(View v, int position, int viewType) {
-                            Intent intent = new Intent(mContext, MovieActivity.class);
-                            intent.putExtra("content", searchMulti.getData().get(position));
-                            mContext.startActivity(intent);
-                        }
-                    });
-                    baseBind.recyList.setAdapter(adapter);
-                    baseBind.smartRefreshLayout.finishRefresh(true);
-                }
-
-                @Override
-                public void addData(Map<String, Object> map) {
-                    map.put("keywords", word);
-                    map.put("size", "10");
-                    map.put("order", "");
-                }
-
-                @Override
-                public Class<SearchEpisode> asClass() {
-                    return SearchEpisode.class;
-                }
-            }.run();
-        } else if (index == 3) {
-            new BaseRequest<SearchUser>(method) {
-                @Override
-                public void callBack(SearchUser searchMulti) {
-                    baseBind.smartRefreshLayout.finishRefresh(true);
-                }
-
-                @Override
-                public void addData(Map<String, Object> map) {
-                    map.put("keywords", word);
-                    map.put("size", "10");
-                    map.put("order", "");
-                }
-
-                @Override
-                public Class<SearchUser> asClass() {
-                    return SearchUser.class;
-                }
-            }.run();
-        }
+//        if (index == 0) {
+//            new BaseRequest<SearchMulti>(method) {
+//                @Override
+//                public void callBack(SearchMulti searchMulti) {
+//                    SCardAdapter adapter = new SCardAdapter(searchMulti.getData().getSeasonList(), mContext);
+//                    baseBind.recyList.setAdapter(adapter);
+//                    baseBind.smartRefreshLayout.finishRefresh(true);
+//                }
+//
+//                @Override
+//                public void addData(Map<String, Object> map) {
+//                    map.put("keywords", word);
+//                    map.put("size", "10");
+//                    map.put("order", "");
+//                }
+//
+//                @Override
+//                public Class<SearchMulti> asClass() {
+//                    return SearchMulti.class;
+//                }
+//            }.run();
+//        } else if (index == 1) {
+//            new BaseRequest<SearchEpisode>(method) {
+//                @Override
+//                public void callBack(SearchEpisode searchMulti) {
+//                    SCardAdapter adapter = new SCardAdapter(searchMulti.getData(), mContext);
+//                    baseBind.recyList.setAdapter(adapter);
+//                    baseBind.smartRefreshLayout.finishRefresh(true);
+//                }
+//
+//                @Override
+//                public void addData(Map<String, Object> map) {
+//                    map.put("keywords", word);
+//                    map.put("size", "10");
+//                    map.put("order", "");
+//                }
+//
+//                @Override
+//                public Class<SearchEpisode> asClass() {
+//                    return SearchEpisode.class;
+//                }
+//            }.run();
+//        } else if (index == 2) {
+//            new BaseRequest<SearchEpisode>(method) {
+//                @Override
+//                public void callBack(SearchEpisode searchMulti) {
+//                    InfoAdapter adapter = new InfoAdapter(searchMulti.getData(), mContext);
+//                    adapter.setOnItemClickListener(new OnItemClickListener() {
+//                        @Override
+//                        public void onItemClick(View v, int position, int viewType) {
+//                            Intent intent = new Intent(mContext, MovieActivity.class);
+//                            intent.putExtra("content", searchMulti.getData().get(position));
+//                            mContext.startActivity(intent);
+//                        }
+//                    });
+//                    baseBind.recyList.setAdapter(adapter);
+//                    baseBind.smartRefreshLayout.finishRefresh(true);
+//                }
+//
+//                @Override
+//                public void addData(Map<String, Object> map) {
+//                    map.put("keywords", word);
+//                    map.put("size", "10");
+//                    map.put("order", "");
+//                }
+//
+//                @Override
+//                public Class<SearchEpisode> asClass() {
+//                    return SearchEpisode.class;
+//                }
+//            }.run();
+//        } else if (index == 3) {
+//            new BaseRequest<SearchUser>(method) {
+//                @Override
+//                public void callBack(SearchUser searchMulti) {
+//                    baseBind.smartRefreshLayout.finishRefresh(true);
+//                }
+//
+//                @Override
+//                public void addData(Map<String, Object> map) {
+//                    map.put("keywords", word);
+//                    map.put("size", "10");
+//                    map.put("order", "");
+//                }
+//
+//                @Override
+//                public Class<SearchUser> asClass() {
+//                    return SearchUser.class;
+//                }
+//            }.run();
+//        }
     }
 
 }

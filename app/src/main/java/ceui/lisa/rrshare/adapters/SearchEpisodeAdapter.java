@@ -12,26 +12,30 @@ import java.util.List;
 
 import ceui.lisa.rrshare.MovieActivity;
 import ceui.lisa.rrshare.R;
-import ceui.lisa.rrshare.databinding.RecyInfoBinding;
+import ceui.lisa.rrshare.databinding.RecySearchEpisodeBinding;
 import ceui.lisa.rrshare.response.Content;
 
-public class InfoAdapter extends BaseAdapter<Content, RecyInfoBinding>{
+public class SearchEpisodeAdapter extends BaseAdapter<Content, RecySearchEpisodeBinding> {
 
-    public InfoAdapter(@Nullable List<Content> targetList, Context context) {
+    public SearchEpisodeAdapter(@Nullable List<Content> targetList, Context context) {
         super(targetList, context);
         handleClick();
     }
 
     @Override
     public void initLayout() {
-        mLayoutID = R.layout.recy_info;
+        mLayoutID = R.layout.recy_search_episode;
     }
 
     @Override
-    public void bindData(Content target, ViewHolder<RecyInfoBinding> bindView, int position) {
-        Glide.with(mContext).load(target.getCover()).into(bindView.baseBind.imageView);
+    public void bindData(Content target, ViewHolder<RecySearchEpisodeBinding> bindView, int position) {
+        bindView.baseBind.desc.setText(target.getBrief());
         bindView.baseBind.title.setText(target.getTitle());
-        bindView.baseBind.auther.setText(target.getAuthor().getNickName());
+        bindView.baseBind.season.setText(target.getArea() + "-" + target.getClassify());
+        bindView.baseBind.score.setText(target.getScore());
+        bindView.baseBind.year.setText(target.getYear());
+        bindView.baseBind.tags.setText(target.getCat());
+        Glide.with(mContext).load(target.getCover()).into(bindView.baseBind.imageView);
     }
 
     public void handleClick() {
@@ -39,7 +43,6 @@ public class InfoAdapter extends BaseAdapter<Content, RecyInfoBinding>{
             @Override
             public void onItemClick(View v, int position, int viewType) {
                 Intent intent = new Intent(mContext, MovieActivity.class);
-                allIllust.get(position).setFrom("相关视频");
                 intent.putExtra("content", allIllust.get(position));
                 mContext.startActivity(intent);
             }

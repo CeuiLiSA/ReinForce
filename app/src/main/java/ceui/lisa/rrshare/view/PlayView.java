@@ -66,4 +66,8 @@ public class PlayView extends StandardGSYVideoPlayer {
             }
         }
     }
+
+    public void play() {
+        post(() -> findViewById(R.id.start).performClick());
+    }
 }

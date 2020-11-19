@@ -57,6 +57,7 @@ public abstract class BaseListFragment<Layout extends ViewDataBinding,
         mSmartRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                beforeRefresh();
                 nowPage = 1;
                 mAdapter.clear();
                 getData(new NullCtrl<Response>() {
@@ -70,6 +71,8 @@ public abstract class BaseListFragment<Layout extends ViewDataBinding,
                         if (!Common.isEmpty(newData)) {
                             allItems.addAll(newData);
                             mAdapter.notifyItemRangeInserted(startSize, newData.size());
+                        } else {
+                            Common.showToast("无搜索结果");
                         }
                         firstAfter();
                         mSmartRefreshLayout.finishRefresh(true);
@@ -83,6 +86,7 @@ public abstract class BaseListFragment<Layout extends ViewDataBinding,
         mSmartRefreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
             @Override
             public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+                beforeLoadMore();
                 getData(new NullCtrl<Response>() {
                     @Override
                     public void success(Response response) {
@@ -111,6 +115,14 @@ public abstract class BaseListFragment<Layout extends ViewDataBinding,
     }
 
     public void firstBefore() {
+
+    }
+
+    public void beforeRefresh() {
+
+    }
+
+    public void beforeLoadMore() {
 
     }
 

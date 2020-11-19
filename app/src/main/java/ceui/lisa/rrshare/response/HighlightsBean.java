@@ -1,6 +1,8 @@
 package ceui.lisa.rrshare.response;
 
-public class HighlightsBean {
+import java.io.Serializable;
+
+public class HighlightsBean implements Serializable {
     /**
      * title : <em>越狱</em>  第五季
      */

@@ -77,10 +77,19 @@ public class FragmentMovieDetail extends BaseMovieFragment<FragmentMovieDetailBi
                     public void success(Episode episode) {
                         if (!Common.isEmpty(episode.getData().getEpisodeList())) {
                             baseBind.episodeLl.setVisibility(View.VISIBLE);
+                            episode.getData().getEpisodeList().get(0).setPlaying(true);
                             EpisodeAdapter adapter = new EpisodeAdapter(episode.getData().getEpisodeList(), mContext);
                             adapter.setOnItemClickListener(new OnItemClickListener() {
                                 @Override
                                 public void onItemClick(View v, int position, int viewType) {
+                                    for (int i = 0; i < episode.getData().getEpisodeList().size(); i++) {
+                                        if (i == position) {
+                                            episode.getData().getEpisodeList().get(i).setPlaying(true);
+                                        } else {
+                                            episode.getData().getEpisodeList().get(i).setPlaying(false);
+                                        }
+                                    }
+                                    adapter.notifyDataSetChanged();
                                     getPlayUrl(seasonID, episode.getData().getEpisodeList().get(position).getId());
                                 }
                             });

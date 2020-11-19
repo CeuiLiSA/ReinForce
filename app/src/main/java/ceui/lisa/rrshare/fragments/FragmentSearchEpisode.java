@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import ceui.lisa.rrshare.adapters.BaseAdapter;
 import ceui.lisa.rrshare.adapters.InfoAdapter;
+import ceui.lisa.rrshare.adapters.SearchEpisodeAdapter;
 import ceui.lisa.rrshare.databinding.FragmentListBinding;
 import ceui.lisa.rrshare.network.Rx;
 import ceui.lisa.rrshare.response.Content;
@@ -17,7 +18,7 @@ import ceui.lisa.rrshare.utils.LinearItemDecoration;
 import ceui.lisa.rrshare.viewmodel.WordModel;
 import io.reactivex.rxjava3.core.Observable;
 
-public class FragmentSearchVideo extends BaseListFragment<FragmentListBinding, SearchEpisode, Content>{
+public class FragmentSearchEpisode extends BaseListFragment<FragmentListBinding, SearchEpisode, Content>{
 
     private WordModel model;
     private String keyword;
@@ -45,7 +46,7 @@ public class FragmentSearchVideo extends BaseListFragment<FragmentListBinding, S
 
     @Override
     public Observable<SearchEpisode> initApi() {
-        return Rx.searchVideo(keyword, id, sort);
+        return Rx.searchEpisode(keyword, id, sort);
     }
 
     @Override
@@ -53,11 +54,6 @@ public class FragmentSearchVideo extends BaseListFragment<FragmentListBinding, S
         super.beforeRefresh();
         sort = 0.0f;
         id = 0;
-    }
-
-    @Override
-    public void initRecyclerView() {
-        mRecyclerView.addItemDecoration(new LinearItemDecoration(DensityUtil.dp2px(12.0f)));
     }
 
     @Override
@@ -77,7 +73,13 @@ public class FragmentSearchVideo extends BaseListFragment<FragmentListBinding, S
     }
 
     @Override
+    public void initRecyclerView() {
+        mRecyclerView.addItemDecoration(new LinearItemDecoration(DensityUtil.dp2px(12.0f)));
+    }
+
+
+    @Override
     public BaseAdapter<Content, ?> initAdapter() {
-        return new InfoAdapter(allItems, mContext);
+        return new SearchEpisodeAdapter(allItems, mContext);
     }
 }

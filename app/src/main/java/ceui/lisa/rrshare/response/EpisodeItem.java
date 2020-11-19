@@ -12,6 +12,15 @@ public class EpisodeItem {
     private int id;
     private String sid;
     private String text;
+    private boolean isPlaying;
+
+    public boolean isPlaying() {
+        return isPlaying;
+    }
+
+    public void setPlaying(boolean playing) {
+        isPlaying = playing;
+    }
 
     public int getEpisodeNo() {
         return episodeNo;

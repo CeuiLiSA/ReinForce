@@ -135,6 +135,7 @@ public class MovieActivity extends BaseActivity<ActivityMovieBinding> {
                 }
             }
         }).build(baseBind.detailPlayer);
+        baseBind.detailPlayer.play();
     }
 
     @Override

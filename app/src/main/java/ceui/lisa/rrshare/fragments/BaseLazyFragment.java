@@ -27,6 +27,10 @@ public abstract class BaseLazyFragment<T extends ViewDataBinding> extends BaseFr
             return;
         }
 
+        judgeIfLoad();
+    }
+
+    public void judgeIfLoad() {
         if (getUserVisibleHint() && !isLoaded) {
             lazyData();
             isLoaded = true;

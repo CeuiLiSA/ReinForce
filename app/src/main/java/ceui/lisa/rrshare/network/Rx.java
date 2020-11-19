@@ -1,9 +1,13 @@
 package ceui.lisa.rrshare.network;
 
+import ceui.lisa.rrshare.CallBack;
 import ceui.lisa.rrshare.response.Comment;
+import ceui.lisa.rrshare.response.Empty;
 import ceui.lisa.rrshare.response.QueryContent;
 import ceui.lisa.rrshare.response.SearchEpisode;
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.core.Observable;
+import io.reactivex.rxjava3.schedulers.Schedulers;
 import rxhttp.RxHttp;
 
 public class Rx {
@@ -43,6 +47,33 @@ public class Rx {
                     .add("sort", sort)
                     .asClass(SearchEpisode.class);
         }
+    }
 
+    public static Observable<SearchEpisode> searchEpisode(String keywords, int id, float sort) {
+        if (id == 0) {
+            return RxHttp.get("https://api.rr.tv/search/season")
+                    .addAllHeader(Net.header())
+                    .add("keywords", keywords)
+                    .add("size", 20)
+                    .add("sort", sort)
+                    .asClass(SearchEpisode.class);
+        } else {
+            return RxHttp.get("https://api.rr.tv/search/season")
+                    .addAllHeader(Net.header())
+                    .add("keywords", keywords)
+                    .add("id", id)
+                    .add("size", 20)
+                    .add("sort", sort)
+                    .asClass(SearchEpisode.class);
+        }
+    }
+
+    public static void freshToken(NullCtrl<Empty> nullCtrl) {
+        RxHttp.get("https://api.rr.tv/user/device/status")
+                .addAllHeader(Net.header())
+                .asClass(Empty.class)
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(nullCtrl);
     }
 }

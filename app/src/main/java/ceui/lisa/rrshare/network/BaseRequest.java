@@ -3,11 +3,12 @@ package ceui.lisa.rrshare.network;
 import java.util.HashMap;
 import java.util.Map;
 
+import ceui.lisa.rrshare.response.Base;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 import rxhttp.RxHttp;
 
-public abstract class BaseRequest<T> {
+public abstract class BaseRequest<T extends Base> {
 
     private static final String URL = "https://api.rr.tv/";
     private String method;

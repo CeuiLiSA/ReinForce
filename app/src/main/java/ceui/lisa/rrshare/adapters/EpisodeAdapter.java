@@ -24,5 +24,10 @@ public class EpisodeAdapter extends BaseAdapter<EpisodeItem, RecyEpisodeBinding>
     @Override
     public void bindData(EpisodeItem target, ViewHolder<RecyEpisodeBinding> bindView, int position) {
         bindView.baseBind.name.setText(String.valueOf(target.getEpisodeNo()));
+        if (target.isPlaying()) {
+            bindView.baseBind.name.setTextColor(mContext.getResources().getColor(R.color.orange));
+        } else {
+            bindView.baseBind.name.setTextColor(mContext.getResources().getColor(R.color.black));
+        }
     }
 }
