@@ -22,15 +22,11 @@ public abstract class BaseLazyFragment<T extends ViewDataBinding> extends BaseFr
         shouldLoadData();
     }
 
-    private void shouldLoadData() {
+    public void shouldLoadData() {
         if (!isInit) {
             return;
         }
 
-        judgeIfLoad();
-    }
-
-    public void judgeIfLoad() {
         if (getUserVisibleHint() && !isLoaded) {
             lazyData();
             isLoaded = true;

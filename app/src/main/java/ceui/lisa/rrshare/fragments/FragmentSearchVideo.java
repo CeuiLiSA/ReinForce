@@ -37,7 +37,7 @@ public class FragmentSearchVideo extends BaseListFragment<FragmentListBinding, S
                     if (isLoaded) {
                         isLoaded = false;
                     }
-                    judgeIfLoad();
+                    shouldLoadData();
                 }
             }
         });

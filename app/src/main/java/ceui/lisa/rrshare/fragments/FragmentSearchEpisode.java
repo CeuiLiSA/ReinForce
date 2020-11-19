@@ -38,7 +38,7 @@ public class FragmentSearchEpisode extends BaseListFragment<FragmentListBinding,
                     if (isLoaded) {
                         isLoaded = false;
                     }
-                    judgeIfLoad();
+                    shouldLoadData();
                 }
             }
         });
