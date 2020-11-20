@@ -14,14 +14,14 @@ public abstract class NullCtrl<T> implements Consumer<T> {
         try {
             if (t != null) {
                 if (t instanceof Base) {
-                    if (!"0000".equals(((Base) t).getCode())) {
+                    if ("0000".equals(((Base) t).getCode())) {
+                        success(t);
+                    } else {
                         if (!TextUtils.isEmpty(((Base) t).getMsg())) {
                             Common.showToast(((Base) t).getMsg());
                         }
                     }
                 }
-
-                success(t);
             }
         } catch (Exception e) {
             e.printStackTrace();
