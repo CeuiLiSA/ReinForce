@@ -48,27 +48,65 @@
                 android:layout_width="match_parent"
                 android:textColor="@color/black"
                 android:textStyle="bold"
+                android:text="哈哈哈哈哈"
                 android:textSize="15sp"
                 android:id="@+id/title"
                 android:layout_height="wrap_content">
 
             </TextView>
 
-            <TextView
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:textColor="#666666"
-                android:layout_below="@+id/title"
                 android:layout_marginTop="8dp"
+                android:layout_below="@+id/title"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/year"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="2017"
+                    android:textColor="@color/orange"
+                    android:textSize="12sp"
+                    android:textStyle="bold">
+
+                </TextView>
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_toEndOf="@+id/year"
+                    android:layout_centerVertical="true"
+                    android:textColor="@color/black"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginStart="8dp"
+                    android:textSize="13sp"
+                    android:id="@+id/tags"
+                    android:layout_height="wrap_content">
+
+                </TextView>
+
+            </RelativeLayout>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="第一季"
+                android:id="@+id/season"
+                android:layout_alignParentBottom="true"
                 android:textSize="13sp"
-                android:id="@+id/tags"
                 android:layout_height="wrap_content">
 
             </TextView>
 
+
             <TextView
+                android:layout_toEndOf="@+id/season"
                 android:layout_width="match_parent"
+                android:textColor="@color/black"
+                android:layout_marginStart="8dp"
                 android:textSize="13sp"
-                android:textColor="#666666"
                 android:layout_alignParentBottom="true"
                 android:id="@+id/size"
                 android:layout_height="wrap_content">
@@ -88,6 +126,27 @@
             android:layout_height="0.5dp">
 
         </View>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="9.2"
+            android:textStyle="bold"
+            android:id="@+id/score"
+            android:textSize="13sp"
+            android:textColor="@color/white"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="8dp"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
+            android:background="@drawable/stroke_all_bg_blue"
+            android:layout_height="wrap_content">
+
+
+        </TextView>
 
     </RelativeLayout>
 

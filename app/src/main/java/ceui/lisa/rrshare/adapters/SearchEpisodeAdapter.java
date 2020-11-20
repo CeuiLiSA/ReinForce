@@ -31,7 +31,7 @@ public class SearchEpisodeAdapter extends BaseAdapter<Content, RecySearchEpisode
     public void bindData(Content target, ViewHolder<RecySearchEpisodeBinding> bindView, int position) {
         bindView.baseBind.desc.setText(target.getBrief());
         bindView.baseBind.title.setText(target.getTitle());
-        bindView.baseBind.season.setText(target.getArea() + "-" + target.getClassify());
+        bindView.baseBind.season.setText(target.getAreaDetail());
         bindView.baseBind.score.setText(target.getScore());
         bindView.baseBind.year.setText(target.getYear());
         bindView.baseBind.tags.setText(target.getCat());

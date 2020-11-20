@@ -58,7 +58,7 @@ dependencies {
 
 
 
-
+    implementation 'com.qmuiteam:qmui:2.0.0-alpha10'
 
     implementation 'com.tencent:mmkv-static:1.2.4'
 

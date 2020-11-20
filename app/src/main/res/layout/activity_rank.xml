@@ -38,13 +38,27 @@
                     android:layout_width="80dp"
                     android:scaleType="centerCrop"
                     android:layout_gravity="bottom|end"
-                    android:visibility="invisible"
                     android:layout_marginBottom="24dp"
                     android:layout_marginEnd="36dp"
                     android:id="@+id/imageView"
                     android:layout_height="115dp">
 
                 </ImageView>
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:text="排行榜"
+                    android:textSize="23sp"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    android:id="@+id/rank_sort"
+                    android:layout_gravity="bottom"
+                    android:layout_marginStart="36dp"
+                    android:layout_marginBottom="36dp"
+                    android:layout_height="wrap_content">
+
+                </TextView>
 
 
                 <androidx.appcompat.widget.Toolbar
@@ -54,6 +68,20 @@
                     app:layout_collapseMode="pin"
                     app:navigationIcon="@drawable/ic_baseline_arrow_back_ios_24">
 
+                    <TextView
+                        android:id="@+id/toolbar_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginEnd="@dimen/sixteen_dp"
+                        android:alpha="0.0"
+                        android:ellipsize="end"
+                        android:singleLine="true"
+                        android:textColor="@color/white"
+                        android:textSize="18sp">
+
+                    </TextView>
+
                 </androidx.appcompat.widget.Toolbar>
 
             </com.google.android.material.appbar.CollapsingToolbarLayout>
@@ -61,6 +89,7 @@
             <ceui.lisa.rrshare.view.TabView
                 android:layout_width="match_parent"
                 android:id="@+id/tab_layout"
+                android:background="@color/white"
                 app:tabMode="auto"
                 android:layout_height="wrap_content">
 

@@ -41,7 +41,7 @@ public class FragmentMine extends BaseFragment<FragmentMineBinding> {
                 Rx.freshToken(new NullCtrl<Empty>() {
                     @Override
                     public void success(Empty empty) {
-                        Common.showLog("刷新成功");
+                        Common.showToast("刷新成功");
                     }
                 });
             }

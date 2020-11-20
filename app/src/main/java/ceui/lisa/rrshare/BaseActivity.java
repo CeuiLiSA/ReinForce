@@ -15,6 +15,7 @@ import androidx.databinding.ViewDataBinding;
 public abstract class BaseActivity<Layout extends ViewDataBinding> extends AppCompatActivity {
 
     protected Context mContext;
+    protected AppCompatActivity mActivity;
     protected int mLayoutID;
     protected Layout baseBind;
     protected String className = this.getClass().getSimpleName() + " ";
@@ -26,6 +27,7 @@ public abstract class BaseActivity<Layout extends ViewDataBinding> extends AppCo
             mLayoutID = initLayout();
 
             mContext = this;
+            mActivity = this;
 
             Intent intent = getIntent();
             if (intent != null) {

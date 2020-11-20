@@ -56,9 +56,6 @@ public class Content implements Serializable {
     }
 
     public String getClassify() {
-        if (TextUtils.isEmpty(classify)) {
-            return "未知分类";
-        }
         return classify;
     }
 
@@ -203,10 +200,23 @@ public class Content implements Serializable {
     }
 
     public String getArea() {
-        if (TextUtils.isEmpty(area)) {
-            return "未知地区";
-        }
         return area;
+    }
+
+    public String getAreaDetail() {
+        String result = "";
+        if (!TextUtils.isEmpty(area)) {
+            result = area;
+        }
+
+        if (!TextUtils.isEmpty(classify)) {
+            if (!TextUtils.isEmpty(result)) {
+                result = result + "-" + classify;
+            } else {
+                result = classify;
+            }
+        }
+        return result;
     }
 
     public void setArea(String area) {

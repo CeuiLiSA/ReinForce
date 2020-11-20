@@ -6,62 +6,49 @@
 
     </data>
 
-    <LinearLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:orientation="vertical"
         android:layout_height="match_parent">
 
-        <RelativeLayout
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/app_bar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:theme="@style/AppTheme.AppBarOverlay">
 
-            <ceui.lisa.rrshare.view.PlayView
-                android:id="@+id/detail_player"
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:id="@+id/toolbar_layout"
                 android:layout_width="match_parent"
-                android:layout_height="220dp" />
+                android:layout_height="wrap_content"
+                app:statusBarScrim="@android:color/transparent"
+                app:titleEnabled="false">
 
-            <ImageView
-                android:layout_width="60dp"
-                android:layout_marginLeft="60dp"
-                android:id="@+id/left"
-                android:visibility="gone"
-                android:layout_centerVertical="true"
-                android:src="@drawable/ic_baseline_replay_10_24"
-                android:layout_height="60dp"
-                app:tint="@color/white">
-
-            </ImageView>
-
-            <ImageView
-                android:layout_width="60dp"
-                android:id="@+id/right"
-                android:layout_marginLeft="60dp"
-                android:layout_alignParentEnd="true"
-                android:layout_marginEnd="60dp"
-                android:visibility="gone"
-                android:layout_centerVertical="true"
-                android:src="@drawable/ic_baseline_replay_10_24"
-                android:layout_height="60dp"
-                app:tint="@color/white">
-
-            </ImageView>
-
-        </RelativeLayout>
+                <ceui.lisa.rrshare.view.PlayView
+                    android:id="@+id/detail_player"
+                    android:layout_width="match_parent"
+                    android:layout_height="220dp" />
 
 
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
 
-        <ceui.lisa.rrshare.view.TabView
-            android:layout_width="match_parent"
-            android:id="@+id/tab_layout"
-            app:tabMode="scrollable"
-            android:layout_height="wrap_content" />
+            <ceui.lisa.rrshare.view.TabView
+                android:layout_width="match_parent"
+                android:id="@+id/tab_layout"
+                android:background="@color/white"
+                app:tabMode="scrollable"
+                android:layout_height="wrap_content">
+
+            </ceui.lisa.rrshare.view.TabView>
+
+        </com.google.android.material.appbar.AppBarLayout>
 
         <androidx.viewpager.widget.ViewPager
             android:layout_width="match_parent"
             android:id="@+id/view_pager"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
             android:layout_height="match_parent">
 
         </androidx.viewpager.widget.ViewPager>
 
-    </LinearLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>
