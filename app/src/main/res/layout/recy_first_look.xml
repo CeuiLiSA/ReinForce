@@ -18,7 +18,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:id="@+id/name"
-                android:textColor="@color/black"
+                android:textColor="?attr/colorOnSurface"
                 android:paddingStart="8dp"
                 android:paddingEnd="8dp"
                 android:paddingTop="6dp"

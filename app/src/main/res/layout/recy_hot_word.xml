@@ -17,7 +17,7 @@
             android:textStyle="bold"
             android:textSize="15sp"
             android:layout_marginStart="16dp"
-            android:textColor="@color/black"
+            android:textColor="?attr/colorOnSurface"
             android:layout_marginBottom="4dp"
             android:id="@+id/title"
             android:layout_height="wrap_content">

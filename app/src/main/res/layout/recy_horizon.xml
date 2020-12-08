@@ -38,7 +38,7 @@
             android:singleLine="true"
             android:textSize="15sp"
             android:ellipsize="end"
-            android:textColor="@color/black"
+            android:textColor="?attr/colorOnSurface"
             android:text="哈哈哈哈"
             android:layout_marginTop="6dp"
             android:layout_height="wrap_content">

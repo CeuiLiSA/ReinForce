@@ -18,7 +18,7 @@
             android:theme="@style/AppTheme.AppBarOverlay"
             app:popupTheme="@style/AppTheme.PopupOverlay"
             android:fitsSystemWindows="true"
-            app:titleTextColor="@color/white"
+            app:titleTextColor="?attr/colorOnPrimary"
             android:background="@color/orange"
             android:layout_height="wrap_content">
 
@@ -37,7 +37,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:background="@color/white"
+                    android:background="?attr/colorSurface"
                     android:layout_height="match_parent"
                     android:orientation="vertical">
 

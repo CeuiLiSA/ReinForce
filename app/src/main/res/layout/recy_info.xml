@@ -7,20 +7,20 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:orientation="horizontal"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
         <androidx.cardview.widget.CardView
             android:layout_width="wrap_content"
-            android:layout_marginBottom="4dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_height="wrap_content">
+            android:layout_marginBottom="4dp">
 
             <ImageView
-                android:layout_width="135dp"
                 android:id="@+id/imageView"
-                android:scaleType="centerCrop"
-                android:layout_height="80dp">
+                android:layout_width="135dp"
+                android:layout_height="80dp"
+                android:scaleType="centerCrop">
 
             </ImageView>
 
@@ -31,27 +31,27 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:layout_width="wrap_content"
                 android:id="@+id/title"
-                android:textColor="@color/black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:layout_marginTop="4dp"
                 android:layout_marginEnd="12dp"
-                android:layout_height="wrap_content">
+                android:textColor="?attr/colorOnSurface">
 
             </TextView>
 
 
             <TextView
-                android:layout_width="wrap_content"
                 android:id="@+id/auther"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:layout_marginStart="12dp"
-                android:layout_marginBottom="4dp"
                 android:layout_marginTop="12dp"
-                android:textSize="13sp"
                 android:layout_marginEnd="12dp"
-                android:layout_height="wrap_content">
+                android:layout_marginBottom="4dp"
+                android:textSize="13sp">
 
             </TextView>
 

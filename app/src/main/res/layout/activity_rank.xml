@@ -35,28 +35,28 @@
                     app:layout_collapseParallaxMultiplier="0.7" />
 
                 <ImageView
-                    android:layout_width="80dp"
-                    android:scaleType="centerCrop"
-                    android:layout_gravity="bottom|end"
-                    android:layout_marginBottom="24dp"
-                    android:layout_marginEnd="36dp"
                     android:id="@+id/imageView"
-                    android:layout_height="115dp">
+                    android:layout_width="80dp"
+                    android:layout_height="115dp"
+                    android:layout_gravity="bottom|end"
+                    android:layout_marginEnd="36dp"
+                    android:layout_marginBottom="24dp"
+                    android:scaleType="centerCrop">
 
                 </ImageView>
 
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:text="排行榜"
-                    android:textSize="23sp"
-                    android:textColor="@color/white"
-                    android:textStyle="bold"
                     android:id="@+id/rank_sort"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="bottom"
                     android:layout_marginStart="36dp"
                     android:layout_marginBottom="36dp"
-                    android:layout_height="wrap_content">
+                    android:text="排行榜"
+                    android:textColor="?attr/colorOnPrimary"
+                    android:textSize="23sp"
+                    android:textStyle="bold">
 
                 </TextView>
 
@@ -77,7 +77,7 @@
                         android:alpha="0.0"
                         android:ellipsize="end"
                         android:singleLine="true"
-                        android:textColor="@color/white"
+                        android:textColor="?attr/colorOnPrimary"
                         android:textSize="18sp">
 
                     </TextView>
@@ -87,21 +87,21 @@
             </com.google.android.material.appbar.CollapsingToolbarLayout>
 
             <ceui.lisa.rrshare.view.TabView
-                android:layout_width="match_parent"
                 android:id="@+id/tab_layout"
-                android:background="@color/white"
-                app:tabMode="auto"
-                android:layout_height="wrap_content">
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/colorSurface"
+                app:tabMode="auto">
 
             </ceui.lisa.rrshare.view.TabView>
 
         </com.google.android.material.appbar.AppBarLayout>
 
         <androidx.viewpager.widget.ViewPager
-            android:layout_width="match_parent"
             android:id="@+id/view_pager"
-            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
-            android:layout_height="match_parent">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
         </androidx.viewpager.widget.ViewPager>
 

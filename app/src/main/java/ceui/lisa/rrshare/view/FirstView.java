@@ -1,8 +1,8 @@
 package ceui.lisa.rrshare.view;
 
 import android.content.Context;
-import android.content.Intent;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -14,13 +14,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import java.util.List;
 
-import ceui.lisa.rrshare.MovieActivity;
 import ceui.lisa.rrshare.R;
 import ceui.lisa.rrshare.adapters.FirstAdapter;
 import ceui.lisa.rrshare.adapters.OnItemClickListener;
-import ceui.lisa.rrshare.adapters.SimpleAdapter;
 import ceui.lisa.rrshare.databinding.RecyPageBinding;
-import ceui.lisa.rrshare.response.Content;
 import ceui.lisa.rrshare.response.FirstLook;
 import ceui.lisa.rrshare.utils.DensityUtil;
 import ceui.lisa.rrshare.utils.LinearItemDecorationHorizon;

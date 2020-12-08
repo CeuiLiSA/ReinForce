@@ -9,34 +9,37 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <Button
-            android:layout_width="wrap_content"
-            android:text="搜索"
-            android:layout_centerInParent="true"
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/search_button"
-            android:layout_height="wrap_content">
-
-        </Button>
-
-
-        <Button
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             android:layout_width="wrap_content"
-            android:text="排行榜"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="搜索">
+
+        </com.google.android.material.button.MaterialButton>
+
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/rank"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_below="@+id/search_button"
             android:layout_centerHorizontal="true"
-            android:id="@+id/rank"
-            android:layout_height="wrap_content">
+            android:text="排行榜">
 
-        </Button>
+        </com.google.android.material.button.MaterialButton>
 
-        <Button
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/token"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             android:layout_width="wrap_content"
-            android:text="刷新TOKEN"
+            android:layout_height="wrap_content"
             android:layout_below="@+id/rank"
             android:layout_centerHorizontal="true"
-            android:id="@+id/token"
-            android:layout_height="wrap_content">
+            android:text="刷新TOKEN">
 
-        </Button>
+        </com.google.android.material.button.MaterialButton>
     </RelativeLayout>
 </layout>

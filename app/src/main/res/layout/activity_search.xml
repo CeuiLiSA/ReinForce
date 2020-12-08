@@ -8,61 +8,61 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:orientation="vertical"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:background="@color/orange"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="@color/orange">
 
 
             <EditText
-                android:layout_width="match_parent"
-                android:layout_marginStart="@dimen/sixteen_dp"
-                android:drawableStart="@drawable/ic_search_grey_24dp"
-                android:paddingStart="@dimen/twelve_dp"
-                android:drawablePadding="@dimen/six_dp"
-                android:textSize="14sp"
-                android:text="最完美的离婚"
-                android:textColor="@color/orange"
-                android:imeOptions="actionSearch"
-                android:singleLine="true"
-                android:layout_toStartOf="@+id/more"
                 android:id="@+id/input_box"
-                android:layout_marginEnd="@dimen/twelve_dp"
+                android:layout_width="match_parent"
+                android:layout_height="36dp"
+                android:layout_marginStart="@dimen/sixteen_dp"
                 android:layout_marginTop="@dimen/twelve_dp"
+                android:layout_marginEnd="@dimen/twelve_dp"
                 android:layout_marginBottom="@dimen/twelve_dp"
+                android:layout_toStartOf="@+id/more"
                 android:background="@drawable/search_et_bg"
-                android:layout_height="36dp">
+                android:drawableStart="@drawable/ic_search_grey_24dp"
+                android:drawablePadding="@dimen/six_dp"
+                android:imeOptions="actionSearch"
+                android:paddingStart="@dimen/twelve_dp"
+                android:singleLine="true"
+                android:text="最完美的离婚"
+                android:textColor="?attr/colorOnPrimary"
+                android:textSize="14sp">
 
 
             </EditText>
 
 
             <ImageView
-                android:layout_width="30dp"
-                android:padding="@dimen/four_dp"
                 android:id="@+id/clear"
-                android:visibility="invisible"
-                android:src="@drawable/ic_cancel_black_24dp"
-                android:layout_centerVertical="true"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_alignEnd="@+id/input_box"
+                android:layout_centerVertical="true"
                 android:layout_marginEnd="@dimen/four_dp"
-                android:layout_height="30dp">
+                android:padding="@dimen/four_dp"
+                android:src="@drawable/ic_cancel_black_24dp"
+                android:visibility="invisible">
 
             </ImageView>
 
 
             <TextView
-                android:text="搜索"
-                android:layout_width="wrap_content"
-                android:layout_centerVertical="true"
-                android:textColor="@color/white"
                 android:id="@+id/more"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
                 android:layout_marginEnd="@dimen/sixteen_dp"
-                android:layout_height="wrap_content">
+                android:text="搜索"
+                android:textColor="?attr/colorOnPrimary">
 
             </TextView>
 
@@ -71,18 +71,18 @@
 
 
         <ceui.lisa.rrshare.view.TabView
-            android:layout_width="match_parent"
-            app:tabTextAppearance="@style/TabUnSelect"
-            android:background="@color/white"
             android:id="@+id/tab_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/colorSurface"
             app:tabMode="auto"
-            android:layout_height="wrap_content">
+            app:tabTextAppearance="@style/TabUnSelect">
 
         </ceui.lisa.rrshare.view.TabView>
 
         <androidx.viewpager.widget.ViewPager
-            android:layout_width="match_parent"
             android:id="@+id/view_pager"
+            android:layout_width="match_parent"
             android:layout_height="match_parent">
 
         </androidx.viewpager.widget.ViewPager>
