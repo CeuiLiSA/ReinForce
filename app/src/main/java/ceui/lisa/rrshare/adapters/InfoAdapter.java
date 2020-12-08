@@ -39,6 +39,7 @@ public class InfoAdapter extends BaseAdapter<Content, RecyInfoBinding>{
             @Override
             public void onItemClick(View v, int position, int viewType) {
                 Intent intent = new Intent(mContext, MovieActivity.class);
+                allIllust.get(position).setFrom("相关视频");
                 intent.putExtra("content", allIllust.get(position));
                 mContext.startActivity(intent);
             }

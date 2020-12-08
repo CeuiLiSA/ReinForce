@@ -15,6 +15,7 @@ import io.reactivex.rxjava3.core.Observable;
 public class FragmentRankNew extends BaseListFragment<FragmentListBinding, QueryContent, Content> {
 
     private String type;
+    private int rankSort;
 
     public static FragmentRankNew newInstance(String type) {
         Bundle args = new Bundle();
@@ -31,7 +32,7 @@ public class FragmentRankNew extends BaseListFragment<FragmentListBinding, Query
 
     @Override
     public Observable<QueryContent> initApi() {
-        return Rx.getRank(type, "T-1", nowPage);
+        return Rx.getRank(type, RankActivity.DURATION_VALUE[rankSort], nowPage);
     }
 
     @Override
@@ -50,7 +51,16 @@ public class FragmentRankNew extends BaseListFragment<FragmentListBinding, Query
         }
 
         if (mActivity instanceof RankActivity) {
-            ((RankActivity) mActivity).setData(allItems.get(0));
+            ((RankActivity) mActivity).setData(allItems.get(0), rankSort);
         }
+    }
+
+    public void updateSelf(int rankSort) {
+        if (this.rankSort == rankSort) {
+            return;
+        }
+
+        this.rankSort = rankSort;
+        baseBind.smartRefreshLayout.autoRefresh();
     }
 }

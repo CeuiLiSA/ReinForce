@@ -22,7 +22,7 @@ public abstract class BaseLazyFragment<T extends ViewDataBinding> extends BaseFr
         shouldLoadData();
     }
 
-    private void shouldLoadData() {
+    public void shouldLoadData() {
         if (!isInit) {
             return;
         }

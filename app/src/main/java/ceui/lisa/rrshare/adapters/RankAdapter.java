@@ -32,6 +32,9 @@ public class RankAdapter extends BaseAdapter<Content, RecyRankBinding> {
         bindView.baseBind.index.setText(String.valueOf(position + 1));
         bindView.baseBind.title.setText(target.getTitle());
         bindView.baseBind.tags.setText(target.getCat());
+        bindView.baseBind.score.setText(target.getScore());
+        bindView.baseBind.year.setText(target.getYear());
+        bindView.baseBind.season.setText(target.getAreaDetail());
         bindView.baseBind.size.setText("共" + target.getUpInfo() + "集");
         Glide.with(mContext).load(target.getCover()).into(bindView.baseBind.imageView);
     }

@@ -4,14 +4,27 @@ import android.text.TextUtils;
 
 import ceui.lisa.rrshare.response.Base;
 import ceui.lisa.rrshare.response.BaseObject;
+import ceui.lisa.rrshare.utils.Common;
 import io.reactivex.rxjava3.functions.Consumer;
 
 public abstract class NullCtrl<T> implements Consumer<T> {
 
     @Override
-    public void accept(T t) throws Throwable {
-        if (t != null) {
-            success(t);
+    public void accept(T t) {
+        try {
+            if (t != null) {
+                if (t instanceof Base) {
+                    if ("0000".equals(((Base) t).getCode())) {
+                        success(t);
+                    } else {
+                        if (!TextUtils.isEmpty(((Base) t).getMsg())) {
+                            Common.showToast(((Base) t).getMsg());
+                        }
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

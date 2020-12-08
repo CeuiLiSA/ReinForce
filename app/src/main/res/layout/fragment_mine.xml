@@ -28,5 +28,15 @@
             android:layout_height="wrap_content">
 
         </Button>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:text="刷新TOKEN"
+            android:layout_below="@+id/rank"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/token"
+            android:layout_height="wrap_content">
+
+        </Button>
     </RelativeLayout>
 </layout>

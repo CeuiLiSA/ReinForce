@@ -8,22 +8,24 @@ import java.util.List;
 
 import ceui.lisa.rrshare.R;
 import ceui.lisa.rrshare.databinding.RecyEpisodeBinding;
+import ceui.lisa.rrshare.databinding.RecyFirstLookBinding;
 import ceui.lisa.rrshare.response.EpisodeItem;
+import ceui.lisa.rrshare.response.FirstLook;
 
-public class EpisodeAdapter extends BaseAdapter<EpisodeItem, RecyEpisodeBinding>{
+public class FirstAdapter extends BaseAdapter<FirstLook, RecyFirstLookBinding>{
 
-    public EpisodeAdapter(@Nullable List<EpisodeItem> targetList, Context context) {
+    public FirstAdapter(@Nullable List<FirstLook> targetList, Context context) {
         super(targetList, context);
     }
 
     @Override
     public void initLayout() {
-        mLayoutID = R.layout.recy_episode;
+        mLayoutID = R.layout.recy_first_look;
     }
 
     @Override
-    public void bindData(EpisodeItem target, ViewHolder<RecyEpisodeBinding> bindView, int position) {
-        bindView.baseBind.name.setText(String.valueOf(target.getEpisodeNo()));
+    public void bindData(FirstLook target, ViewHolder<RecyFirstLookBinding> bindView, int position) {
+        bindView.baseBind.name.setText(String.valueOf(target.getTitle()));
         if (target.isPlaying()) {
             bindView.baseBind.name.setTextColor(mContext.getResources().getColor(R.color.orange));
         } else {

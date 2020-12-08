@@ -27,9 +27,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
                         FragmentMine()
                     }
                     2 -> {
-                        FragmentR()
-                    }
-                    else -> {
+                        FragmentMine()
+                    } else -> {
                         Fragment()
                     }
                 }

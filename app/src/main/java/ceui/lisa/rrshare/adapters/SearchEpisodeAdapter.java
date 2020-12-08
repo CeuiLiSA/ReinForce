@@ -12,32 +12,28 @@ import java.util.List;
 
 import ceui.lisa.rrshare.MovieActivity;
 import ceui.lisa.rrshare.R;
-import ceui.lisa.rrshare.databinding.RecyScardBinding;
+import ceui.lisa.rrshare.databinding.RecySearchEpisodeBinding;
 import ceui.lisa.rrshare.response.Content;
 
-public class SCardAdapter extends BaseAdapter<Content, RecyScardBinding> {
+public class SearchEpisodeAdapter extends BaseAdapter<Content, RecySearchEpisodeBinding> {
 
-    public SCardAdapter(@Nullable List<Content> targetList, Context context) {
+    public SearchEpisodeAdapter(@Nullable List<Content> targetList, Context context) {
         super(targetList, context);
         handleClick();
     }
 
     @Override
     public void initLayout() {
-        mLayoutID = R.layout.recy_scard;
+        mLayoutID = R.layout.recy_search_episode;
     }
 
     @Override
-    public void bindData(Content target, ViewHolder<RecyScardBinding> bindView, int position) {
-        bindView.baseBind.desc.setText(target.getSubTitle());
-        if (target.getTitle().contains("第")) {
-            bindView.baseBind.title.setText(target.getTitle().split("第")[0]);
-            bindView.baseBind.season.setText("第" + target.getTitle().split("第")[1]);
-        } else {
-            bindView.baseBind.title.setText(target.getTitle());
-            bindView.baseBind.season.setText("第一季");
-        }
+    public void bindData(Content target, ViewHolder<RecySearchEpisodeBinding> bindView, int position) {
+        bindView.baseBind.desc.setText(target.getBrief());
+        bindView.baseBind.title.setText(target.getTitle());
+        bindView.baseBind.season.setText(target.getAreaDetail());
         bindView.baseBind.score.setText(target.getScore());
+        bindView.baseBind.year.setText(target.getYear());
         bindView.baseBind.tags.setText(target.getCat());
         Glide.with(mContext).load(target.getCover()).into(bindView.baseBind.imageView);
     }

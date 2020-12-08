@@ -7,10 +7,15 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import java.util.HashMap;
 
+import ceui.lisa.rrshare.CallBack;
 import ceui.lisa.rrshare.MovieActivity;
 import ceui.lisa.rrshare.R;
 import ceui.lisa.rrshare.adapters.OnItemClickListener;
+import ceui.lisa.rrshare.response.M3u8;
+import ceui.lisa.rrshare.response.NewDetail;
+import ceui.lisa.rrshare.response.NewDetailData;
 import ceui.lisa.rrshare.view.BottomView;
+import ceui.lisa.rrshare.view.FirstView;
 import ceui.lisa.rrshare.view.TopView;
 import ceui.lisa.rrshare.adapters.EpisodeAdapter;
 import ceui.lisa.rrshare.databinding.FragmentMovieDetailBinding;
@@ -55,8 +60,7 @@ public class FragmentMovieDetail extends BaseMovieFragment<FragmentMovieDetailBi
                         getPlayUrl(content.getId());
                         getVideoDetail(content.getId());
                     } else {
-                        getEpisode(content.getId());
-                        getDetail(content.getId());
+                        getNewDetail(content.getId());
                     }
                 } else {
                     Common.showLog("view model " + className + "收到了 null");
@@ -65,36 +69,7 @@ public class FragmentMovieDetail extends BaseMovieFragment<FragmentMovieDetailBi
         });
     }
 
-    private void getEpisode(int seasonID) {
-        RxHttp.get("https://api.rr.tv/rrtv-video/v4plus/season/get_episode_list")
-                .addAllHeader(Net.header())
-                .add("seasonId", seasonID)
-                .asClass(Episode.class)
-                .subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new NullCtrl<Episode>() {
-                    @Override
-                    public void success(Episode episode) {
-                        if (!Common.isEmpty(episode.getData().getEpisodeList())) {
-                            baseBind.episodeLl.setVisibility(View.VISIBLE);
-                            EpisodeAdapter adapter = new EpisodeAdapter(episode.getData().getEpisodeList(), mContext);
-                            adapter.setOnItemClickListener(new OnItemClickListener() {
-                                @Override
-                                public void onItemClick(View v, int position, int viewType) {
-                                    getPlayUrl(seasonID, episode.getData().getEpisodeList().get(position).getId());
-                                }
-                            });
-                            baseBind.recyList.setAdapter(adapter);
-                            baseBind.allEpisode.setText("查看全部" + episode.getData().getEpisodeList().size() + "集");
-
-                            //直接播放第一P
-                            getPlayUrl(model.getMovie().getValue().getId(), episode.getData().getEpisodeList().get(0).getId());
-                        }
-                    }
-                });
-    }
-
-    private void getPlayUrl(int seasonID, int episodeSid) {
+    private void getPlayUrl(int seasonID, String episodeSid) {
         RxHttp.get("https://api.rr.tv/watch/v4/get_movie_play_info")
                 .addAllHeader(Net.header())
                 .add("quality", "HD")
@@ -106,17 +81,7 @@ public class FragmentMovieDetail extends BaseMovieFragment<FragmentMovieDetailBi
                 .subscribe(new NullCtrl<Watch>() {
                     @Override
                     public void success(Watch watch) {
-                        if ("DIRECT".equals(watch.getData().getM3u8().getParserType())) {
-                            if (mActivity instanceof MovieActivity) {
-                                ((MovieActivity) mActivity).play(watch.getData().getM3u8().getUrl());
-                            }
-                        } else {
-                            String url = RR.INSTANCE.decrypt(watch.getData().getM3u8().getUrl(),
-                                    Net.TOKEN , new HashMap<>());
-                            if (mActivity instanceof MovieActivity) {
-                                ((MovieActivity) mActivity).play(url);
-                            }
-                        }
+                        nowPlay(watch.getData().getM3u8());
                     }
                 });
     }
@@ -133,11 +98,7 @@ public class FragmentMovieDetail extends BaseMovieFragment<FragmentMovieDetailBi
                 .subscribe(new NullCtrl<Watch>() {
                     @Override
                     public void success(Watch watch) {
-                        if ("DIRECT".equals(watch.getData().getM3u8().getParserType())) {
-                            if (mActivity instanceof MovieActivity) {
-                                ((MovieActivity) mActivity).play(watch.getData().getM3u8().getUrl());
-                            }
-                        }
+                        nowPlay(watch.getData().getM3u8());
                     }
                 });
     }
@@ -168,6 +129,87 @@ public class FragmentMovieDetail extends BaseMovieFragment<FragmentMovieDetailBi
                     }
                 }
             });
+    }
+
+    private void getNewDetail(int seasonID) {
+        RxHttp.get("https://api.rr.tv/drama/app/get_combined_drama_detail")
+                .addAllHeader(Net.header())
+                .add("isAgeLimit", "0")
+                .add("quality", "HD")
+                .add("seasonId", seasonID)
+                .asClass(NewDetail.class)
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new NullCtrl<NewDetail>() {
+                    @Override
+                    public void success(NewDetail movie) {
+
+                        //设置抢先看
+                        if (!Common.isEmpty(movie.getData().getFirstLook())) {
+                            FirstView firstView = new FirstView(mContext);
+                            firstView.bindContent(movie.getData().getFirstLook());
+                            baseBind.createLinear.addView(firstView);
+                        }
+
+
+                        //设置相关视频
+                        if (!Common.isEmpty(movie.getData().getDramaDetail().getRecommendVideoList())) {
+                            TopView topView = new TopView(mContext);
+                            topView.bindContent(movie.getData().getDramaDetail().getRecommendVideoList());
+                            baseBind.createLinear.addView(topView);
+                        }
+
+                        //设置推荐视频
+                        if (!Common.isEmpty(movie.getData().getDramaDetail().getRecommendForYou())) {
+                            BottomView bottomView = new BottomView(mContext);
+                            bottomView.bindContent(movie.getData().getDramaDetail().getRecommendForYou());
+                            baseBind.createLinear.addView(bottomView);
+                        }
+
+                        //设置剧集
+                        if (!Common.isEmpty(movie.getData().getEpisodeList().getEpisodeList())) {
+                            baseBind.episodeLl.setVisibility(View.VISIBLE);
+                            movie.getData().getEpisodeList().getEpisodeList().get(0).setPlaying(true);
+                            EpisodeAdapter adapter = new EpisodeAdapter(movie.getData().getEpisodeList().getEpisodeList(), mContext);
+                            adapter.setOnItemClickListener(new OnItemClickListener() {
+                                @Override
+                                public void onItemClick(View v, int position, int viewType) {
+                                    for (int i = 0; i < movie.getData().getEpisodeList().getEpisodeList().size(); i++) {
+                                        if (i == position) {
+                                            movie.getData().getEpisodeList().getEpisodeList().get(i).setPlaying(true);
+                                        } else {
+                                            movie.getData().getEpisodeList().getEpisodeList().get(i).setPlaying(false);
+                                        }
+                                    }
+                                    adapter.notifyDataSetChanged();
+
+                                    getPlayUrl(movie.getData().getDramaDetail().getSeason().getId(),
+                                            movie.getData().getEpisodeList().getEpisodeList().get(position).getSid());
+                                }
+                            });
+                            baseBind.recyList.setAdapter(adapter);
+                            baseBind.allEpisode.setText("查看全部" + movie.getData().getEpisodeList().getEpisodeList().size() + "集");
+
+                            //默认播放第一集
+                            getPlayUrl(movie.getData().getDramaDetail().getSeason().getId(),
+                                    movie.getData().getEpisodeList().getEpisodeList().get(0).getSid());
+                        }
+                    }
+                });
+    }
+
+    private void nowPlay(M3u8 m3u8) {
+        if ("DIRECT".equals(m3u8.getParserType())) {
+            if (mActivity instanceof MovieActivity) {
+                ((MovieActivity) mActivity).play(m3u8.getUrl());
+            }
+        } else {
+            String url = RR.INSTANCE.decrypt(m3u8.getUrl(),
+                    Net.TOKEN , new HashMap<>());
+            if (mActivity instanceof MovieActivity) {
+                ((MovieActivity) mActivity).play(url);
+            }
+        }
     }
 
     private void getVideoDetail(int videoId) {

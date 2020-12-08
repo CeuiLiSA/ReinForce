@@ -24,6 +24,7 @@
                 android:paddingStart="@dimen/twelve_dp"
                 android:drawablePadding="@dimen/six_dp"
                 android:textSize="14sp"
+                android:text="最完美的离婚"
                 android:textColor="@color/orange"
                 android:imeOptions="actionSearch"
                 android:singleLine="true"
@@ -72,6 +73,7 @@
         <ceui.lisa.rrshare.view.TabView
             android:layout_width="match_parent"
             app:tabTextAppearance="@style/TabUnSelect"
+            android:background="@color/white"
             android:id="@+id/tab_layout"
             app:tabMode="auto"
             android:layout_height="wrap_content">

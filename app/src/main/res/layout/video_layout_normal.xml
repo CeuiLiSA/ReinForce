@@ -96,6 +96,7 @@
     <LinearLayout
         android:id="@+id/layout_top"
         android:layout_width="match_parent"
+        android:visibility="invisible"
         android:layout_height="48dp"
         android:background="@drawable/video_title_bg"
         android:gravity="center_vertical">
@@ -141,6 +142,42 @@
         android:layout_centerVertical="true"
         android:layout_gravity="center_vertical"
         android:src="@drawable/video_click_play_selector" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_toStartOf="@+id/start"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:layout_width="36dp"
+            android:visibility="invisible"
+            android:id="@+id/left"
+            android:layout_centerInParent="true"
+            android:src="@drawable/ic_baseline_replay_10_24"
+            android:layout_height="36dp"
+            app:tint="@color/white">
+
+        </ImageView>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_toEndOf="@+id/start"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:layout_width="36dp"
+            android:visibility="invisible"
+            android:id="@+id/right"
+            android:layout_centerInParent="true"
+            android:src="@drawable/ic_baseline_replay_10_24"
+            android:layout_height="36dp"
+            app:tint="@color/white">
+
+        </ImageView>
+
+    </RelativeLayout>
 
 
     <ImageView
