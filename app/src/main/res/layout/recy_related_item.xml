@@ -7,22 +7,22 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:orientation="horizontal"
-        android:layout_height="132dp">
+        android:layout_height="132dp"
+        android:orientation="horizontal">
 
         <androidx.cardview.widget.CardView
             android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
             android:layout_marginTop="6dp"
-            android:layout_marginBottom="6dp"
             android:layout_marginEnd="6dp"
-            android:layout_height="wrap_content">
+            android:layout_marginBottom="6dp">
 
             <ImageView
-                android:layout_width="160dp"
                 android:id="@+id/imageView"
-                android:scaleType="centerCrop"
-                android:layout_height="120dp">
+                android:layout_width="160dp"
+                android:layout_height="120dp"
+                android:scaleType="centerCrop">
 
             </ImageView>
 
@@ -33,28 +33,28 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:layout_width="wrap_content"
                 android:id="@+id/title"
-                android:textColor="@color/black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:layout_marginTop="12dp"
                 android:layout_marginEnd="12dp"
-                android:layout_height="wrap_content">
+                android:textColor="?attr/colorOnSurface">
 
             </TextView>
 
 
             <TextView
-                android:layout_width="wrap_content"
                 android:id="@+id/auther"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
-                android:textColor="@color/black"
                 android:layout_marginStart="12dp"
-                android:layout_marginBottom="12dp"
                 android:layout_marginTop="12dp"
-                android:textSize="13sp"
                 android:layout_marginEnd="12dp"
-                android:layout_height="wrap_content">
+                android:layout_marginBottom="12dp"
+                android:textColor="?attr/colorOnSurface"
+                android:textSize="13sp">
 
             </TextView>
 

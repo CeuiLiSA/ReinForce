@@ -7,33 +7,22 @@ import javax.crypto.spec.SecretKeySpec
 
 object RR {
 
-    fun decrypt(url: String, token: String, extraHeader: Map<String, String>): String {
-//        if (dlma(url, "http", false, 2, null)) {
-//            val subToken = token.substring(2, 18)
-//            return aa(url, subToken)
-//        }
-        val subToken = token.substring(2, 18)
-        return aa(url, subToken)
-        throw Exception("decrypt failed!")
-    }
+    fun decrypt(url: String, token: String, extraHeader: Map<String, String>) =
+        check(url, token.substring(2, 18))
 
-    //    AESCipher.aesDecryptStri…).token.substring(2, 18))
-    fun aa(url: String, subToken: String): String {
-        return if (aea(url) || !url.contains("http") && !url.contains("m3u8") && !url.contains("tss=ios")) {
+    private fun check(url: String, subToken: String): String {
+        return if (empty(url) || !url.contains("http") && !url.contains("m3u8") && !url.contains("tss=ios"))
             String(aes(Base64.decode(url, 0), subToken.toByteArray()), Charsets.UTF_8)
-        } else url
+        else url
     }
 
-    fun aea(str: String?): Boolean {
-        return str == null || "".equals(str.trim(), true) || "null".equals(str.trim(), true);
-    }
+    private fun empty(str: String) = str.isEmpty() || str == "null"
 
-
-    private fun aes(bArr: ByteArray, bArr2: ByteArray, i: Int = 2): ByteArray {
-        val secretKeySpec = SecretKeySpec(bArr2, "AES")
-        val ivParameterSpec = IvParameterSpec("w9f1[oK8%fwHBsw7".toByteArray(charset("UTF-8")))
-        val instance: Cipher = Cipher.getInstance("AES/CBC/PKCS5Padding")
-        instance.init(i, secretKeySpec, ivParameterSpec)
-        return instance.doFinal(bArr)
-    }
+    private fun aes(bArr: ByteArray, bArr2: ByteArray, i: Int = 2) =
+        Cipher.getInstance("AES/CBC/PKCS5Padding").apply {
+            init(
+                i, SecretKeySpec(bArr2, "AES"),
+                IvParameterSpec("w9f1[oK8%fwHBsw7".toByteArray(charset("UTF-8")))
+            )
+        }.doFinal(bArr)
 }
