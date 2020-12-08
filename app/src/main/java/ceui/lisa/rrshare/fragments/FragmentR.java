@@ -31,7 +31,13 @@ public class FragmentR extends FragmentMovie {
                     type = "CHANNEL_CHN";
                 }
                 baseBind.toolbar.setTitle(getNameByType());
-                baseBind.smartRefreshLayout.autoRefresh();
+                baseBind.scrollView.smoothScrollTo(0, 0);
+                baseBind.scrollView.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        baseBind.smartRefreshLayout.autoRefresh();
+                    }
+                }, 300L);
                 return true;
             }
         });

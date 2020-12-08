@@ -6,7 +6,7 @@ import android.widget.Toast;
 
 import java.util.List;
 
-import ceui.lisa.rrshare.core.ReinForce;
+import ceui.lisa.rrshare.core.App;
 
 public class Common {
 
@@ -30,10 +30,10 @@ public class Common {
         }
 
         if (toast == null) {
-            toast = Toast.makeText(ReinForce.getContext(), String.valueOf(t), Toast.LENGTH_SHORT);
+            toast = Toast.makeText(App.getContext(), String.valueOf(t), Toast.LENGTH_SHORT);
         } else {
             toast.cancel();
-            toast = Toast.makeText(ReinForce.getContext(), String.valueOf(t), Toast.LENGTH_SHORT);
+            toast = Toast.makeText(App.getContext(), String.valueOf(t), Toast.LENGTH_SHORT);
             toast.setText(String.valueOf(t));
             toast.setDuration(Toast.LENGTH_SHORT);
         }

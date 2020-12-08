@@ -104,33 +104,6 @@ public class FragmentMovieDetail extends BaseMovieFragment<FragmentMovieDetailBi
     }
 
 
-
-    private void getDetail(int seasonID) {
-        RxHttp.get("https://api.rr.tv/rrtv-video/v4plus/season/detail")
-            .addAllHeader(Net.header())
-            .add("seasonId", seasonID)
-            .add("token", "rrtv-b2228b19a37039db54172e9648c02a5dab579c88")
-            .asClass(Movie.class)
-            .subscribeOn(Schedulers.newThread())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(new NullCtrl<Movie>() {
-                @Override
-                public void success(Movie movie) {
-                    if (!Common.isEmpty(movie.getData().getRecommendVideoList())) {
-                        TopView topView = new TopView(mContext);
-                        topView.bindContent(movie.getData().getRecommendVideoList());
-                        baseBind.createLinear.addView(topView);
-                    }
-
-                    if (!Common.isEmpty(movie.getData().getRecommendForYou())) {
-                        BottomView bottomView = new BottomView(mContext);
-                        bottomView.bindContent(movie.getData().getRecommendForYou());
-                        baseBind.createLinear.addView(bottomView);
-                    }
-                }
-            });
-    }
-
     private void getNewDetail(int seasonID) {
         RxHttp.get("https://api.rr.tv/drama/app/get_combined_drama_detail")
                 .addAllHeader(Net.header())
@@ -143,7 +116,6 @@ public class FragmentMovieDetail extends BaseMovieFragment<FragmentMovieDetailBi
                 .subscribe(new NullCtrl<NewDetail>() {
                     @Override
                     public void success(NewDetail movie) {
-
                         //设置抢先看
                         if (!Common.isEmpty(movie.getData().getFirstLook())) {
                             FirstView firstView = new FirstView(mContext);

@@ -3,10 +3,11 @@ package ceui.lisa.rrshare
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentPagerAdapter
 import androidx.viewpager.widget.ViewPager
+import ceui.lisa.rrshare.core.App
+import ceui.lisa.rrshare.core.Params
 import ceui.lisa.rrshare.databinding.ActivityMainBinding
-import ceui.lisa.rrshare.fragments.FragmentMine
-import ceui.lisa.rrshare.fragments.FragmentMovie
-import ceui.lisa.rrshare.fragments.FragmentR
+import ceui.lisa.rrshare.fragments.*
+import ceui.lisa.rrshare.utils.Common
 import rxhttp.RxHttp
 
 class MainActivity : BaseActivity<ActivityMainBinding>() {
@@ -21,10 +22,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             override fun getItem(position: Int): Fragment {
                 return when (position) {
                     0 -> {
-                        FragmentMine()
+                        FragmentR()
                     }
                     1 -> {
-                        FragmentMine()
+                        FragmentMovie()
                     }
                     2 -> {
                         FragmentMine()
@@ -38,6 +39,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
                 return 3
             }
         }
+        Common.showLog("这是结果： " + App.getMMKV().decodeString(Params.USER_JSON))
         baseBind.bottom.setOnNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.action_1 -> {
